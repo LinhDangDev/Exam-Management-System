@@ -1,0 +1,46 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Kanit:700");
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+a {
+  text-decoration: none;
+}
+@font-face {
+  font-family: "Segoe UI-Bold";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/642d58629675220e9d48a0bc/fonts/segoe-ui.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Segoe UI-BoldItalic";
+  src: url("https://anima-uploads.s3.amazonaws.com/5cbf4e05a0bd2d000b72020f/segoeuiz.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Segoe UI-SemilightItalic";
+  src: url("https://anima-uploads.s3.amazonaws.com/5d104c704628ba46a352eba5/seguisli.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Segoe UI-Regular";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/653a10b559fd483a2092d3fe/fonts/segoeui.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Segoe UI-Semibold";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/654d154fc35917c129244240/fonts/seguisb.ttf")
+    format("truetype");
+}

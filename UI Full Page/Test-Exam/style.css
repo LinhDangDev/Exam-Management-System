@@ -1,0 +1,160 @@
+.test-exam {
+  background-color: #eaeaea;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.test-exam .div {
+  background-color: #eaeaea;
+  width: 1462.8px;
+  height: 1024px;
+  position: relative;
+}
+
+.test-exam .overlap {
+  position: absolute;
+  width: 1463px;
+  height: 78px;
+  top: 0;
+  left: 0;
+}
+
+.test-exam .header {
+  position: absolute;
+  width: 1463px;
+  height: 78px;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  background-image: url(./img/header.svg);
+  background-size: 100% 100%;
+}
+
+.test-exam .clock-stand-svgrepo {
+  position: absolute;
+  width: 43px;
+  height: 48px;
+  top: 17px;
+  left: 465px;
+  object-fit: cover;
+}
+
+.test-exam .text-wrapper {
+  position: absolute;
+  width: 320px;
+  height: 48px;
+  top: 16px;
+  left: 508px;
+  font-family: "Segoe UI-SemilightItalic", Helvetica;
+  font-weight: 400;
+  font-style: italic;
+  color: #000000;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.test-exam .button-exit {
+  top: 18px;
+  left: 1261px;
+  position: absolute;
+  width: 159px;
+  height: 42px;
+}
+
+.test-exam .overlap-group {
+  position: relative;
+  width: 157px;
+  height: 42px;
+  background-color: #ff4040;
+  border-radius: 7px;
+}
+
+.test-exam .text-wrapper-2 {
+  position: absolute;
+  width: 66px;
+  height: 24px;
+  top: 9px;
+  left: 46px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.test-exam .button-submit {
+  top: 18px;
+  left: 1083px;
+  position: absolute;
+  width: 159px;
+  height: 42px;
+}
+
+.test-exam .div-wrapper {
+  position: relative;
+  width: 157px;
+  height: 42px;
+  background-color: #7be56a;
+  border-radius: 5px;
+}
+
+.test-exam .text-wrapper-3 {
+  position: absolute;
+  width: 126px;
+  height: 24px;
+  top: 9px;
+  left: 16px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.test-exam .button-save {
+  top: 935px;
+  left: 1176px;
+  position: absolute;
+  width: 159px;
+  height: 42px;
+}
+
+.test-exam .overlap-2 {
+  position: relative;
+  width: 157px;
+  height: 42px;
+  background-color: #feffcf;
+  border-radius: 5px;
+}
+
+.test-exam .questions {
+  position: absolute;
+  width: 970px;
+  height: 875px;
+  top: 102px;
+  left: 69px;
+}
+
+.test-exam .choose-ques {
+  position: absolute;
+  width: 326px;
+  height: 521px;
+  top: 391px;
+  left: 1092px;
+}
+
+.test-exam .information {
+  position: absolute;
+  width: 326px;
+  height: 256px;
+  top: 104px;
+  left: 1092px;
+}
