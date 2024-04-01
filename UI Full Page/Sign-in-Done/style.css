@@ -1,0 +1,30 @@
+.sign-in-done {
+  background-color: #eaeaea;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.sign-in-done .div {
+  background-color: #eaeaea;
+  width: 1462.8px;
+  height: 1024px;
+  position: relative;
+}
+
+.sign-in-done .header {
+  position: absolute;
+  width: 1463px;
+  height: 78px;
+  top: 0;
+  left: 0;
+}
+
+.sign-in-done .component-thng-tin {
+  position: absolute;
+  width: 747px;
+  height: 856px;
+  top: 135px;
+  left: 357px;
+}
