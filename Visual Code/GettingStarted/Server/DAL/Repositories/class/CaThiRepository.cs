@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class CaThiRepository
+    public class CaThiRepository : ICaThiRepository
     {
     }
 }

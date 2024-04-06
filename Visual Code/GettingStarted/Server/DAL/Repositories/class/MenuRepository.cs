@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class MenuRepository
+    public class MenuRepository : IMenuRepository
     {
     }
 }

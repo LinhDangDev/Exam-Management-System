@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class DeThiRepository
+    public class DeThiRepository : IDeThiRepository
     {
     }
 }
