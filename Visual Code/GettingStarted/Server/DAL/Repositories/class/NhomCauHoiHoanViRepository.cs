@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class NhomCauHoiHoanViRepository
+    public class NhomCauHoiHoanViRepository : INhomCauHoiHoanViRepository
     {
     }
 }

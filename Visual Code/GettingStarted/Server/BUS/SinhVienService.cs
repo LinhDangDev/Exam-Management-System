@@ -1,19 +1,28 @@
-﻿using GettingStarted.Server.DAL.UnitOfWork;
+﻿using GettingStarted.Server.DAL.Repositories;
+using GettingStarted.Server.DAL.UnitOfWork;
 using GettingStarted.Shared.Models;
+using System.Data;
 
 namespace GettingStarted.Server.BUS
 {
     public class SinhVienService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public SinhVienService(UnitOfWork unitOfWork)
+        private readonly ISinhVienRepository _sinhVienRepository;
+        private readonly IChiTietCaThiRepository _chiTietCaThiRepository;
+        public SinhVienService(ISinhVienRepository sinhVienRepository, IChiTietCaThiRepository chiTietCaThiRepository)
         {
-            _unitOfWork = unitOfWork;
+            _sinhVienRepository = sinhVienRepository;
+            _chiTietCaThiRepository = chiTietCaThiRepository;
         }
-
-        public void InsertSV(SinhVien sinhVien)
+        public int GetMaDeHV_FromChiTietCaThi(long maSinhVien)
         {
-            _unitOfWork.SinhViens.Insert(sinhVien);
+            IDataReader dataReader = _chiTietCaThiRepository.GetBy_MaSinhVien(maSinhVien);
+            if(dataReader.Read())
+            {
+                return dataReader.GetInt32(3);
+            }
+            dataReader.Close();
+            return -1;
         }
     }
 }

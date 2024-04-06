@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="DAL\Models\" />
     <Folder Include="DAL\Repositories\interface\" />
   </ItemGroup>

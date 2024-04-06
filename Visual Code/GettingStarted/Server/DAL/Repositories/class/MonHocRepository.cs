@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class MonHocRepository
+    public class MonHocRepository : IMonHocRepository
     {
     }
 }

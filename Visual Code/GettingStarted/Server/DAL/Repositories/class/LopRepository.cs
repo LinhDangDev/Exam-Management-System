@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class LopRepository
+    public class LopRepository : ILopRepository
     {
     }
 }

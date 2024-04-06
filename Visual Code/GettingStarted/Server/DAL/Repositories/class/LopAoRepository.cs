@@ -1,5 +1,7 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
-    public class LopAoRepository
+{
+    public class LopAoRepository : ILopAoRepository
     {
     }
 }
+   

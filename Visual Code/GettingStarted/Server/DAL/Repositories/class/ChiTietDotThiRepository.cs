@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class ChiTietDotThiResposity
+    public class ChiTietDotThiResposity : IChiTietDotThiResposity
     {
     }
 }

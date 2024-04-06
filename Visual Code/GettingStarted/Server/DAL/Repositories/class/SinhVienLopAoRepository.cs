@@ -1,6 +1,6 @@
 ﻿namespace GettingStarted.Server.DAL.Repositories
 {
-    public class SinhVienLopAoRepository
+    public class SinhVienLopAoRepository : ISinhVienLopAoRepository
     {
     }
 }
