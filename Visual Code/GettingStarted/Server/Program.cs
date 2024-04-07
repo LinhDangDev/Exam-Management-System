@@ -1,43 +1,11 @@
-using GettingStarted.Server.BUS;
+﻿using GettingStarted.Server.BUS;
 using GettingStarted.Server.DAL.Repositories;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-/////Build AddScope
-
-builder.Services.AddScoped<IAudioListenedRepository, AudioListenedRepository>();
-builder.Services.AddScoped<ICaThiRepository, CaThiRepository>();
-builder.Services.AddScoped<ICauHoiMaRepository, CauHoiMaRepository>();
-builder.Services.AddScoped<ICauHoiRepository, CauHoiRepository>();
-builder.Services.AddScoped<ICauTraLoiRepository, CauTraLoiRepository>();
-builder.Services.AddScoped<IChiTietBaiThiRepository,  ChiTietBaiThiRepository>();
-builder.Services.AddScoped<IChiTietCaThiRepository, ChiTietCaThiRepository>();
-builder.Services.AddScoped<IChiTietCauHoiMaRepository, ChiTietCauHoiMaRepository>();
-builder.Services.AddScoped<IChiTietDeThiHoanViRepository, ChiTietDeThiHoanViRepository>();
-builder.Services.AddScoped<IChiTietDeThiRepository, ChiTietDeThiRepository>();
-builder.Services.AddScoped<IChiTietDotThiResposity, ChiTietDotThiResposity>();
-builder.Services.AddScoped<IDanhMucCaThiTrongNgayRepository, DanhMucCaThiTrongNgayRepository>();
-builder.Services.AddScoped<IDeThiHoanViRepository, DeThiHoanViRepository>();
-builder.Services.AddScoped<IDeThiRepository, DeThiRepository>();
-builder.Services.AddScoped<IDotThiRepository, DotThiRepository>();
-builder.Services.AddScoped<IKhoaRepository, KhoaRepository>();
-builder.Services.AddScoped<ILopAoRepository, LopAoRepository>();
-builder.Services.AddScoped<ILopRepository, LopRepository>();
-builder.Services.AddScoped<IMenuRepository, MenuRepository>();
-builder.Services.AddScoped<IMonHocRepository, MonHocRepository>();
-builder.Services.AddScoped<INhomCauHoiHoanViRepository, NhomCauHoiHoanViRepository>();
-builder.Services.AddScoped<INhomCauHoiRepository, NhomCauHoiRepository>();
-builder.Services.AddScoped<ISinhVienLopAoRepository, SinhVienLopAoRepository>();
-builder.Services.AddScoped<ISinhVienRepository, SinhVienRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-/////////////////////////////
-
-
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+//Them cac dich vu service
+ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
@@ -63,3 +31,63 @@ app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+static void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews();
+    services.AddRazorPages();
+
+    // Them cac repository vao
+    services.AddScoped<IAudioListenedRepository, AudioListenedRepository>();
+    services.AddScoped<ICaThiRepository, CaThiRepository>();
+    services.AddScoped<ICauHoiMaRepository, CauHoiMaRepository>();
+    services.AddScoped<ICauHoiRepository, CauHoiRepository>();
+    services.AddScoped<ICauTraLoiRepository, CauTraLoiRepository>();
+    services.AddScoped<IChiTietBaiThiRepository, ChiTietBaiThiRepository>();
+    services.AddScoped<IChiTietCaThiRepository, ChiTietCaThiRepository>();
+    services.AddScoped<IChiTietCauHoiMaRepository, ChiTietCauHoiMaRepository>();
+    services.AddScoped<IChiTietDeThiHoanViRepository, ChiTietDeThiHoanViRepository>();
+    services.AddScoped<IChiTietDeThiRepository, ChiTietDeThiRepository>();
+    services.AddScoped<IChiTietDotThiResposity, ChiTietDotThiResposity>();
+    services.AddScoped<IDanhMucCaThiTrongNgayRepository, DanhMucCaThiTrongNgayRepository>();
+    services.AddScoped<IDeThiHoanViRepository, DeThiHoanViRepository>();
+    services.AddScoped<IDeThiRepository, DeThiRepository>();
+    services.AddScoped<IDotThiRepository, DotThiRepository>();
+    services.AddScoped<IKhoaRepository, KhoaRepository>();
+    services.AddScoped<ILopAoRepository, LopAoRepository>();
+    services.AddScoped<ILopRepository, LopRepository>();
+    services.AddScoped<IMenuRepository, MenuRepository>();
+    services.AddScoped<IMonHocRepository, MonHocRepository>();
+    services.AddScoped<INhomCauHoiHoanViRepository, NhomCauHoiHoanViRepository>();
+    services.AddScoped<INhomCauHoiRepository, NhomCauHoiRepository>();
+    services.AddScoped<ISinhVienLopAoRepository, SinhVienLopAoRepository>();
+    services.AddScoped<ISinhVienRepository, SinhVienRepository>();
+    services.AddScoped<IUserRepository, UserRepository>();
+
+    // Them cac service vao
+    services.AddScoped<AudioListenedService>();
+    services.AddScoped<CaThiService>();
+    services.AddScoped<CauHoiMaService>();
+    services.AddScoped<CauHoiService>();
+    services.AddScoped<CauTraLoiService>();
+    services.AddScoped<ChiTietBaiThiService>();
+    services.AddScoped<ChiTietCaThiService>();
+    services.AddScoped<ChiTietCauHoiMaService>();
+    services.AddScoped<ChiTietDeThiHoanViService>();
+    services.AddScoped<ChiTietDeThiService>();
+    services.AddScoped<ChiTietDotThiService>();
+    services.AddScoped<DanhMucCaThiTrongNgayService>();
+    services.AddScoped<DeThiHoanViService>();
+    services.AddScoped<DeThiService>();
+    services.AddScoped<DotThiService>();
+    services.AddScoped<KhoaService>();
+    services.AddScoped<LopAoService>();
+    services.AddScoped<LopAoService>();
+    services.AddScoped<MenuService>();
+    services.AddScoped<MonHocService>();
+    services.AddScoped<NhomCauHoiHoanViService>();
+    services.AddScoped<CauHoiService>();
+    services.AddScoped<SinhVienLopAoService>();
+    services.AddScoped<SinhVienService>();
+    services.AddScoped<UserService>();
+}

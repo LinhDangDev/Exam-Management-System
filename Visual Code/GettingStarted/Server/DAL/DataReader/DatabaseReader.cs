@@ -1,12 +1,15 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
+using System.Data.Common;
+using System.Transactions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GettingStarted.Server.DAL.DataReader
 {
     public class DatabaseReader
     {
+        //Note: ExcuteNonQuery return 0 if no statement is update and -1 if error occurs
         private string _connectionString { get; set; }
         private IConfiguration? _configuration { get; set; }
         private List<SqlParameter> _params { get; set; }
@@ -44,15 +47,11 @@ namespace GettingStarted.Server.DAL.DataReader
         }
         public void SqlParams(string nameOfParam, SqlDbType sqltype, object value)
         {
-            if (!sqltype.Equals(value.GetType()))
-            {
-                throw new Exception("Type of value and param are not the same");
-            }
             SqlParameter parameter = new SqlParameter(nameOfParam, sqltype);
             parameter.Value = value;
             _params.Add(parameter);
         }
-        // function for CRUD
+        // return lines
         public int ExcuteNonQuery()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -87,50 +86,80 @@ namespace GettingStarted.Server.DAL.DataReader
                         {
                             throw new Exception("Procedure: " + _nameOfProcedure + " not found in SQL Server", ex);
                         }
-                        transaction.Rollback();
+                        if (transaction != null)
+                        {
+                            transaction.Rollback();
+                        }
                         throw new Exception("An error occurred: " + ex.Message, ex);
                     }
+
                 }
             }
         }
+        // return the first value in the first line (id)
+        public Object ExecuteScalar()
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            // check if connect is opened
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = _nameOfProcedure;
+                    foreach (var param in _params)
+                    {
+                        command.Parameters.Add(param);
+                    }
+                    var result = command.ExecuteScalar();
+                    return result;
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Erorr 208: not found procedure in SQL
+                if (ex.Number == 208)
+                {
+                    throw new Exception("Procedure: " + _nameOfProcedure + " not found in SQL Server", ex);
+                }
+                throw new Exception("An error occurred: " + ex.Message, ex);
+            }
+        }
+
         public SqlDataReader ExcuteReader()
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            SqlConnection connection = new SqlConnection(_connectionString);
+            // check if connect is opened
+            if (connection.State == ConnectionState.Closed)
             {
-                // check if connect is opened
-                if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            }
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
                 {
-                    connection.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = _nameOfProcedure;
+                    foreach (var param in _params)
+                    {
+                        command.Parameters.Add(param);
+                    }
+                    SqlDataReader result = command.ExecuteReader();
+                    return result;
                 }
-                using (SqlTransaction transaction = connection.BeginTransaction())
+            }
+            catch (SqlException ex)
+            {
+                // Erorr 208: not found procedure in SQL
+                if (ex.Number == 208)
                 {
-                    try
-                    {
-                        using (SqlCommand command = connection.CreateCommand())
-                        {
-                            command.Transaction = transaction;
-                            command.CommandType = CommandType.StoredProcedure;
-                            command.CommandText = _nameOfProcedure;
-                            foreach (var param in _params)
-                            {
-                                command.Parameters.Add(param);
-                            }
-                            SqlDataReader result = command.ExecuteReader();
-                            transaction.Commit();
-                            return result;
-                        }
-                    }
-                    catch (SqlException ex)
-                    {
-                        // Erorr 208: not found procedure in SQL
-                        if (ex.Number == 208)
-                        {
-                            throw new Exception("Procedure: " + _nameOfProcedure + " not found in SQL Server", ex);
-                        }
-                        transaction.Rollback();
-                        throw new Exception("An error occurred: " + ex.Message, ex);
-                    }
+                    throw new Exception("Procedure: " + _nameOfProcedure + " not found in SQL Server", ex);
                 }
+                throw new Exception("An error occurred: " + ex.Message, ex);
             }
         }
     }
