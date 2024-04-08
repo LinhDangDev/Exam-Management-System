@@ -39,22 +39,41 @@ namespace GettingStarted.Server.DAL.Repositories
             sql.SqlParams("@dien_thoai", SqlDbType.NVarChar, dien_thoai);
             sql.SqlParams("@ma_so_sinh_vien", SqlDbType.NVarChar, ma_so_sinh_vien);
             int result = sql.ExcuteNonQuery();
-            return result == 1;
+            return result != 0;
         }
         public bool Remove(long ma_sinh_vien)
         {
             DatabaseReader sql = new DatabaseReader("sinh_vien_Remove");
             sql.SqlParams("@ma_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
             int result = sql.ExcuteNonQuery();
-            return result == 1;
+            return result != 0;
         }
+        // lấy thông tin của 1 SV từ maSV
         public IDataReader GetSinhVien(long ma_sinh_vien)
         {
             DatabaseReader sql = new DatabaseReader("sinh_vien_SelectOne");
             sql.SqlParams("@ma_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
             return sql.ExcuteReader();
         }
-
+        // lấy mã SV từ mã số SV
+        public object GetMaSV_FormMSSV(string ma_so_sinh_vien)
+        {
+            DatabaseReader sql = new DatabaseReader("sinh_vien_SelectBy_ma_so_sinh_vien");
+            sql.SqlParams("@ma_so_sinh_vien", SqlDbType.NVarChar, ma_so_sinh_vien);
+            return sql.ExecuteScalar();
+        }
+        public IDataReader GetAllSinhVien()
+        {
+            DatabaseReader sql = new DatabaseReader("sinh_vien_GetAll");
+            return sql.ExcuteReader();
+        }
+        public IDataReader LogIn(long ma_sinh_vien, DateTime last_log_in)
+        {
+            DatabaseReader sql = new DatabaseReader("sinh_vien_Login");
+            sql.SqlParams("@ma_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
+            sql.SqlParams("@last_logged_in", SqlDbType.DateTime, last_log_in);
+            return sql.ExcuteReader();
+        }
         
     }
 }

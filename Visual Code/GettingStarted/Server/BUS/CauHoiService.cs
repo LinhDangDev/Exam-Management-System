@@ -1,5 +1,4 @@
 ﻿using GettingStarted.Server.DAL.Repositories;
-using GettingStarted.Server.DAL.UnitOfWork;
 
 namespace GettingStarted.Server.BUS
 {
