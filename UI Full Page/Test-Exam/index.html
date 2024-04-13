@@ -1,33 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="styleguide.css" />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- reset css -->
+    <link rel="stylesheet" href="./asset/css/reset.css" />
+    <!-- embed fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sen:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- styles -->
+    <link rel="stylesheet" href="./asset/css/style.css" />
+    <title>Document</title>
   </head>
+
   <body>
-    <div class="test-exam">
-      <div class="div">
-        <div class="overlap">
-          <header class="header">
-            <img class="clock-stand-svgrepo" src="img/clock-stand-svgrepo-com-1.png" />
-	    <div class="text-wrapper">Thời gian: 60 phút</div> <-!use viewbag or view to time->
-          </header>
-          <div class="button-exit">
-		  <div class="overlap-group"><div class="text-wrapper-2">Thoát</div>
+    <header class="header fiexd">
+      <div class="main-content">
+        <div class="body">
+          <!-- logo -->
+          <img src="./asset/img/Logo.svg" alt="" class="logo" />
+          <!-- nav -->
+          <div class="time">
+            <img
+              src="./asset/img/clock-stand-svgrepo-com 1.svg"alt=""class="logo_time"
+            />
+            <h3>Thời Gian :60 Phút</h3>
           </div>
-          <div class="button-submit">
-            <div class="div-wrapper"><div class="text-wrapper-3">Nộp bài</div></div>
-          </div>
+          <nav class="nav">
+            <button class="btn btn-nop-bai">Nộp Bài</button>
+            <button class="btn btn-thoat">Thoát</button>
+          </nav>
         </div>
-        <div class="button-save">
-          <div class="overlap-2"><div class="text-wrapper-3">Lưu bài</div></div>
-        </div>
-        <img class="questions" src="img/questions.svg" />
-        <img class="choose-ques" src="img/choose-ques.svg" />
-        <img class="information" src="img/information.svg" />
       </div>
-    </div>
+    </header>
+    <!-- main -->
+    <main>
+      <!-- question -->
+      <div class="layout">
+        <div class="main-content">
+          <div class="body">
+            <!-- layout left -->
+            <div class="layout-left">
+              <div class="txt">
+                <h2>Chương....</h2>
+              </div>
+              <div class="form_question">
+                <div class="txt_question">
+                  <p>
+                    Câu: Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Ipsam, modi?
+                  </p>
+                </div>
+                <div class="form-input">
+                  <a href="" class="btn"> A </a>
+                  <a href="" class="btn"> B </a>
+                  <a href="" class="btn"> C </a>
+                  <a href="" class="btn"> D </a>
+                </div>
+              </div>
+
+              <div class="txt">
+                <h2>Chương....</h2>
+              </div>
+              <div class="form_question">
+                <div class="txt_question">
+                  <p>
+                    Câu: Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Ipsam, modi? Lorem, ipsum dolor sit amet consectetur
+                    adipisicing elit. Pariatur inventore alias deserunt
+                    recusandae repudiandae necessitatibus, sapiente ipsum magni
+                    fugit quod ipsam id quas blanditiis voluptate cupiditate
+                    error? Natus, aliquid. In. Lorem ipsum dolor sit amet
+                    consectetur, adipisicing elit. Magni non sequi alias, fugit
+                    beatae incidunt hic dolorem fuga. Doloribus sit eligendi
+                    voluptatum iusto fuga nemo hic, porro, repudiandae debitis,
+                    quo saepe modi error omnis at minima mollitia numquam ab.
+                    Animi optio atque enim aperiam expedita veritatis fuga nulla
+                    aliquam ullam commodi ea, recusandae ab ut eligendi corrupti
+                    delectus facere at? Dolor alias, mollitia voluptates natus
+                    quam maiores assumenda fugit quia aspernatur. Eum neque
+                    nulla facilis tenetur unde quibusdam adipisci ratione nemo!
+                    Magni, facilis voluptates fugiat expedita molestiae, nobis
+                    tenetur voluptatibus animi, dicta officiis ipsa nulla earum
+                    nemo architecto saepe repellendus?
+                  </p>
+                </div>
+                <div class="form-input">
+                  <a href="" class="btn"> A </a>
+                  <a href="" class="btn"> B </a>
+                  <a href="" class="btn"> C </a>
+                  <a href="" class="btn"> D </a>
+                </div>
+              </div>
+            </div>
+            <!-- layout right -->
+            <div class="layout-right">
+              <div class="information">
+                <div class="avata">
+                  <img src="./asset/img/Ellipse 1.svg" alt="" />
+                </div>
+
+                <div class="information-student">
+                  <p>Họ và tên: Cao Thạch Linh Dung</p>
+                  <p>21806080xxxxxx</p>
+                  <p>Ca Thi:</p>
+                  <p>Mã đề:</p>
+                </div>
+              </div>
+
+              <div class="choose-question">
+                <div class="choose">
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                  <p>1</p>
+                </div>
+              </div>
+              <div class="save">
+                <button class="btn btn-save">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
