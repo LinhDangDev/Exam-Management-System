@@ -1,0 +1,142 @@
+﻿@page "/exam"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- reset css -->
+    <!-- embed fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sen:wght@700&display=swap"
+          rel="stylesheet" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous" />
+
+    <!-- styles -->
+    <link rel="stylesheet" href="./css/exam/style.css" />
+    <link rel="stylesheet" href="./css/exam/reset.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="header fiexd">
+        <div class="main-content">
+            <div class="body">
+                <!-- logo -->
+                <img src="images/exam/Logo.svg" alt="" class="logo" />
+                <!-- nav -->
+                <div class="time">
+                    <img src="images/exam/clock-stand-svgrepo-com 1.svg"
+                         alt=""
+                         class="logo_time" />
+                    <h3>Thời Gian :@caThi.ThoiGianThi Phút</h3>
+                </div>
+                <nav class="nav">
+                    <button onclick="submitExam()" class="btn btn-nop-bai">
+                        Nộp Bài
+                    </button>
+                    <button onclick="exitExam()" class="btn btn-thoat">Thoát</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- main -->
+    <main>
+        <!-- question -->
+        <div class="layout">
+            <div class="main-content">
+                <div class="body">
+                    <!-- layout left -->
+
+                    <div class="layout-left">
+                        @{
+                            int QuestionMask = 1;
+                        }
+                        @foreach (var chiTietDeThiHV in chiTietDeThiHoanVis)
+                        {
+                            if (chiTietDeThiHV.MaNhom != thu_tu_ma_nhom)
+                            {
+                                thu_tu_ma_nhom = chiTietDeThiHV.MaNhom;
+                                var cauHoiNhom = nhomCauHois.FirstOrDefault(p => p.MaNhom == thu_tu_ma_nhom);
+                                string noiDungCauHoiNhom = cauHoiNhom.NoiDung;
+                                <div class="txt">
+                                    <p>@((MarkupString)noiDungCauHoiNhom)</p>
+                                </div>
+                            }
+
+                            <section id="question@(QuestionMask)" class="form_question">
+                                @if (chiTietDeThiHV.MaCauHoi != thu_tu_ma_cau_hoi)
+                                {
+                                    thu_tu_ma_cau_hoi = chiTietDeThiHV.MaCauHoi;
+                                    string noiDungCauHoi = cauHois.FirstOrDefault(p => p.MaCauHoi == thu_tu_ma_cau_hoi).NoiDung;
+                                    <div class="txt_question">
+                                        <p><b>Câu hỏi @QuestionMask: </b> @((MarkupString)noiDungCauHoi)</p>
+                                    </div>
+                                }
+                                <div class="form-input">
+                                    @{
+                                        int length = chiTietDeThiHV.HoanViTraLoi.Length;
+                                        for (int i = 0; i < length; i++)
+                                        {
+                                            int vitri = chiTietDeThiHV.HoanViTraLoi[i] - '0'; // chuyển đổi mã ACII từ chữ thành số
+                                            var cauTraLoi = cauTraLois.FirstOrDefault(p => p.MaCauHoi == chiTietDeThiHV.MaCauHoi && p.ThuTu == vitri);
+                                            string noiDungCauTraLoi = cauTraLoi.NoiDung;
+                                            <button class="btn1 answer" onclick="changeButtonColor(this)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
+                                        }
+                                    }
+                                </div>
+                            </section>
+                            QuestionMask++;
+                        }
+                    </div>
+                    <!-- layout right -->
+                    <div class="layout-right">
+                        <div class="information">
+                            <div class="avata">
+                                <img src="images/exam/Ellipse 1.svg" alt="" />
+                            </div>
+
+                            <div class="information-student">
+                                @* <p>Check chạy cục bộ: @myData.ma_sinh_vien  </p> *@
+                                <p>MSSV: @myData.ma_so_sinh_vien</p>
+                                <p>Họ và tên:  @sinhVien.HoVaTenLot @sinhVien.TenSinhVien</p>
+                                <p>Ca Thi: @caThi.TenCaThi</p>
+                                <p>Mã đề: @chiTietCaThi.MaDeThi</p>
+                            </div>
+
+                        </div>
+                        <div class="choose_content">
+                            <div class="choose-question">
+                                <div class="choose">
+                                    @{
+                                        int tongSoCau = chiTietDeThiHoanVis.Count;
+                                        for (int i = 1; i <= tongSoCau; i++)
+                                        {
+                                            <a href="javascript:void(0);" onclick="scrollToQuestion(@i)">@i</a>
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+
+                            <div class="save">
+                                <button onclick="saveExam()" class="btn btn-save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Trong file exam.cshtml -->
+
+
+</body>
+<div id="toast"></div>
+<!-- Script for the toast function and other functionalities -->
+<script src="./js/main.js"></script>
+</html>
