@@ -1,0 +1,428 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --font-heading: "Sen", sans-serif;
+    /* --primary-color: ; */
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: "Poppins", sans-serif;
+}
+
+/* common */
+a {
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-flex;
+    width: 157px;
+    height: 42px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI";
+    font-size: 18px;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 5px;
+    color: #000; /* Màu chữ mặc định */
+}
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+    .btn.btn-thoat {
+        background-color: #ff4141; /* Màu nền cho button Thoát */
+        color: #fff; /* Màu chữ cho button Thoát */
+    }
+
+.btn--success {
+    background-color: #71be34;
+}
+
+.btn--info {
+    background-color: #2f86eb;
+}
+
+.btn--warning {
+    background-color: #ffc021;
+}
+
+.btn--danger {
+    background-color: #ff623d;
+}
+
+.btn--disabled {
+    opacity: 0.5 !important;
+    cursor: default;
+}
+
+/* header */
+.header {
+    background: #f0f0f0;
+    z-index: 1;
+    position: sticky;
+    top: 0;
+}
+
+    .header .body {
+        display: flex;
+        align-items: center;
+        padding: 18px 48.8px;
+    }
+
+    .header .nav {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .header .btn-nop-bai {
+        justify-content: center;
+        align-items: center;
+        color: #000;
+        background: #7be56a;
+    }
+
+    .header .btn-thoat {
+        justify-content: center;
+        align-items: center;
+        margin-left: 27px;
+        color: #fff;
+        background: #ff4141;
+    }
+
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 999999;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px 0;
+    min-width: 400px;
+    max-width: 450px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    transition: all linear 0.3s;
+    position: relative; /* Thêm dòng này để tùy chỉnh vị trí của nút đóng */
+}
+
+.toast--success {
+    border-color: #47d864;
+}
+
+    .toast--success .toast__icon {
+        color: #47d864;
+    }
+
+.toast--info {
+    border-color: #2f86eb;
+}
+
+    .toast--info .toast__icon {
+        color: #2f86eb;
+    }
+
+.toast--warning {
+    border-color: #ffc021;
+}
+
+    .toast--warning .toast__icon {
+        color: #ffc021;
+    }
+
+.toast--error {
+    border-color: #ff623d;
+}
+
+    .toast--error .toast__icon {
+        color: #ff623d;
+    }
+
+.toast + .toast {
+    margin-top: 24px;
+}
+
+.toast__icon {
+    font-size: 24px;
+    padding: 0 16px;
+}
+
+.toast__body {
+    flex-grow: 1;
+}
+
+.toast__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.toast__msg {
+    font-size: 14px;
+    color: #888;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+.toast__close {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+    .toast__close:hover {
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+.header .logo {
+    width: 208.246px;
+    height: 53px;
+}
+
+.header .logo_time {
+    width: 43px;
+    height: 48px;
+}
+
+.header .time {
+    display: flex;
+    margin-left: auto;
+}
+
+    .header .time h3 {
+        color: #000;
+        text-align: center;
+        font-family: "Segoe UI";
+        font-size: 30px;
+        font-style: italic;
+        font-weight: 350;
+        line-height: normal;
+        display: flex;
+        width: 320px;
+        height: 48px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+/* layout */
+.layout {
+    background: #ebebeb;
+    width: 100%;
+    min-height: 1024px;
+}
+
+    .layout .body {
+        display: flex;
+    }
+
+    /* layout left */
+    .layout .layout-left {
+        padding: 0px 69px;
+        width: 70%;
+    }
+
+        .layout .layout-left .txt {
+            margin: 24px 0;
+            border-radius: 10px;
+            padding: 10px;
+            background: #fff;
+            width: 970px; /* Sử dụng chiều rộng tự động */
+            min-height: auto; /* Chiều cao tự động điều chỉnh theo nội dung */
+            max-height: none; /* Bỏ giới hạn chiều cao tối đa */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .layout .layout-left .txt p {
+                padding-left: 18.33px;
+                color: #000;
+                font-family: "Segoe UI";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                flex-grow: 1; /* Hãy mở rộng txt để chứa hết nội dung của h2 */
+            }
+
+    .layout .form_question {
+        margin-top: 23px;
+        width: 970px;
+        min-height: 225px; /* Sử dụng min-height thay vì height */
+        flex-shrink: 0;
+        border-radius: 10px;
+        border: 1px solid #000;
+        background: #fff;
+    }
+
+        .layout .form_question .txt_question {
+            padding: 10px;
+            display: flex;
+            width: 951.346px; /* Đặt kích thước cố định cho khung */
+            letter-spacing: 0.5px;
+            height: auto; /* Sử dụng auto để tự động mở rộng theo nội dung */
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: center;
+            color: #000;
+            font-family: "Segoe UI";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .layout .form_question .form-input {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 25px;
+            padding: 25px 46px;
+        }
+
+        .layout .form_question .btn1.answer {
+            width: 415.048px;
+            height: auto;
+            min-height: 48px;
+            border-radius: 9px;
+            justify-content: start;
+            padding: 11px 7px;
+            display: flex;
+            color: #000;
+            align-items: center;
+        }
+
+    /* layout right */
+    .layout .layout-right {
+        width: 30%;
+        padding: 47px 0 44.8px 70px;
+    }
+
+    .layout .information {
+        width: 326px;
+        min-height: 202px; /* Đặt chiều cao tối thiểu */
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.56);
+    }
+
+        .layout .information .avata {
+            display: flex;
+            justify-content: center;
+            padding: 5px 10px 0;
+        }
+
+        .layout .information img {
+            width: 75px;
+            height: 75px;
+            border-radius: 75px;
+            border: 1px solid #000;
+            background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+        }
+
+        .layout .information .information-student {
+            padding: 10px 27px;
+            display: flex;
+            width: 300px;
+            min-height: 120px; /* Đặt chiều cao tối thiểu */
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .layout .information .information-student p {
+                padding-top: 10px;
+                letter-spacing: 0.5px;
+                width: 272px;
+                height: auto; /* Chiều cao tự động */
+                word-wrap: break-word;
+            }
+
+
+
+.choose_content {
+    position: sticky;
+    top: 100px; /* Điều chỉnh khoảng cách từ trên xuống */
+}
+
+.layout-right .choose-question {
+    display: flex;
+    justify-content: center;
+    width: 326px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.85);
+    margin: 64px 23px 26px 0;
+}
+
+.layout .choose-question .choose {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-auto-flow: row;
+    grid-gap: 20px;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+    .layout .choose-question .choose a {
+        border-radius: 3px;
+        border: 1px solid black;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        -webkit-text-stroke-width: 1;
+        -webkit-text-stroke-color: #000;
+        font-family: "Segoe UI";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        color:black;
+        line-height: normal;
+    }
+
+.layout .save {
+    display: flex;
+    width: 157px;
+    height: 42px;
+    border-radius: 5px;
+    margin-left: 95px;
+}
+
+    .layout .save button {
+        justify-content: center;
+        align-items: center;
+        background: #feffcf;
+        color: #000;
+        text-align: center;
+        font-family: "Segoe UI";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .layout .save button:hover {
+            background: #ffcc99;
+            color: #fff;
+            border-color: #ffcc99;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }

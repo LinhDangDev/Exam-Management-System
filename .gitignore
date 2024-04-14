@@ -29,8 +29,6 @@
 *.ldf
 _log.txt 
 
-# Publishing output 
-**/wwwroot/
 
 # Test results
 [Tt]est[Rr]esult*/

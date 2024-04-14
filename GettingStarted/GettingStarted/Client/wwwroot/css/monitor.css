@@ -1,0 +1,327 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --font-heading: "Sen", sans-serif;
+  /* --primary-color: ; */
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* common */
+a {
+  text-decoration: none;
+}
+
+.btn {
+  display: flex;
+  width: 157px;
+  height: 42px;
+  border-radius: 5px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+/* header */
+.header {
+  background: #f0f0f0;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+}
+
+.header .body {
+  display: flex;
+  align-items: center;
+  padding: 18px 48.8px;
+}
+
+.header .nav {
+  display: flex;
+  margin-left: auto;
+}
+
+.header .btn-nop-bai {
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  background: #7be56a;
+}
+
+.header .btn-thoat {
+  justify-content: center;
+  align-items: center;
+  margin-left: 27px;
+  color: #fff;
+  background: #ff4141;
+}
+
+.header .logo {
+  width: 208.246px;
+  height: 53px;
+}
+
+.header .logo_time {
+  width: 43px;
+  height: 48px;
+}
+
+.header .time {
+  display: flex;
+  margin-left: auto;
+}
+
+.header .time h3 {
+  color: #000;
+  text-align: center;
+  font-family: "Segoe UI";
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 350;
+  line-height: normal;
+  display: flex;
+  width: 320px;
+  height: 48px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* layout */
+.layout {
+  background: #ebebeb;
+  width: 1600px;
+  min-height: 1024px;
+}
+
+.layout .body {
+  display: flex;
+}
+
+/* layout left */
+.layout .layout-left {
+  padding: 0px 69px;
+  width: 70%;
+}
+
+.layout .layout-left .txt {
+  margin: 24px 0;
+  border-radius: 10px;
+  background: #fff;
+  width: 970px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.layout .layout-left .txt h2 {
+  padding-left: 18.33px;
+  color: #000;
+  font-family: "Segoe UI";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.layout .form_question {
+  margin-top: 23px;
+  width: 970px;
+  min-height: 225px; /* Sử dụng min-height thay vì height */
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.layout .form_question .txt_question {
+  padding: 10px;
+  display: flex;
+  width: 951.346px; /* Đặt kích thước cố định cho khung */
+  letter-spacing: 0.5px;
+  height: auto; /* Sử dụng auto để tự động mở rộng theo nội dung */
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  color: #000;
+  font-family: "Segoe UI";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.layout .form_question .form-input {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 25px;
+  padding: 25px 46px;
+}
+
+.layout .form_question .form-input a {
+  padding-left: 23px;
+  text-align: left;
+  color: #000;
+  font-family: "Segoe UI";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: rgba(123, 229, 106, 0.7);
+  width: 415.048px;
+  height: 50px;
+}
+
+/* layout right */
+.layout .layout-right {
+  width: 30%;
+  padding: 47px 47px 44.8px 0px;
+}
+
+.layout .information {
+  width: 326px;
+  min-height: 202px; /* Đặt chiều cao tối thiểu */
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.layout .information .avata {
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px 0;
+}
+
+.layout .information img {
+  width: 75px;
+  height: 75px;
+  border-radius: 75px;
+  border: 1px solid #000;
+  background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+}
+
+.layout .information .information-student {
+  padding: 10px 27px;
+  display: flex;
+  width: 300px;
+  min-height: 120px; /* Đặt chiều cao tối thiểu */
+  flex-direction: column;
+  justify-content: center;
+}
+
+.layout .information .information-student p {
+  padding-top: 10px;
+  letter-spacing: 0.5px;
+  width: 272px;
+  height: auto; /* Chiều cao tự động */
+  word-wrap: break-word;
+}
+
+.layout .choose-question {
+  width: 326px;
+  min-height: 521px;
+  background: rgba(255, 255, 255, 0.85);
+  margin: 64px 23px 26px 0;
+}
+.layout .choose-question .choose {
+  display: grid;
+  grid-template-columns: repeat(
+    6,
+    auto
+  ); /* Sử dụng auto để tự động điều chỉnh kích thước các cột */
+  grid-auto-flow: row; /* Mặc định là row, bạn cũng có thể không cần ghi rõ */
+  grid-gap: 10px;
+  border-radius: 5px;
+  padding: 10px 0 10px 10px;
+}
+
+.layout .choose-question .choose p {
+  border-radius: 3px;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  -webkit-text-stroke-width: 1;
+  -webkit-text-stroke-color: #000;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.layout .save {
+  display: flex;
+  width: 157px;
+  height: 42px;
+  border-radius: 5px;
+  margin-left: 95px;
+}
+
+.layout .save button {
+  justify-content: center;
+  align-items: center;
+  background: #feffcf;
+  color: #000;
+  text-align: center;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.layout .save button:hover {
+  background: #ffcc99;
+  color: #fff;
+  border-color: #ffcc99;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.head-tittle{
+  text-align: center; 
+  font-size: 2em;
+  padding-top: 40px;
+}
+.form-manager{
+    font-size: 1.3em;
+    padding-top: 50px;
+    padding-left: 5%;
+}
+td, th {
+  padding: 20px;
+  border: 1px solid #ccc;
+  /* border-width border-style border-color */
+}
+table{
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 3%;
+}
+.text-box {
+    margin-right: 5%;
+    font-size: 1em;
+    width: 10%;
+    border-radius: 10px;
+    min-width: 5%;
+}
