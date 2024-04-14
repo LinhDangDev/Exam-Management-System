@@ -1,5 +1,8 @@
-﻿using GettingStarted.Server.BUS;
+﻿using GettingStarted.Server.Authentication;
+using GettingStarted.Server.BUS;
+using GettingStarted.Shared;
 using GettingStarted.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 
@@ -7,6 +10,7 @@ namespace GettingStarted.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly SinhVienService _sinhVienService;
@@ -14,16 +18,24 @@ namespace GettingStarted.Server.Controllers
         {
             _sinhVienService = sinhVienService;
         }
-        [HttpPost]
-        [Route("Verify")]
+        [HttpPost("Verify")]
         // Xác thực sv có trong database, cập nhật sv thời gian sv vào, trả về MSV
-        public ActionResult<SinhVien> Verify([FromQuery]string ma_so_sinh_vien)
+        public ActionResult<UserSession> Verify([FromQuery]string ma_so_sinh_vien)
         {
-            // lấy mã sinh viên từ mã số sinh viên
-            SinhVien sv = _sinhVienService.SelectBy_ma_so_sinh_vien(ma_so_sinh_vien);
-            // cập nhật giờ sinh viên đăng nhập vào hệ thống
-            _sinhVienService.Login(sv.MaSinhVien, DateTime.Now);
-            return sv;
+            //// lấy mã sinh viên từ mã số sinh viên
+            //SinhVien sv = _sinhVienService.SelectBy_ma_so_sinh_vien(ma_so_sinh_vien);
+            //// cập nhật giờ sinh viên đăng nhập vào hệ thống
+            //_sinhVienService.Login(sv.MaSinhVien, DateTime.Now);
+            var JwtAuthencationManager = new JwtAuthenticationManager(_sinhVienService);
+            var userSession = JwtAuthencationManager.GenerateJwtToken(ma_so_sinh_vien);
+            if(userSession is null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                return userSession;
+            }
         }
         [HttpGet]
         [Route("Display")]

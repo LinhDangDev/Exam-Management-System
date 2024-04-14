@@ -127,7 +127,7 @@ function changeButtonColor(button) {
 
 
 function scrollToQuestion(questionNumber) {
-    var questionElement = document.getElementById("question" + questionNumber );
+    var questionElement = document.getElementById("question" + questionNumber);
     if (questionElement) {
         questionElement.scrollIntoView({ behavior: 'smooth' });
     }

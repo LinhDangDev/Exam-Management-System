@@ -1,10 +1,14 @@
-﻿using GettingStarted.Server.BUS;
+﻿using GettingStarted.Server.Authentication;
+using GettingStarted.Server.BUS;
 using GettingStarted.Server.DAL.Repositories;
 using GettingStarted.Shared.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +35,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
@@ -41,6 +48,22 @@ static void ConfigureServices(IServiceCollection services)
 {
     services.AddControllersWithViews();
     services.AddRazorPages();
+    services.AddAuthentication(o =>
+    {
+        o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(o =>
+    {
+        o.RequireHttpsMetadata = false;
+        o.SaveToken = true;
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtAuthenticationManager.JWT_SECURITY_KEY)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
     // Them cac repository vao
     services.AddScoped<IAudioListenedRepository, AudioListenedRepository>();

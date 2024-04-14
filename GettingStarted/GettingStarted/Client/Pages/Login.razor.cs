@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text;
 using GettingStarted.Client.DAL;
 using Microsoft.IdentityModel.Tokens;
+using GettingStarted.Shared;
 namespace GettingStarted.Client.Pages
 {
 
@@ -17,6 +18,7 @@ namespace GettingStarted.Client.Pages
         [Inject]
         ApplicationDataService? myData { get; set; }
         SinhVien? sv { get; set; }
+        UserSession? userSession { get; set; }
         private string ma_so_sinh_vien = "";
         private string password = "";
 
@@ -40,25 +42,18 @@ namespace GettingStarted.Client.Pages
                     var resultString = await response.Content.ReadAsStringAsync();
 
                     // Chuyển đổi kết quả từ chuỗi JSON thành giá trị boolean
-                    sv = JsonSerializer.Deserialize<SinhVien>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                    // lưu dữ liệu cho toàn cục, các razor có thể xài biến này
-                    myData.ma_so_sinh_vien = sv.MaSoSinhVien;
-                    myData.ma_sinh_vien = sv.MaSinhVien;
+                    userSession = JsonSerializer.Deserialize<UserSession>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    sv = userSession.NavigateSinhVien;
                     if (sv != null)
                     {
-                        NavigateToExam();
+                        // lưu dữ liệu cho toàn cục, các razor có thể xài biến này
+                        myData.ma_so_sinh_vien = sv.MaSoSinhVien;
+                        myData.ma_sinh_vien = sv.MaSinhVien;
+                        navManager.NavigateTo("/exam");
                     }
                 }
             }
 
-        }
-        private void NavigateToIndex()
-        {
-            navManager.NavigateTo("/index");
-        }
-        private void NavigateToExam()
-        {
-            navManager.NavigateTo("/exam");
         }
     }
 }

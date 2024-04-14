@@ -21,7 +21,7 @@
       <!-- Thời gian -->
       <div class="time">
         <img src="./images/exam/clock-stand-svgrepo-com%201.svg" alt="" class="logo_time" />
-        <h3>Thời Gian :60 Phút</h3>
+        <h3>Thời Gian :@caThi.ThoiGianThi Phút</h3>
       </div >
 
        <!-- Button Exit -->
@@ -146,13 +146,6 @@
           // Chuyển hướng đến trang đăng nhập
           window.location.href = "/Login"; // Đường dẫn của trang đăng nhập
 
-          // Hiển thị toast message khi chuyển trang thành công
-          toast({
-            title: "Thành công",
-            message: "Bạn đã được chuyển về trang đăng nhập",
-            type: "success",
-            duration: 3000
-          });
       } else {
           // Nếu người dùng chọn hủy, không làm gì cả
           return false;
