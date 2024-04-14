@@ -1,3 +1,4 @@
+using Blazored.SessionStorage;
 using GettingStarted.Client;
 using GettingStarted.Client.DAL;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,5 +14,6 @@ builder.Services.AddHttpClient("GettingStarted.ServerAPI", client => client.Base
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("GettingStarted.ServerAPI"));
+builder.Services.AddBlazoredSessionStorage();
 
 await builder.Build().RunAsync();

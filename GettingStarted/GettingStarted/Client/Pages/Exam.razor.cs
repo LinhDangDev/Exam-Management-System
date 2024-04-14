@@ -22,6 +22,8 @@ namespace GettingStarted.Client.Pages
         private int thu_tu_ma_nhom { get; set; }
         private int thu_tu_ma_cau_hoi { get; set; }
         private List<string> alphabet { get; set; }
+        private System.Timers.Timer timer { get; set; }
+        private string displayTime { get; set; }
         protected override async Task OnInitializedAsync()
         {
             /////////////////////////////////////////
@@ -30,6 +32,7 @@ namespace GettingStarted.Client.Pages
             thu_tu_ma_cau_hoi = thu_tu_ma_nhom = -1;
             alphabet = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
             await Start();
+            Time(); // xử lí countdown
             await base.OnInitializedAsync();
         }
         private async Task getThongTinSV()
@@ -114,6 +117,38 @@ namespace GettingStarted.Client.Pages
             await getNoiDungMaNhom();
             await getNoiDungCauHoi();
             await getAllCauTraLoi();
+        }
+        private void Time()
+        {
+            timer = new System.Timers.Timer();
+            timer.Interval = 1000; // 1000 = 1ms
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            int tong_so_giay = caThi.ThoiGianThi * 60;
+            int so_gio_hien_tai = tong_so_giay;
+            displayTime = FormatTime(tong_so_giay);
+            timer.Elapsed += (sender, e) =>
+            {
+                so_gio_hien_tai--;
+                if (so_gio_hien_tai >= 0)
+                {
+                    displayTime = FormatTime(so_gio_hien_tai);
+                    InvokeAsync(StateHasChanged); // Cập nhật giao diện người dùng
+                }
+                else
+                {
+                    timer.Stop(); // Dừng timer khi countdown kết thúc
+                }
+            };
+        }
+        string FormatTime(int totalSeconds)
+        {
+            TimeSpan time = TimeSpan.FromSeconds(totalSeconds);
+            return $"{(int)time.TotalMinutes:D2}:{time.Seconds:D2}";// format từ giây sang phút/giây với D2 là 2 số nguyên
+        }
+        public void Dispose()
+        {
+            timer.Dispose();
         }
     }
 }

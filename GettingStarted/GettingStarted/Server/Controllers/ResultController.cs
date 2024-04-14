@@ -2,11 +2,11 @@
 
 namespace GettingStarted.Server.Controllers;
 
-public class ResultController : Controller
-{
-    // GET
-    public IActionResult Index()
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ResultController : Controller
     {
-        return View();
+        // GET
+
     }
-}
+
