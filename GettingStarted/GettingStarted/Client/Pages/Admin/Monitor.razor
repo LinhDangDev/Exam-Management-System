@@ -1,0 +1,116 @@
+﻿@page "/monitor"
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- reset css -->
+    <link rel="stylesheet" href="./css/exam/reset.css" />
+    <link rel="stylesheet" href="./css/monitor.css"/>
+    <!-- embed fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sen:wght@700&display=swap"
+          rel="stylesheet" />
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/monitor.css" />
+    <title>Admin</title>
+
+</head>
+
+<body>
+    <header class="header fiexd">
+        <div class="main-content">
+            <div class="body">
+                <!-- logo -->
+                <img src="/images/exam/Logo.svg" alt="" class="logo" />
+                <!-- nav -->
+                <div class="time">
+                    <h3>8:38:00 Ngày 9/4/2024</h3>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="layout" style="width: 100%;">
+            <div class="main-content">
+                <div class="head-tittle">
+                    <big>THEO DÕI CA THI</big>
+                </div>
+                <form class="form-manager">
+                    <!--Đợt thi-->
+                    <label>Đợt Thi: </label>
+                    <select class="text-box" @onchange="OnChangeDotThiAsync">
+                        @foreach(var item in dotThis)
+                        {
+                            <option value="@item.MaDotThi" >@item.TenDotThi</option>
+                        }
+                    </select>
+                    <!--Môn Thi-->
+                    <label>Môn Thi: </label>
+                    <select class="text-box" @onchange="OnChangeMonThiAsync">
+                        @foreach (var item in monHocs)
+                        {
+                            <option value="@item.MaMonHoc">@item.TenMonHoc</option>
+                        }
+                    </select>
+                    <!--Lớp ảo-->
+                    <label>Mã Phòng Thi: </label>
+                    <select class="text-box" @onchange="OnChangeLopAoAsync">
+                        @foreach (var item in lopAos)
+                        {
+                            <option value="@item.MaLopAo">@item.TenLopAo</option>
+                        }
+                    </select>
+                    <!--Ca thi-->
+                    <label>Ca Thi: </label>
+                    <select class="text-box" @onchange="OnChangeCaThiAsync">
+                        @foreach (var item in caThis)
+                        {
+                            <option value="@item.MaCaThi">@item.TenCaThi</option>
+                        }
+                    </select>
+                </form>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã số sinh viên</th>
+                                <th>Họ và tên</th>
+                                <th>Mã đề thi</th>
+                                <th>Thời gian bắt đầu</th>
+                                <th>Thời gian kết thúc</th>
+                                <th>Điểm</th>
+                                <th>Điều chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in caThis)
+                            {
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td>SV001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>01/01/1990</td>
+                                <td>Hà Nội</td>
+                            </tr>
+                            <tr>
+                                <td>SV002</td>
+                                <td>Trần Thị B</td>
+                                <td>15/05/1992</td>
+                                <td>Hồ Chí Minh</td>
+                            </tr>
+                            <!-- Thêm các dòng khác tương tự -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
