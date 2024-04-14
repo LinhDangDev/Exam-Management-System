@@ -140,4 +140,5 @@ public partial class Result
         {
             timer.Dispose();
         }
+        
 }
