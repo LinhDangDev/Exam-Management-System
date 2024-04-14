@@ -10,7 +10,6 @@ namespace GettingStarted.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly SinhVienService _sinhVienService;
@@ -19,6 +18,7 @@ namespace GettingStarted.Server.Controllers
             _sinhVienService = sinhVienService;
         }
         [HttpPost("Verify")]
+        [AllowAnonymous]
         // Xác thực sv có trong database, cập nhật sv thời gian sv vào, trả về MSV
         public ActionResult<UserSession> Verify([FromQuery]string ma_so_sinh_vien)
         {
@@ -36,12 +36,6 @@ namespace GettingStarted.Server.Controllers
             {
                 return userSession;
             }
-        }
-        [HttpGet]
-        [Route("Display")]
-        public ActionResult<List<SinhVien>> Display()
-        {
-            return _sinhVienService.GetAll();
         }
     }
 }

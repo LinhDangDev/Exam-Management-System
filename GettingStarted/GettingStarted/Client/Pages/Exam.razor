@@ -1,4 +1,5 @@
 ﻿@page "/exam"
+@attribute [Authorize]
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +68,6 @@
                                     <p>@((MarkupString)noiDungCauHoiNhom)</p>
                                 </div>
                             }
-
                             <section id="question@(QuestionMask + 1)" class="form_question">
                                 @if (chiTietDeThiHV.MaCauHoi != thu_tu_ma_cau_hoi)
                                 {
@@ -102,7 +102,7 @@
 
                             <div class="information-student">
                                 @* <p>Check chạy cục bộ: @myData.ma_sinh_vien  </p> *@
-                                <p>MSSV: @myData.ma_so_sinh_vien</p>
+                                <p>MSSV: @myData.ma_so_sinh_vien </p>
                                 <p>Họ và tên:  @sinhVien.HoVaTenLot @sinhVien.TenSinhVien</p>
                                 <p>Ca Thi: @caThi.TenCaThi</p>
                                 <p>Mã đề: @chiTietCaThi.MaDeThi</p>

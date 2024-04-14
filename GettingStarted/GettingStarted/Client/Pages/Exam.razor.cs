@@ -3,6 +3,10 @@ using GettingStarted.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System.Text.Json;
 using System.Text;
+using Microsoft.AspNetCore.Components.Authorization;
+using GettingStarted.Client.Authentication;
+using System.Net.Http.Headers;
+using System.Net;
 
 namespace GettingStarted.Client.Pages
 {
@@ -12,6 +16,10 @@ namespace GettingStarted.Client.Pages
         HttpClient httpClient { get; set; }
         [Inject]
         ApplicationDataService myData { get; set; }
+        [Inject]
+        AuthenticationStateProvider authenticationStateProvider { get; set; }
+        [Inject]
+        NavigationManager navManager { get; set;}
         private SinhVien? sinhVien { get; set; }
         private CaThi? caThi { get; set; }
         private ChiTietCaThi? chiTietCaThi { get; set; }
@@ -29,10 +37,23 @@ namespace GettingStarted.Client.Pages
             /////////////////////////////////////////
             myData.ma_ca_thi = 1;
             ////////////////////////////////////////
+            //xử lí url để lấy giá trị mã sinh viên
             thu_tu_ma_cau_hoi = thu_tu_ma_nhom = -1;
-            alphabet = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
+            alphabet = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K" };
+            processUrl();
             await Start();
             Time(); // xử lí countdown
+            //xác thực người dùng
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+            var token = await customAuthStateProvider.GetToken();
+            if(!string.IsNullOrWhiteSpace(token))
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+            }
+            else
+            {
+                navManager.NavigateTo("/");
+            }
             await base.OnInitializedAsync();
         }
         private async Task getThongTinSV()
@@ -117,6 +138,16 @@ namespace GettingStarted.Client.Pages
             await getNoiDungMaNhom();
             await getNoiDungCauHoi();
             await getAllCauTraLoi();
+        }
+
+        private void processUrl()
+        {
+            string url = navManager.Uri.ToString();
+            //thực hiện cắt chuỗi để lấy dữ liệu msv={encode}
+            int start = url.IndexOf("=");
+            string encodedData = url.Substring(start + 1, url.Length - start - 1);
+            Console.WriteLine(encodedData);
+            myData.ma_sinh_vien = long.Parse(WebUtility.UrlDecode(encodedData));
         }
         private void Time()
         {

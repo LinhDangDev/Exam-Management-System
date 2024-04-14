@@ -1,4 +1,5 @@
 ﻿@page "/Result"
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
       <!-- Thời gian -->
       <div class="time">
         <img src="./images/exam/clock-stand-svgrepo-com%201.svg" alt="" class="logo_time" />
-        <h3>Thời Gian :@caThi.ThoiGianThi Phút</h3>
+        <h3>Thời Gian : @displayTime</h3>
       </div >
 
        <!-- Button Exit -->
@@ -46,19 +47,19 @@
       <div class="information-student">
         <div class="label">
           @* <h1>Kết quả thi</h1><input type="text" class="show-text hidden" readonly> *@
-          <h3>Ca thi :</h3><input type="text" class="show-text" readonly>
-          <h3>Môn thi :</h3><input type="text" class="show-text" readonly>
-          <h3>Mã đề :</h3><input type="text" class="show-text" readonly>
-          <h3>MSSV :</h3><input type="text" class="show-text" readonly>
-          <h3>Họ và tên :</h3><input type="text" class="show-text" readonly>
-          <h3>Ngày thi :</h3><input type="text" class="show-text" readonly>
+          <h3>Ca thi :</h3><input type="text" class="show-text" readonly value="@caThi?.TenCaThi"> 
+          <h3>Môn thi :</h3><input type="text" class="show-text" readonly value="@caThi?.TenCaThi">
+          <h3>Mã đề :</h3><input type="text" class="show-text" readonly value="@chiTietCaThi?.MaDeThi">
+          <h3>MSSV :</h3><input type="text" class="show-text" readonly value="@myData.ma_so_sinh_vien">
+          <h3>Họ và tên :</h3><input type="text" class="show-text" readonly value="@sinhVien?.HoVaTenLot @sinhVien?.TenSinhVien">
+          <h3>Ngày thi :</h3><input type="text" class="show-text" readonly value="@caThi?.ThoiGianBatDau">
         </div>
       </div>
       <!-- Các ô hiển thị kết quả -->
       <div class="result-score">
         <div class="result-box">
-          <input type="text" class="show-result" readonly>
-          <input type="text" class="show-result" readonly>
+          <input type="text" class="show-result" readonly value="@chiTietCaThi.Diem">
+          <input type="text" class="show-result" readonly value="@chiTietCaThi.SoCauDung / @chiTietCaThi.TongSoCau">
         </div>
       </div>
     </div>
@@ -140,7 +141,7 @@
   // Lắng nghe sự kiện click trên nút "Thoát"
   document.querySelector('.btn-exit').addEventListener('click', function() {
       // Hiển thị hộp thoại xác nhận
-      var confirmation = confirm("Bạn có muốn thoát không?");
+      let confirmation = confirm("Bạn có muốn thoát không?");
       // Nếu người dùng nhấn OK, thực hiện hành động thoát
       if (confirmation) {
           // Chuyển hướng đến trang đăng nhập

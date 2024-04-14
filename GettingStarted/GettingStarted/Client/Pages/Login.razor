@@ -1,25 +1,4 @@
-﻿@* @using GettingStarted.Client.DAL
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-
-        <!-- Login Form -->
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" @bind="ma_so_sinh_vien">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" @bind="password">
-            <button type="button"class="btn btn-primary" @onclick="async () => {await Verify();}">Log in</button>
-            <button type="button" class="btn btn-danger" @onclick="NavigateToIndex">Move to page Index</button>
-            <button type="button" class="btn btn-success" @onclick="NavigateToExam">Move to page Exam</button>
-        </form>
-
-
-    </div>
-</div> *@
-@page "/"
+﻿@page "/"
 @using GettingStarted.Client.DAL
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -53,7 +32,7 @@
                         </form>
                     </div>
                     <img class="logo" src="images/exam/Logo.svg">
-                    <button type="button" class="button-sign-in" @onclick="Verify">Đăng nhập</button>
+                    <button type="button" class="button-sign-in" @onclick="Authenticate">Đăng nhập</button>
                 </div>
             </div>
         </div>
