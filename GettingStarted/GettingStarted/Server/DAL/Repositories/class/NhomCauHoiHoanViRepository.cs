@@ -12,5 +12,11 @@ namespace GettingStarted.Server.DAL.Repositories
             sql.SqlParams("@MaNhom", SqlDbType.Int, ma_nhom);
             return sql.ExcuteReader();
         }
+        public IDataReader SelectBy_MaDeHV(long ma_de_hoan_vi)
+        {
+            DatabaseReader sql = new DatabaseReader("tbl_NhomCauHoiHoanVi_SelectBy_MaDeHV");
+            sql.SqlParams("@MaDeHV", SqlDbType.BigInt, ma_de_hoan_vi);
+            return sql.ExcuteReader();
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace GettingStarted.Server.DAL.Repositories
         public IDataReader SelectBy_ma_sinh_vien(long ma_sinh_vien)
         {
             DatabaseReader sql = new DatabaseReader("chi_tiet_ca_thi_SelectBy_ma_sinh_vien");
-            sql.SqlParams("@ma_so_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
+            sql.SqlParams("@ma_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
             return sql.ExcuteReader();
         }
         public IDataReader SelectBy_ma_ca_thi(int ma_ca_thi)

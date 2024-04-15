@@ -46,12 +46,6 @@ namespace GettingStarted.Server.BUS
             sv.Photo = null; // chưa biết cách xử lí (image === byte)
             return sv;
         }
-        // kiểm tra xem sv có tồn tại trong database hay không
-        //public bool SinhVien_Exsist(string ma_so_sinh_vien)
-        //{
-        //    var result = _sinhVienRepository.SelectBy_ma_so_sinh_vien(ma_so_sinh_vien);
-        //    return result != null;
-        //}
         public SinhVien SelectBy_ma_so_sinh_vien(string ma_so_sinh_vien)
         {
             SinhVien sv = new SinhVien();

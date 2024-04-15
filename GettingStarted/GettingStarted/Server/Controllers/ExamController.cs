@@ -54,12 +54,16 @@ namespace GettingStarted.Server.Controllers
             TblDeThiHoanVi deThiHoanVi = _deThiHoanViService.SelectOne(ma_de_thi_hoan_vi);
             // lấy danh sách các câu hỏi nhóm của đề gốc
             List<TblNhomCauHoi> nhomCauHois = _nhomCauHoiService.SelectBy_MaDeThi(deThiHoanVi.MaDeThi);
-            // lấy chi tiết đề thi hoán vị từ mã đề HV và mã nhóm câu hỏi
+            List<TblNhomCauHoiHoanVi> nhomCauHoiHoanVis = _nhomCauHoiHoanViService.SelectBy_MaDeHV(ma_de_thi_hoan_vi);
+            // lấy chi tiết đề thi hoán vị từ mã đề HV và mã nhóm câu hỏi hoán vị
             List<TblChiTietDeThiHoanVi> result = new List<TblChiTietDeThiHoanVi>();
-            foreach(TblNhomCauHoi nhomCauHoi in nhomCauHois)
+            foreach(TblNhomCauHoiHoanVi nhomCauHoiHoanVi in nhomCauHoiHoanVis)
             {
-                List<TblChiTietDeThiHoanVi> chiTietDeThiHoanVis = _chiTietDeThiHoanViService.SelectBy_MaDeHV_MaNhom(ma_de_thi_hoan_vi, nhomCauHoi.MaNhom);
-                result.AddRange(chiTietDeThiHoanVis);
+                if(nhomCauHois.FirstOrDefault(p => p.MaNhom == nhomCauHoiHoanVi.MaNhom) != null)
+                {
+                    List<TblChiTietDeThiHoanVi> chiTietDeThiHoanVis = _chiTietDeThiHoanViService.SelectBy_MaDeHV_MaNhom(ma_de_thi_hoan_vi, nhomCauHoiHoanVi.MaNhom);
+                    result.AddRange(chiTietDeThiHoanVis);
+                }
             }
             return result;
         }

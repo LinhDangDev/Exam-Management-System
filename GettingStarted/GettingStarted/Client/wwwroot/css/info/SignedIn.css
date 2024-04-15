@@ -1,0 +1,183 @@
+﻿
+.header {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    position: absolute;
+    width: 100%;
+    background-color: #d9d9d98f;
+    height: 100px;
+    top: 0;
+    left: 0;
+}
+
+.logohead {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100px;
+}
+
+.component-thong-tin {
+    position: absolute;
+    width: 610px;
+    height: 600px;
+    top: 300px;
+    left: 426px;
+    background-color: #d9d9d9;
+    border-radius: 12px;
+}
+
+.overlap {
+    position: relative;
+    height: 600px;
+    background-color: #d9d9d98f;
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px 5px #d3d3d3ee;
+}
+
+.logo {
+    position: absolute;
+    width: 219px;
+    height: 70px;
+    top: 32px;
+    left: 194px;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.avatar {
+    position:absolute;
+    width: 150px;
+    top: 130px;
+    left: 40px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 10px;
+    border-radius: 50%;
+}
+
+.student-id {
+    position: absolute;
+    width: 360px;
+    height: 40px;
+    top: 150px;
+    left: 210px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+}
+
+.id {
+    position: absolute;
+    width: 360px;
+    height: 40px;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    text-align: left;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding-left: 20px;
+}
+
+.student-name {
+    position: absolute;
+    width: 360px;
+    height: 40px;
+    top: 230px;
+    left: 210px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+}
+
+.name {
+    position: absolute;
+    width: 360px;
+    height: 40px;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    padding-left: 20px;
+}
+
+
+.button-sign-out {
+    position: absolute;
+    width: 148px;
+    height: 42px;
+    top: 300px;
+    left: 233px;
+    border-radius: 9px;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: rgb(241, 29, 29);
+    font-size: 15px;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+.button-sign-out:hover{
+    color : black;
+}
+
+.space {
+    position: absolute;
+    width: 510px;
+    top: 350px;
+    left: 50px;
+    border-width: 10px;
+    color: black;
+}
+
+.thong-bao {
+    position: absolute;
+    top: 400px;
+    left: 50px;
+}
+.radio{
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    text-align: left;
+}
+
+.radio-input {
+    margin-right:20px;
+    margin-bottom:10px;
+    margin-top:10px;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 20px;
+    padding-left:20px;
+
+}
+
+.button-start {
+    position: absolute;
+    width: 148px;
+    height: 42px;
+    bottom: 30px;
+    left: 233px;
+    border-radius: 9px;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: rgb(0,129,28);
+    font-size: 15px;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+    .button-start:hover {
+        color: black;
+    }

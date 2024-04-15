@@ -50,5 +50,19 @@ namespace GettingStarted.Server.BUS
             }
             return chiTietDotThi;
         }
+        public ChiTietDotThi SelectOne(int ma_chi_tiet_dot_thi)
+        {
+            ChiTietDotThi chiTietDotThi = new ChiTietDotThi();
+            using (IDataReader dataReader = _chiTietDotThiResposity.SelectOne(ma_chi_tiet_dot_thi))
+            {
+
+                if (dataReader.Read())
+                {
+                    chiTietDotThi = getProperty(dataReader);
+                }
+                dataReader.Dispose();
+            }
+            return chiTietDotThi;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿// Toast function
+﻿
+// Toast function
 function toast({ title = "", message = "", type = "info", duration = 500, callback }) {
     const main = document.getElementById("toast");
     if (main) {
@@ -62,7 +63,7 @@ function submitExam() {
             type: "success",
             duration: 500,
             callback: function () {
-                window.location.href = "/";
+                window.location.href = "/result";
             }
         });
     }
@@ -79,7 +80,7 @@ function exitExam() {
             type: "info",
             duration: 500,
             callback: function () {
-                window.location.href = "/login";
+                window.location.href = "/";
             }
         });
     }
@@ -101,29 +102,44 @@ function saveExam() {
 
 
 
-function changeButtonColor(button) {
-    // Tìm phần tử cha của nút được click trong từng vòng lặp riêng biệt
+// Hàm thay đổi màu cho nút và cập nhật màu cho thẻ a tương ứng
+function changeButtonColor(button, thu_tu_cau_hoi, thu_tu_cau_tra_loi) {
+    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, thu_tu_cau_tra_loi).then(result => {
+        alert("Message: " + result);
+    });
     const parent = button.closest('.form-input');
 
-    // Nếu không tìm thấy phần tử cha, không làm gì cả
     if (!parent) {
         return;
     }
 
-    // Tìm tất cả các nút trong phần tử cha
     const buttons = parent.querySelectorAll(".btn1.answer");
 
-    // Đặt lại màu nền và bóng đổ của tất cả các nút trong phần tử cha
     buttons.forEach((btn) => {
         btn.style.backgroundColor = "#fff";
         btn.style.boxShadow = "none";
     });
 
-    // Thay đổi màu nền và bóng đổ của nút được click
     button.style.backgroundColor = "#7be56a";
     button.style.boxShadow = "0 0 40px #7be56a";
     button.style.transition = ".5s ease";
+
+    // Thêm lớp "selected" cho câu hỏi tương ứng
+    const questionIndex = button.parentElement.parentElement.id.replace('question', '');
+    updateChooseButtonColor(questionIndex); // Gọi hàm để cập nhật màu cho thẻ <a>
+    // nhúng code C# vào JS
+
 }
+
+// Hàm kiểm tra và cập nhật màu cho thẻ a
+function updateChooseButtonColor(questionNumber) {
+    const chooseButton = document.querySelector(`.choose a:nth-child(${questionNumber - 1})`);
+    if (chooseButton) {
+        chooseButton.classList.add('selected');
+        chooseButton.style.backgroundColor = "#7be56a"; // Cập nhật màu nền cho thẻ <a>
+    }
+}
+
 
 
 function scrollToQuestion(questionNumber) {

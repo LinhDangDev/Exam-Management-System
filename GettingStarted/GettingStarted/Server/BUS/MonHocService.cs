@@ -20,8 +20,8 @@ namespace GettingStarted.Server.BUS
                 if (dataReader.Read())
                 {
                     monHoc.MaMonHoc = dataReader.GetInt32(0);
-                    monHoc.MaSoMonHoc = dataReader.GetString(1);
-                    monHoc.TenMonHoc = dataReader.GetString(2);
+                    monHoc.MaSoMonHoc = dataReader.IsDBNull(1) ? null : dataReader.GetString(1);
+                    monHoc.TenMonHoc = dataReader.IsDBNull(2) ? null : dataReader.GetString(2);
                 }
                 dataReader.Dispose();
             }

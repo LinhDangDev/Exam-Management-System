@@ -37,5 +37,19 @@ namespace GettingStarted.Server.BUS
             }
             return nhomCauHoiHoanVi;
         }
+        public List<TblNhomCauHoiHoanVi> SelectBy_MaDeHV(long ma_de_hoan_vi)
+        {
+            List<TblNhomCauHoiHoanVi> result = new List<TblNhomCauHoiHoanVi>();
+            TblDeThiHoanVi deThiHoanVi = _deThiHoanViService.SelectOne(ma_de_hoan_vi);
+            using (IDataReader dataReader = _nhomCauHoiHoanViRepository.SelectBy_MaDeHV(ma_de_hoan_vi))
+            {
+                while (dataReader.Read())
+                {
+                    TblNhomCauHoiHoanVi nhomCauHoiHoanVi = getProperty(dataReader, deThiHoanVi);
+                    result.Add(nhomCauHoiHoanVi);
+                }
+            }
+            return result;
+        }
     }
 }

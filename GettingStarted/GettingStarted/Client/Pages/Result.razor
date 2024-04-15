@@ -1,5 +1,5 @@
-﻿@page "/Result"
-
+﻿@page "/result"
+@attribute [Authorize]
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +21,8 @@
         
       <!-- Thời gian -->
       <div class="time">
-        <img src="./images/exam/clock-stand-svgrepo-com%201.svg" alt="" class="logo_time" />
-        <h3>Thời Gian : @displayTime</h3>
+        <img src="./images/exam/clock-stand-svgrepo-com 1.svg" alt="" class="logo_time" />
+@*         <h3>Thời Gian : @displayTime</h3> *@
       </div >
 
        <!-- Button Exit -->
@@ -47,19 +47,19 @@
       <div class="information-student">
         <div class="label">
           @* <h1>Kết quả thi</h1><input type="text" class="show-text hidden" readonly> *@
-          <h3>Ca thi :</h3><input type="text" class="show-text" readonly value="@caThi?.TenCaThi"> 
-          <h3>Môn thi :</h3><input type="text" class="show-text" readonly value="@caThi?.TenCaThi">
-          <h3>Mã đề :</h3><input type="text" class="show-text" readonly value="@chiTietCaThi?.MaDeThi">
-          <h3>MSSV :</h3><input type="text" class="show-text" readonly value="@myData.ma_so_sinh_vien">
-          <h3>Họ và tên :</h3><input type="text" class="show-text" readonly value="@sinhVien?.HoVaTenLot @sinhVien?.TenSinhVien">
-          <h3>Ngày thi :</h3><input type="text" class="show-text" readonly value="@caThi?.ThoiGianBatDau">
+                <h3>Ca thi :</h3><p class="show-text">@caThi?.TenCaThi</p>
+                <h3>Môn thi :</h3><p class="show-text">@myData.ten_mon_hoc</p>
+                <h3>Mã đề :</h3><p class="show-text">@myData.ma_de_thi_hoan_vi</p>
+                <h3>MSSV :</h3><p class="show-text">@myData.ma_so_sinh_vien</p>
+                <h3>Họ và tên :</h3><p class="show-text">@sinhVien?.HoVaTenLot @sinhVien?.TenSinhVien</p>
+                <h3>Ngày thi :</h3><p class="show-text">@caThi?.ThoiGianBatDau</p>
         </div>
       </div>
       <!-- Các ô hiển thị kết quả -->
       <div class="result-score">
         <div class="result-box">
-          <input type="text" class="show-result" readonly value="@chiTietCaThi.Diem">
-          <input type="text" class="show-result" readonly value="@chiTietCaThi.SoCauDung / @chiTietCaThi.TongSoCau">
+                        <p class="show-result">@diem</p>
+@*           <input type="text" class="show-result" readonly value="@chiTietCaThi.SoCauDung / @chiTietCaThi.TongSoCau"> *@
         </div>
       </div>
     </div>

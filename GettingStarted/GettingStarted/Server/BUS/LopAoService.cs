@@ -16,9 +16,9 @@ namespace GettingStarted.Server.BUS
         {
             LopAo lopAo = new LopAo();
             lopAo.MaLopAo = dataReader.GetInt32(0);
-            lopAo.TenLopAo = dataReader.GetString(1);
-            lopAo.NgayBatDau = dataReader.GetDateTime(2);
-            lopAo.MaMonHoc = dataReader.GetInt32(3);
+            lopAo.TenLopAo = dataReader.IsDBNull(1) ? null : dataReader.GetString(1);
+            lopAo.NgayBatDau = dataReader.IsDBNull(2) ? null : dataReader.GetDateTime(2);
+            lopAo.MaMonHoc = dataReader.IsDBNull(3) ? null : dataReader.GetInt32(3);
             return lopAo;
         }
         public LopAo SelectOne(int ma_lop_ao)

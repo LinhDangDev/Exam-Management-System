@@ -35,5 +35,19 @@ namespace GettingStarted.Server.BUS
             }
             return cauHoi;
         }
+        public int SelectDapAn(int ma_cau_hoi)
+        {
+            // chỉ trả về duy nhất 1 cột là MaTraLoi
+            int dapAn = -1;
+            using (IDataReader dataReader = _cauHoiRepository.SelectDapAn(ma_cau_hoi))
+            {
+                if (dataReader.Read())
+                {
+                    dapAn = dataReader.GetInt32(0);
+                }
+                dataReader.Dispose();
+            }
+            return dapAn;
+        }
     }
 }

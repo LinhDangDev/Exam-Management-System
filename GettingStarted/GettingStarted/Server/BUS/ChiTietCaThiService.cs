@@ -32,17 +32,16 @@ namespace GettingStarted.Server.BUS
         }
         public List<ChiTietCaThi> SelectBy_ma_ca_thi(int ma_ca_thi)
         {
-            List<ChiTietCaThi> list = new List<ChiTietCaThi>();
+            List<ChiTietCaThi> result = new List<ChiTietCaThi>();
             using(IDataReader dataReader = _chiTietCaThiRepository.SelectBy_ma_ca_thi(ma_ca_thi))
             {
                 while (dataReader.Read())
                 {
-                    ChiTietCaThi chiTietCaThi = getProperty(dataReader);
-                    list.Add(chiTietCaThi);
+                    result.Add(getProperty(dataReader));
                 }
                 dataReader.Dispose();
             }
-            return list;
+            return result;
         }
         public ChiTietCaThi SelectBy_MaCaThi_MaSinhVien(int ma_ca_thi, long ma_sinh_vien)
         {
@@ -56,6 +55,19 @@ namespace GettingStarted.Server.BUS
                 dataReader.Dispose();
             }
             return chiTietCaThi;
+        }
+        public List<ChiTietCaThi> SelectBy_ma_sinh_vien(long ma_sinh_vien)
+        {
+            List<ChiTietCaThi> result = new List<ChiTietCaThi>();
+            using(IDataReader dataReader = _chiTietCaThiRepository.SelectBy_ma_sinh_vien(ma_sinh_vien))
+            {
+                while (dataReader.Read())
+                {
+                    result.Add(getProperty(dataReader));
+                }
+                dataReader.Dispose();
+            }
+            return result;
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.JSInterop;
 using System.Web;
 using System.Text;
 using System.Xml.Linq;
+using System.Net.Http.Headers;
 namespace GettingStarted.Client.Pages
 {
 
@@ -20,7 +21,7 @@ namespace GettingStarted.Client.Pages
         [Inject]
         NavigationManager navManager { get; set; }
         [Inject]
-        AuthenticationStateProvider authStateProvider { get; set; }
+        AuthenticationStateProvider authenticationStateProvider { get; set; }
         [Inject]
         IJSRuntime js { get; set; }
         SinhVien? sv { get; set; }
@@ -31,6 +32,14 @@ namespace GettingStarted.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             sv = new SinhVien();
+            //nếu đã tồn tại người dùng đăng nhập trước đó, chuyển trang
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+            var token = await customAuthStateProvider.GetToken();
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+                navManager.NavigateTo("/info");
+            }
             await base.OnInitializedAsync();
         }
         private async Task Authenticate()
@@ -49,11 +58,10 @@ namespace GettingStarted.Client.Pages
 
                     // Chuyển đổi kết quả từ chuỗi JSON thành giá trị mình muốn
                     userSession = JsonSerializer.Deserialize<UserSession>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                    var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+                    var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
                     await customAuthenticationStateProvider.UpdateAuthenticationState(userSession);
                     sv = userSession.NavigateSinhVien;
-                    // mã hóa mã sinh viên và pass vào link
-                    navManager.NavigateTo($"/exam?msv={sv.MaSinhVien}", true);
+                    navManager.NavigateTo("/info", true);
                 }
                 else if(loginResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {

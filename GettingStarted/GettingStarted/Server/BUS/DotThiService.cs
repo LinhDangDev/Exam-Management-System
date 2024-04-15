@@ -20,10 +20,10 @@ namespace GettingStarted.Server.BUS
                 {
                     DotThi dotThi = new DotThi();
                     dotThi.MaDotThi = dataReader.GetInt32(0);
-                    dotThi.TenDotThi = dataReader.GetString(1);
-                    dotThi.ThoiGianBatDau = dataReader.GetDateTime(2);
-                    dotThi.ThoiGianKetThuc = dataReader.GetDateTime(3);
-                    dotThi.NamHoc = dataReader.GetInt32(4);
+                    dotThi.TenDotThi = dataReader.IsDBNull(1) ? null : dataReader.GetString(1);
+                    dotThi.ThoiGianBatDau = dataReader.IsDBNull(2) ? null : dataReader.GetDateTime(2);
+                    dotThi.ThoiGianKetThuc = dataReader.IsDBNull(3) ? null : dataReader.GetDateTime(3);
+                    dotThi.NamHoc = dataReader.IsDBNull(4) ? null : dataReader.GetInt32(4);
                     list.Add(dotThi);
                 }
                 dataReader.Dispose();
