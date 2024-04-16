@@ -3,9 +3,10 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-body{
+body {
     margin: 0;
 }
+
 .btn {
     display: flex;
     width: 157px;
@@ -31,53 +32,53 @@ body{
     top: 0;
 }
 
-.header .body {
-    display: flex;
-    align-items: center;
-    padding: 18px 48.8px;
-}
+    .header .body {
+        display: flex;
+        align-items: center;
+        padding: 18px 48.8px;
+    }
 
-.header .nav {
-    display: flex;
-    margin-left: auto;
-}
+    .header .nav {
+        display: flex;
+        margin-left: auto;
+    }
 
-.header .btn-exit {
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-    color: #fff;
-    background: #ff4141;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    .header .btn-exit {
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+        color: #fff;
+        background: #ff4141;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-.header .logo {
-    width: 12rem;
-    height: auto;
-    flex-shrink: 0;
-}
+    .header .logo {
+        width: 12rem;
+        height: auto;
+        flex-shrink: 0;
+    }
 
 
 
-.header .time {
-    display: flex;
-    margin-left: auto;
-}
+    .header .time {
+        display: flex;
+        margin-left: auto;
+    }
 
-.header .time h3 {
-    color: #000;
-    text-align: center;
-    font-family: "Segoe UI";
-    font-size: 30px;
-    font-style: italic;
-    font-weight: 350;
-    line-height: normal;
-    display: flex;
-    width: 320px;
-    height: 0px;
-    flex-direction: column;
-    justify-content: center;
-}
+        .header .time h3 {
+            color: #000;
+            text-align: center;
+            font-family: "Segoe UI";
+            font-size: 30px;
+            font-style: italic;
+            font-weight: 350;
+            line-height: normal;
+            display: flex;
+            width: 320px;
+            height: 0px;
+            flex-direction: column;
+            justify-content: center;
+        }
 
 .row {
     margin: 0;
@@ -96,12 +97,12 @@ body{
     width: 100%;
     height: 100%;
     font-family: 'Segoe UI', sans-serif;
-
 }
+
 .layout-left {
     display: flex;
-
 }
+
 .imformation-container {
     margin-top: 30px;
     display: flex;
@@ -116,7 +117,7 @@ body{
     width: 1400px;
     min-height: 865px;
 }
-    /* overflow: auto;
+/* overflow: auto;
 }
 .img-container {
     width: 250px;
@@ -125,8 +126,6 @@ body{
 }*/
 .img-container img {
     margin: 30px 0;
-    
-
 }
 
 /*.information-student {
@@ -143,18 +142,18 @@ body{
     grid-column-gap: 10px;
     /* max-width: 1019px; */
     text-align: right;
-
 }
+
 .show-text.hidden {
     visibility: hidden;
 }
 /*.label h1,*/
 .label h3,
 .input-text {
-/*   flex: 0 0 40%; !* Chia đều không gian trong một hàng *!*/
+    /*   flex: 0 0 40%; !* Chia đều không gian trong một hàng *!*/
     padding: 5px; /* Tạo khoảng cách giữa các phần tử */
     font-size: 20.5px;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .show-text {
@@ -193,13 +192,12 @@ body{
 
 /* grid container */
 .grid-container {
- /*   margin: 0px 0px 0px 20px;*/
+    /*   margin: 0px 0px 0px 20px;*/
     min-width: 77%;
     height: auto; /* Đặt height: auto để nó có thể co dãn theo nội dung bên trong */
     display: grid; /* Sử dụng display: grid thay vì display: flex */
     grid-template-columns: repeat(15, 1fr); /* Chia grid container thành 6 cột có chiều rộng bằng nhau */
     grid-gap: 10px; /* Tạo khoảng cách giữa các grid item */
-
 }
 
 .grid-item {
@@ -218,6 +216,7 @@ body{
 .item-1 {
     background: #a5eb9a;
 }
+
 .item-2, .item-3, .item-4, .item-5, .item-6, .item-7,
 .item-8, .item-9, .item-10, .item-11, .item-12, .item-13,
 .item-14, .item-15, .item-16, .item-17, .item-18, .item-19,

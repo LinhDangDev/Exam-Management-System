@@ -145,13 +145,8 @@ namespace GettingStarted.Client.Pages
         }
         private async Task onClickNopBai()
         {
-            bool result = await js.InvokeAsync<bool>("confirm", "Bạn có chắc chắn muốn nộp bài không?");
-            if (result)
-            {
-                await js.InvokeVoidAsync("submitExam");
-                await onClickLuuBai();
-                navManager.NavigateTo("/result");
-            }
+            await onClickLuuBai();
+            await js.InvokeVoidAsync("submitExam");
         }
         private async Task Start()
         {

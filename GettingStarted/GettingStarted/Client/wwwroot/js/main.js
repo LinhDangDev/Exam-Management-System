@@ -62,6 +62,9 @@ function submitExam() {
             message: "Bạn đã nộp bài thành công!",
             type: "success",
             duration: 500,
+            callback: function () {
+                window.location.href = "/result";
+            }
         });
     }
 }

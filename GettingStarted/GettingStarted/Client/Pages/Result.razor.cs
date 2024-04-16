@@ -27,12 +27,14 @@ public partial class Result
     private List<TblChiTietDeThiHoanVi>? chiTietDeThiHoanVis { get; set; }
     private List<int>? listDapAn { get; set; }
     private double diem { get; set; }
+    private int so_cau_dung { get; set; }
     protected override async Task OnInitializedAsync()
     {
         if (myData.ma_ca_thi == null || myData.ma_de_thi_hoan_vi == null)
         {
             await js.InvokeVoidAsync("alert", "Cách hoạt động trang trang web không hợp lệ. Vui lòng quay lại");
             navManager.NavigateTo("/info");
+            return;
         }
         await Start();
         //xác thực người dùng
@@ -46,7 +48,6 @@ public partial class Result
         {
             navManager.NavigateTo("/");
         }
-        tinhDiemSo();
         await base.OnInitializedAsync();
     }
     private async Task getThongTinSV()
@@ -87,9 +88,27 @@ public partial class Result
             listDapAn = JsonSerializer.Deserialize<List<int>>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
     }
+    private async Task getThongTinChiTietCaThi()
+    {
+        var response = await httpClient.PostAsync($"api/Result/GetChiTietCaThiSelectBy_SinhVien?ma_ca_thi={myData.ma_ca_thi}&ma_sinh_vien={myData.ma_sinh_vien}", null);
+        if (response.IsSuccessStatusCode)
+        {
+            var resultString = await response.Content.ReadAsStringAsync();
+            chiTietCaThi = JsonSerializer.Deserialize<ChiTietCaThi>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+        }
+    }
+    private async Task HandleUpdateKetThuc()
+    {
+        chiTietCaThi.ThoiGianKetThuc = DateTime.Now;
+        chiTietCaThi.Diem = diem;
+        chiTietCaThi.SoCauDung = so_cau_dung;
+        chiTietCaThi.TongSoCau = chiTietDeThiHoanVis.Count;
+        var jsonString = JsonSerializer.Serialize(chiTietCaThi);
+        await httpClient.PostAsync("api/Result/UpdateKetThuc", new StringContent(jsonString, Encoding.UTF8, "application/json"));
+    }
     private void tinhDiemSo()
     {
-        diem = 0;
+        diem = so_cau_dung = 0;
         double diem_tung_cau = (10.0 / chiTietDeThiHoanVis.Count);
         int length = myData.listDapAnKhoanh.Count;
         for(int i = 0; i < length; i++)
@@ -98,10 +117,22 @@ public partial class Result
             if (myData.listDapAnKhoanh[i] == listDapAn[i])
             {
                 diem += diem_tung_cau;
+                so_cau_dung++;
             }
         }
         diem = Math.Round(diem,1);
     }
+    private async Task onClickDangXuatAsync()
+    {
+        bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn đăng xuất?");
+        if (result)
+        {
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+            await customAuthStateProvider.UpdateAuthenticationState(null);
+            navManager.NavigateTo("/", true);
+        }
+    }
+    
     private async Task Start()
     {
         sinhVien = new SinhVien();
@@ -112,6 +143,8 @@ public partial class Result
         await getThongTinCaThi();
         await getChiTietDeThiHoanVi();
         await GetListDapAn();
-
+        await getThongTinChiTietCaThi();
+        tinhDiemSo();
+        await HandleUpdateKetThuc();
     }
 }

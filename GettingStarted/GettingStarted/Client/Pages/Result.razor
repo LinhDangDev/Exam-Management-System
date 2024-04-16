@@ -30,14 +30,10 @@
                 <!-- Logo -->
                 <img src="./images/exam/Logo.svg" alt="" class="logo" />
 
-                <!-- Thời gian -->
-                <div class="time">
-                    <img src="./images/exam/clock-stand-svgrepo-com 1.svg" alt="" class="logo_time" />
-                </div>
 
                 <!-- Button Exit -->
                 <nav class="nav">
-                    <button class="btn btn-exit btn-hover">Thoát</button>
+                    <button class="btn btn-exit btn-hover" @onclick="onClickDangXuatAsync">Đăng xuất</button>
                 </nav>
             </div>
         </div>
@@ -46,7 +42,7 @@
     <!-- Main Result -->
     <div class="main-result">
         <!-- Phần chứa thông tin kết quả -->
-       
+
         <div class="imformation-container">
             <!-- Hình ảnh -->
             <div class="img-container">
@@ -57,10 +53,10 @@
 
                 <!-- Các ô hiển thị kết quả -->
                 <div class="result-score">
-                   
-                        <p class="show-result" readonly>@diem</p>
 
-                    </div>
+                    <p class="show-result" readonly>@diem</p>
+
+                </div>
 
                 <!-- Thông tin của học sinh và kết quả thi -->
                 <div class="information-student">
@@ -106,13 +102,9 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    @*<footer class="p-3 mt-4 align-self-center border-top">
-    <span>&copy; 2024 Website Test Exam Copyright with TLDD</span>
-    </footer>*@
-
 </body>
 </html>
+
 
 
 
