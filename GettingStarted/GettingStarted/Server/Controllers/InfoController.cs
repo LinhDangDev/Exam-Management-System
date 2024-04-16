@@ -31,6 +31,12 @@ namespace GettingStarted.Server.Controllers
         {
             return _sinhVienService.SelectOne(ma_sinh_vien);
         }
+        [HttpPost("GetChiTietCaThiSelectBy_SinhVien")]
+        // lấy chi tiết các thông tin của 1 sinh viên thi vào 1 ca giờ cụ thể (đề thi hoán vị)
+        public ActionResult<ChiTietCaThi> GetChiTietCaThiSelectBy_SinhVien([FromQuery] int ma_ca_thi, [FromQuery] long ma_sinh_vien)
+        {
+            return _chiTietCaThiService.SelectBy_MaCaThi_MaSinhVien(ma_ca_thi, ma_sinh_vien);
+        }
         [HttpPost("GetThongTinSinhVienTuMSSV")]
         public ActionResult<SinhVien> GetThongTinSinhVienTuMSSV([FromQuery] string ma_so_sinh_vien)
         {
@@ -65,6 +71,12 @@ namespace GettingStarted.Server.Controllers
             ChiTietDotThi chiTietDotThi = _chiTietDotThiService.SelectOne(caThi.MaChiTietDotThi);
             LopAo lopAo = _lopAoService.SelectOne(chiTietDotThi.MaLopAo);
             return _monHocService.SelectOne((int)lopAo.MaMonHoc);
+        }
+        [HttpPost("UpdateBatDau")]
+        public ActionResult UpdateBatDau([FromBody] ChiTietCaThi chiTietCaThi)
+        {
+            _chiTietCaThiService.UpdateBatDau(chiTietCaThi);
+            return Ok();
         }
     }
 }

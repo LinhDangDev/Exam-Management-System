@@ -33,7 +33,7 @@ namespace GettingStarted.Client.Pages
         private int thu_tu_ma_nhom { get; set; }
         private int thu_tu_ma_cau_hoi { get; set; }
         private List<string> alphabet { get; set; }
-        private static List<int> listDapAn { get; set; } // lưu vết các đáp án sinh viên chọn
+        public static List<int> listDapAn { get; set; }// lưu vết các đáp án sinh viên chọn
         private System.Timers.Timer timer { get; set; }
         private string displayTime { get; set; }
         protected override async Task OnInitializedAsync()
@@ -45,6 +45,7 @@ namespace GettingStarted.Client.Pages
             {
                 await js.InvokeVoidAsync("alert", "Cách hoạt động trang trang web không hợp lệ. Vui lòng quay lại");
                 navManager.NavigateTo("/info");
+                return;
             }
             Time(); // xử lí countdown
             //xác thực người dùng
@@ -127,21 +128,30 @@ namespace GettingStarted.Client.Pages
                 cauTraLois = JsonSerializer.Deserialize<List<TblCauTraLoi>>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
             }
         }
-        private async Task onClickDangXuat()
+        private async Task onClickThoat()
         {
-            await js.InvokeVoidAsync("exitExam");
-            navManager.NavigateTo("/info");
+            bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn thoát ra khi đang làm bài. Quá trình ghi nhận số câu bạn làm sẽ không được bảo toàn !!" +
+                "Nếu bạn muốn nộp bài. Vui lòng nhấn nút Nộp Bài");
+            if (result)
+            {
+                await js.InvokeVoidAsync("exitExam");
+                navManager.NavigateTo("/info");
+            }
         }
         private async Task onClickLuuBai()
         {
             await js.InvokeVoidAsync("saveExam");
-            myData.GetDSKhoanh(listDapAn);
+            myData.listDapAnKhoanh = listDapAn;
         }
         private async Task onClickNopBai()
         {
-            await js.InvokeVoidAsync("submitExam");
-            await onClickLuuBai();
-            navManager.NavigateTo("/result");
+            bool result = await js.InvokeAsync<bool>("confirm", "Bạn có chắc chắn muốn nộp bài không?");
+            if (result)
+            {
+                await js.InvokeVoidAsync("submitExam");
+                await onClickLuuBai();
+                navManager.NavigateTo("/result");
+            }
         }
         private async Task Start()
         {
@@ -209,7 +219,7 @@ namespace GettingStarted.Client.Pages
         {
             // Xử lý giá trị được truyền từ JavaScript
             listDapAn[vi_tri_cau_hoi - 1] = vi_tri_cau_tra_loi;
-            return Task.FromResult<int>(listDapAn[vi_tri_cau_hoi - 1]);
+            return Task.FromResult<int>(vi_tri_cau_tra_loi);
         }
     }
 }

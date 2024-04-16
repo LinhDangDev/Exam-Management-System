@@ -62,9 +62,6 @@ function submitExam() {
             message: "Bạn đã nộp bài thành công!",
             type: "success",
             duration: 500,
-            callback: function () {
-                window.location.href = "/result";
-            }
         });
     }
 }
@@ -79,9 +76,6 @@ function exitExam() {
             message: "Bạn đã thoát khỏi kỳ thi thành công!",
             type: "info",
             duration: 500,
-            callback: function () {
-                window.location.href = "/";
-            }
         });
     }
 }
@@ -94,9 +88,6 @@ function saveExam() {
         message: "Bài thi của bạn đã được lưu thành công!",
         type: "info",
         duration: 1000,
-        callback: function () {
-            // Có thể thực hiện các hành động khác nếu cần sau khi toast biến mất
-        }
     });
 }
 
@@ -104,9 +95,7 @@ function saveExam() {
 
 // Hàm thay đổi màu cho nút và cập nhật màu cho thẻ a tương ứng
 function changeButtonColor(button, thu_tu_cau_hoi, thu_tu_cau_tra_loi) {
-    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, thu_tu_cau_tra_loi).then(result => {
-        alert("Message: " + result);
-    });
+    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, thu_tu_cau_tra_loi).then();
     const parent = button.closest('.form-input');
 
     if (!parent) {

@@ -29,15 +29,15 @@ public partial class Result
     private double diem { get; set; }
     protected override async Task OnInitializedAsync()
     {
+        if (myData.ma_ca_thi == null || myData.ma_de_thi_hoan_vi == null)
+        {
+            await js.InvokeVoidAsync("alert", "Cách hoạt động trang trang web không hợp lệ. Vui lòng quay lại");
+            navManager.NavigateTo("/info");
+        }
         await Start();
-        //if (caThi == null || caThi.TenCaThi == null)
-        //{
-        //    await js.InvokeVoidAsync("alert", "Cách hoạt động trang trang web không hợp lệ. Vui lòng quay lại");
-        //    navManager.NavigateTo("/info");
-        //}
+        //xác thực người dùng
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
         var token = await customAuthStateProvider.GetToken();
-
         if (!string.IsNullOrWhiteSpace(token))
         {
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
@@ -46,6 +46,7 @@ public partial class Result
         {
             navManager.NavigateTo("/");
         }
+        tinhDiemSo();
         await base.OnInitializedAsync();
     }
     private async Task getThongTinSV()
@@ -90,27 +91,16 @@ public partial class Result
     {
         diem = 0;
         double diem_tung_cau = (10.0 / chiTietDeThiHoanVis.Count);
-        int length = myData.listSVKhoanh.Count;
+        int length = myData.listDapAnKhoanh.Count;
         for(int i = 0; i < length; i++)
         {
             //nếu trùng đáp án thì có điểm, còn không trùng thì không có
-            if (myData.listSVKhoanh[i] == listDapAn[i])
+            if (myData.listDapAnKhoanh[i] == listDapAn[i])
             {
                 diem += diem_tung_cau;
             }
         }
-        diem = cachQuyDoiDiem(diem);
-    }
-    private double cachQuyDoiDiem(double diem)
-    {
-        diem = Math.Round(diem, 2);// lấy 2 số thập phân
-        double so_phay = diem % 100;
-        if(so_phay < 25)
-            return Math.Floor(diem);
-        if(so_phay >= 25 && so_phay < 75)
-            return Math.Floor(diem) + 0.5;
-        return Math.Ceiling(diem);
-
+        diem = Math.Round(diem,1);
     }
     private async Task Start()
     {
@@ -122,6 +112,6 @@ public partial class Result
         await getThongTinCaThi();
         await getChiTietDeThiHoanVi();
         await GetListDapAn();
-        tinhDiemSo();
+
     }
 }

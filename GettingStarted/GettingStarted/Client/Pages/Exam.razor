@@ -18,7 +18,7 @@
 
     <!-- styles -->
     <link rel="stylesheet" href="./css/exam/style.css" />
-    <link rel="stylesheet" href="./css/exam/reset.css" />
+    <link rel="stylesheet" href="./css/exam/reset.css" /> 
     <title>Document</title>
 </head>
 
@@ -39,7 +39,7 @@
                     <button @onclick="onClickNopBai" class="btn btn-nop-bai">
                         Nộp Bài
                     </button>
-                    <button @onclick="onClickDangXuat" class="btn btn-thoat">Thoát</button>
+                    <button @onclick="onClickThoat" class="btn btn-thoat">Thoát</button>
                 </nav>
             </div>
         </div>
@@ -85,7 +85,7 @@
                                             int vitri = chiTietDeThiHV.HoanViTraLoi[i] - '0'; // chuyển đổi mã ACII từ chữ thành số
                                             var cauTraLoi = cauTraLois.FirstOrDefault(p => p.MaCauHoi == chiTietDeThiHV.MaCauHoi && p.ThuTu == vitri);
                                             string noiDungCauTraLoi = cauTraLoi.NoiDung;
-                                            <button class="btn1 answer" onclick="changeButtonColor(this, @thu_tu_ma_cau_hoi, @vitri)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
+                                            <button class="btn1 answer" onclick="changeButtonColor(this, @QuestionMask, @vitri)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
                                         }
                                     }
                                 </div>

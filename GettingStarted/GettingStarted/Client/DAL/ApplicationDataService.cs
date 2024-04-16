@@ -13,12 +13,15 @@ namespace GettingStarted.Client.DAL
         public long? ma_de_thi_hoan_vi { get; set; }
         public string? ten_mon_hoc { get; set; }
 
-        public List<int> listSVKhoanh { get; set; }
+        public List<int> listDapAnKhoanh { get; set; }
 
-        public void GetDSKhoanh(List<int> danhsach)
-        {
-            listSVKhoanh = new List<int>();
-            listSVKhoanh.AddRange(danhsach);
-        }
+        //public void TaoDSCauHoi()
+        //{
+        //    listSVKhoanh = new List<int>();
+        //    for(int i = 0; i < 200; i++)
+        //    {
+        //        listSVKhoanh.Add(0);
+        //    }
+        //}
     }
 }

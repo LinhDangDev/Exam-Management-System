@@ -8,6 +8,7 @@ using GettingStarted.Client.Authentication;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.JSInterop;
+using System.Text;
 
 namespace GettingStarted.Client.Pages
 {
@@ -28,6 +29,7 @@ namespace GettingStarted.Client.Pages
         private SinhVien? sinhVien { get; set; }
         private CaThi? caThi { get; set; }
         private MonHoc? monHoc { get; set; }
+        private ChiTietCaThi? chiTietCaThi { get; set; }
         string selectoption_cathi = "";
         protected override async Task OnInitializedAsync()
         {
@@ -76,30 +78,52 @@ namespace GettingStarted.Client.Pages
             }
             myData.ten_mon_hoc = monHoc.TenMonHoc;
         }
+        private async Task getThongTinChiTietCaThi()
+        {
+            var response = await httpClient.PostAsync($"api/Info/GetChiTietCaThiSelectBy_SinhVien?ma_ca_thi={myData.ma_ca_thi}&ma_sinh_vien={myData.ma_sinh_vien}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                var resultString = await response.Content.ReadAsStringAsync();
+                chiTietCaThi = JsonSerializer.Deserialize<ChiTietCaThi>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            }
+        }
         private async Task onClickDangXuat()
         {
-            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
-            await customAuthStateProvider.UpdateAuthenticationState(null);
-            navManager.NavigateTo("/", true);
+            bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn đăng xuất?");
+            if (result)
+            {
+                var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+                await customAuthStateProvider.UpdateAuthenticationState(null);
+                navManager.NavigateTo("/", true);
+            }
         }
-        private void OnClickBatDauThi()
+        private async Task OnClickBatDauThi()
         {
             if (!CheckRadioButton())
             {
-                js.InvokeVoidAsync("alert", "Vui lòng chọn ca thi!");
+                await js.InvokeVoidAsync("alert", "Vui lòng chọn ca thi!");
                 return;
             }
+            await HandleUpdateBatDau();
+            await js.InvokeVoidAsync("alert", "Bắt đầu thi.Chúc bạn sớm hoàn thành kết quả tốt nhất");
             navManager.NavigateTo("/exam");
+        }
+        private async Task HandleUpdateBatDau()
+        {
+            chiTietCaThi.ThoiGianBatDau = DateTime.Now;
+            var jsonString = JsonSerializer.Serialize(chiTietCaThi);
+            await httpClient.PostAsync("api/Info/UpdateBatDau", new StringContent(jsonString, Encoding.UTF8, "application/json"));
         }
         private async Task Start()
         {
             sinhVien = new SinhVien();
             caThi = new CaThi();
             var authState = await authenticationState;
-            myData.ma_so_sinh_vien = authState.User.Identity.Name;
+            myData.ma_so_sinh_vien = authState?.User.Identity?.Name;
             await getThongTinSV();
             await getThongTinCaThi();
             await GetThongTinMonThi();
+            await getThongTinChiTietCaThi();
         }
         private bool CheckRadioButton()
         {
