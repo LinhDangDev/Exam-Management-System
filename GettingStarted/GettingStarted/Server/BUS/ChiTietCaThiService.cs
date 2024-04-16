@@ -30,19 +30,31 @@ namespace GettingStarted.Server.BUS
             chiTietCaThi.LyDoCong = dataReader.IsDBNull(13) ? null : dataReader.GetString(13);
             return chiTietCaThi;
         }
+        public ChiTietCaThi SelectOne(int chi_tiet_ca_thi)
+        {
+            ChiTietCaThi chiTietCaThi = new ChiTietCaThi();
+            using (IDataReader dataReader = _chiTietCaThiRepository.SelectOne(chi_tiet_ca_thi))
+            {
+                if (dataReader.Read())
+                {
+                    chiTietCaThi = getProperty(dataReader);
+                }
+                dataReader.Dispose();
+            }
+            return chiTietCaThi;
+        }
         public List<ChiTietCaThi> SelectBy_ma_ca_thi(int ma_ca_thi)
         {
-            List<ChiTietCaThi> list = new List<ChiTietCaThi>();
+            List<ChiTietCaThi> result = new List<ChiTietCaThi>();
             using(IDataReader dataReader = _chiTietCaThiRepository.SelectBy_ma_ca_thi(ma_ca_thi))
             {
                 while (dataReader.Read())
                 {
-                    ChiTietCaThi chiTietCaThi = getProperty(dataReader);
-                    list.Add(chiTietCaThi);
+                    result.Add(getProperty(dataReader));
                 }
                 dataReader.Dispose();
             }
-            return list;
+            return result;
         }
         public ChiTietCaThi SelectBy_MaCaThi_MaSinhVien(int ma_ca_thi, long ma_sinh_vien)
         {
@@ -56,6 +68,41 @@ namespace GettingStarted.Server.BUS
                 dataReader.Dispose();
             }
             return chiTietCaThi;
+        }
+        public List<ChiTietCaThi> SelectBy_ma_sinh_vien(long ma_sinh_vien)
+        {
+            List<ChiTietCaThi> result = new List<ChiTietCaThi>();
+            using(IDataReader dataReader = _chiTietCaThiRepository.SelectBy_ma_sinh_vien(ma_sinh_vien))
+            {
+                while (dataReader.Read())
+                {
+                    result.Add(getProperty(dataReader));
+                }
+                dataReader.Dispose();
+            }
+            return result;
+        }
+        public void UpdateBatDau(ChiTietCaThi chiTietCaThi)
+        {
+            int ma_chi_tiet_ca_thi = chiTietCaThi.MaChiTietCaThi;
+            DateTime? thoi_gian_bat_dau = chiTietCaThi.ThoiGianBatDau;
+            if(!_chiTietCaThiRepository.UpdateBatDau(ma_chi_tiet_ca_thi, thoi_gian_bat_dau))
+            {
+                throw new Exception("Can't UpdateBatDau table chi_tiet_ca_thi");
+            }
+        }
+        public void UpdateKetThuc(ChiTietCaThi chiTietCaThi)
+        {
+            //float diem, int so_cau_dung, int tong_so_cau
+            int ma_chi_tiet_ca_thi = chiTietCaThi.MaChiTietCaThi;
+            DateTime? thoi_gian_ket_thuc = chiTietCaThi.ThoiGianKetThuc;
+            double diem = chiTietCaThi.Diem;
+            int? so_cau_dung = chiTietCaThi.SoCauDung;
+            int? tong_so_cau = chiTietCaThi.TongSoCau;
+            if (!_chiTietCaThiRepository.UpdateKetThuc(ma_chi_tiet_ca_thi, thoi_gian_ket_thuc, diem, so_cau_dung, tong_so_cau))
+            {
+                throw new Exception("Can't UpdateKetThuc table chi_tiet_ca_thi");
+            }
         }
     }
 }

@@ -18,5 +18,11 @@ namespace GettingStarted.Server.DAL.Repositories
             sql.SqlParams("@ma_lop_ao", SqlDbType.Int, ma_lop_ao);
             return sql.ExcuteReader();
         }
+        public IDataReader SelectOne(int ma_chi_tiet_dot_thi)
+        {
+            DatabaseReader sql = new DatabaseReader("chi_tiet_dot_thi_SelectOne");
+            sql.SqlParams("@ma_chi_tiet_dot_thi", SqlDbType.Int, ma_chi_tiet_dot_thi);
+            return sql.ExcuteReader();
+        }
     }
 }

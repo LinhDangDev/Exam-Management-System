@@ -103,47 +103,47 @@ body{
 
 }
 .imformation-container {
+    margin-top: 30px;
     display: flex;
-    flex-direction: column; /* Canh theo chiều dọc */
-    align-items: center; /* Canh theo chiều ngang */
-    justify-content: center; /* Canh theo chiều dọc */
-    padding: 39px 42px 37px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 42px 37px;
     background-color: #D9D9D9;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 5px 6px 69px 19px rgba(0, 0, 44, 0.1);
-    width: 1450px;
-    height: 1090px;
-    overflow: auto;
+    width: 1400px;
+    min-height: 865px;
+}
+    /* overflow: auto;
 }
 .img-container {
     width: 250px;
     height: 114px;
 
-}
+}*/
 .img-container img {
-    margin-bottom: 10px;
-    width: 100%;
-    max-width: 100%;
+    margin: 30px 0;
+    
 
 }
 
-.information-student {
+/*.information-student {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     color: #171A1FFF;
     margin-bottom: 20px; /* Thêm margin-bottom để tạo khoảng cách với grid container */
-}
+
 .label {
     display: grid;
-    grid-template-columns: 1.9fr 13fr;
-    grid-column-gap: 34px;
-    max-width: 1000px; /* Số này có thể điều chỉnh theo ý muốn */
-    margin: auto;
+    grid-template-columns: 1.9fr 11fr;
+    grid-column-gap: 10px;
+    /* max-width: 1019px; */
     text-align: right;
-    gap: 10px;
+
 }
 .show-text.hidden {
     visibility: hidden;
@@ -153,40 +153,34 @@ body{
 .input-text {
 /*   flex: 0 0 40%; !* Chia đều không gian trong một hàng *!*/
     padding: 5px; /* Tạo khoảng cách giữa các phần tử */
-    font-size: 16.5px;
+    font-size: 20.5px;
+    font-weight:bold;
 }
 
 .show-text {
-    width: 100%;
-    padding: 5px;
+    font-weight: 600;
+    text-align: start;
+    width: 98%;
+    padding: 12px;
     border: 1px solid #ccc;
-
 }
 
 .result-score {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-rows: repeat(2, auto);
-
+    align-items: center;
+    display: flex;
+    margin-right: 25px;
 }
 
-.result-box {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
-    margin-top: 4px; /* Nếu như thêm 1 dòng thi đổi lại 77px*/
-}
-.show-result
-{
+
+.show-result {
     width: 200px;
     height: 200px;
-    gap: 30px;
-    margin-top: 34px;
+    margin-top: 30px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 40px;
+    /* margin-left: 40px; */
     font-size: 40px;
     font-weight: bold;
     padding: 10px;
@@ -235,4 +229,17 @@ body{
 .item-50, .item-51, .item-52, .item-53, .item-54, .item-55,
 .item-56, .item-57, .item-58, .item-59, .item-60 {
     background: rgba(123, 229, 106, 0.7);
+}
+
+hr {
+    width: 77%;
+    height: 5px;
+    background: black;
+}
+
+.title_retail {
+    font-weight: 800;
+    padding-left: 100px;
+    margin-right: auto;
+    font-size: 24px;
 }

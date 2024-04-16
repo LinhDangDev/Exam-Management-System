@@ -93,6 +93,15 @@ namespace GettingStarted.Server.DAL.DataReader
                     }
                     throw new Exception("An error occurred: " + ex.Message, ex);
                 }
+                finally
+                {
+                    if (connection != null)
+                    {
+                        connection.Close();
+                        connection.Dispose();
+                        connection = null;
+                    }
+                }
 
             }
         }

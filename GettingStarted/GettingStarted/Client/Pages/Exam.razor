@@ -18,7 +18,7 @@
 
     <!-- styles -->
     <link rel="stylesheet" href="./css/exam/style.css" />
-    <link rel="stylesheet" href="./css/exam/reset.css" />
+    <link rel="stylesheet" href="./css/exam/reset.css" /> 
     <title>Document</title>
 </head>
 
@@ -36,10 +36,10 @@
                     <h3>Thời Gian : @displayTime</h3>
                 </div>
                 <nav class="nav">
-                    <button onclick="submitExam()" class="btn btn-nop-bai">
+                    <button @onclick="onClickNopBai" class="btn btn-nop-bai">
                         Nộp Bài
                     </button>
-                    <button onclick="exitExam()" class="btn btn-thoat">Thoát</button>
+                    <button @onclick="onClickThoat" class="btn btn-thoat">Thoát</button>
                 </nav>
             </div>
         </div>
@@ -63,13 +63,18 @@
                                 thu_tu_ma_nhom = chiTietDeThiHV.MaNhom;
                                 var cauHoiNhom = nhomCauHois.FirstOrDefault(p => p.MaNhom == thu_tu_ma_nhom);
                                 string noiDungCauHoiNhom = cauHoiNhom.NoiDung;
-                                <div class="txt">
+                                <section id="question@(QuestionMask )" class="txt">
                                     <p>@((MarkupString)noiDungCauHoiNhom)</p>
-                                </div>
+                                </section>
                             }
+<<<<<<< HEAD
                             
                             <section id="question@(QuestionMask + 1)" class="form_question">
 
+=======
+
+                            <div id="question@(QuestionMask + 1)" class="form_question">
+>>>>>>> main
                                 @if (chiTietDeThiHV.MaCauHoi != thu_tu_ma_cau_hoi)
                                 {
                                     thu_tu_ma_cau_hoi = chiTietDeThiHV.MaCauHoi;
@@ -86,13 +91,14 @@
                                             int vitri = chiTietDeThiHV.HoanViTraLoi[i] - '0'; // chuyển đổi mã ACII từ chữ thành số
                                             var cauTraLoi = cauTraLois.FirstOrDefault(p => p.MaCauHoi == chiTietDeThiHV.MaCauHoi && p.ThuTu == vitri);
                                             string noiDungCauTraLoi = cauTraLoi.NoiDung;
-                                            <button class="btn1 answer" onclick="changeButtonColor(this)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
+                                            <button class="btn1 answer" onclick="changeButtonColor(this, @QuestionMask, @vitri)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
                                         }
                                     }
                                 </div>
-                            </section>
+                            </div>
                             QuestionMask++;
                         }
+
                     </div>
                     <!-- layout right -->
                     <div class="layout-right">
@@ -117,7 +123,7 @@
                                         int tongSoCau = chiTietDeThiHoanVis.Count;
                                         for (int i = 1; i <= tongSoCau; i++)
                                         {
-                                            <a href="javascript:void(0);" onclick="scrollToQuestion(@i)">@i</a>
+                                            <a href="javascript:void(0);" onclick="scrollToQuestion(@i )">@i</a>
                                         }
                                     }
                                 </div>
@@ -125,7 +131,7 @@
                             </div>
 
                             <div class="save">
-                                <button onclick="saveExam()" class="btn btn-save">Save</button>
+                                <button @onclick="onClickLuuBai" class="btn btn-save">Lưu bài</button>
                             </div>
                         </div>
                     </div>
@@ -139,5 +145,5 @@
 </body>
 <div id="toast"></div>
 <!-- Script for the toast function and other functionalities -->
-<script src="./js/main.js"></script>
+<script src="./js/main.js" type="text/javascript"></script>
 </html>

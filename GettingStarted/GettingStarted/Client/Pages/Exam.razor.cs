@@ -3,6 +3,11 @@ using GettingStarted.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System.Text.Json;
 using System.Text;
+using Microsoft.AspNetCore.Components.Authorization;
+using GettingStarted.Client.Authentication;
+using System.Net.Http.Headers;
+using System.Net;
+using Microsoft.JSInterop;
 
 namespace GettingStarted.Client.Pages
 {
@@ -12,6 +17,12 @@ namespace GettingStarted.Client.Pages
         HttpClient httpClient { get; set; }
         [Inject]
         ApplicationDataService myData { get; set; }
+        [Inject]
+        AuthenticationStateProvider authenticationStateProvider { get; set; }
+        [Inject]
+        NavigationManager navManager { get; set;}
+        [Inject]
+        IJSRuntime js { get; set; }
         private SinhVien? sinhVien { get; set; }
         private CaThi? caThi { get; set; }
         private ChiTietCaThi? chiTietCaThi { get; set; }
@@ -22,17 +33,32 @@ namespace GettingStarted.Client.Pages
         private int thu_tu_ma_nhom { get; set; }
         private int thu_tu_ma_cau_hoi { get; set; }
         private List<string> alphabet { get; set; }
+        public static List<int> listDapAn { get; set; }// lưu vết các đáp án sinh viên chọn
         private System.Timers.Timer timer { get; set; }
         private string displayTime { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            /////////////////////////////////////////
-            myData.ma_ca_thi = 1;
-            ////////////////////////////////////////
             thu_tu_ma_cau_hoi = thu_tu_ma_nhom = -1;
-            alphabet = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
+            alphabet = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K" };
             await Start();
+            if(caThi == null || caThi.TenCaThi == null)
+            {
+                await js.InvokeVoidAsync("alert", "Cách hoạt động trang trang web không hợp lệ. Vui lòng quay lại");
+                navManager.NavigateTo("/info");
+                return;
+            }
             Time(); // xử lí countdown
+            //xác thực người dùng
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+            var token = await customAuthStateProvider.GetToken();
+            if(!string.IsNullOrWhiteSpace(token))
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+            }
+            else
+            {
+                navManager.NavigateTo("/");
+            }
             await base.OnInitializedAsync();
         }
         private async Task getThongTinSV()
@@ -70,6 +96,7 @@ namespace GettingStarted.Client.Pages
                 var resultString = await response.Content.ReadAsStringAsync();
                 chiTietDeThiHoanVis = JsonSerializer.Deserialize<List<TblChiTietDeThiHoanVi>>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
             }
+            myData.ma_de_thi_hoan_vi = chiTietCaThi.MaDeThi;
         }
         private async Task getNoiDungMaNhom()
         {
@@ -101,6 +128,31 @@ namespace GettingStarted.Client.Pages
                 cauTraLois = JsonSerializer.Deserialize<List<TblCauTraLoi>>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
             }
         }
+        private async Task onClickThoat()
+        {
+            bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn thoát ra khi đang làm bài. Quá trình ghi nhận số câu bạn làm sẽ không được bảo toàn !!" +
+                "Nếu bạn muốn nộp bài. Vui lòng nhấn nút Nộp Bài");
+            if (result)
+            {
+                await js.InvokeVoidAsync("exitExam");
+                navManager.NavigateTo("/info");
+            }
+        }
+        private async Task onClickLuuBai()
+        {
+            await js.InvokeVoidAsync("saveExam");
+            myData.listDapAnKhoanh = listDapAn;
+        }
+        private async Task onClickNopBai()
+        {
+            bool result = await js.InvokeAsync<bool>("confirm", "Bạn có chắc chắn muốn nộp bài không?");
+            if (result)
+            {
+                await js.InvokeVoidAsync("submitExam");
+                await onClickLuuBai();
+                navManager.NavigateTo("/result");
+            }
+        }
         private async Task Start()
         {
             sinhVien = new SinhVien();
@@ -110,6 +162,7 @@ namespace GettingStarted.Client.Pages
             nhomCauHois = new List<TblNhomCauHoi>();
             cauHois = new List<TblCauHoi>();
             cauTraLois = new List<TblCauTraLoi>();
+            listDapAn = new List<int>();
             await getThongTinSV();
             await getThongTinChiTietCaThi();
             await getThongTinCaThi();
@@ -117,6 +170,15 @@ namespace GettingStarted.Client.Pages
             await getNoiDungMaNhom();
             await getNoiDungCauHoi();
             await getAllCauTraLoi();
+            // khởi tạo giá trị list câu hỏi ban đầu
+            taoListCauHoiRong(chiTietDeThiHoanVis.Count);
+        }
+        private void taoListCauHoiRong(int tong_so_cau_hoi)
+        {
+            for(int i = 0; i < tong_so_cau_hoi; i++)
+            {
+                listDapAn.Add(0);
+            }
         }
         private void Time()
         {
@@ -127,7 +189,7 @@ namespace GettingStarted.Client.Pages
             int tong_so_giay = caThi.ThoiGianThi * 60;
             int so_gio_hien_tai = tong_so_giay;
             displayTime = FormatTime(tong_so_giay);
-            timer.Elapsed += (sender, e) =>
+            timer.Elapsed += async (sender, e) =>
             {
                 so_gio_hien_tai--;
                 if (so_gio_hien_tai >= 0)
@@ -138,6 +200,8 @@ namespace GettingStarted.Client.Pages
                 else
                 {
                     timer.Stop(); // Dừng timer khi countdown kết thúc
+                    await onClickLuuBai();
+                    navManager.NavigateTo("/result");
                 }
             };
         }
@@ -149,6 +213,13 @@ namespace GettingStarted.Client.Pages
         public void Dispose()
         {
             timer.Dispose();
+        }
+        [JSInvokable] // Đánh dấu hàm để có thể gọi từ JavaScript
+        public static Task<int> GetDapAnFromJavaScript(int vi_tri_cau_hoi, int vi_tri_cau_tra_loi)
+        {
+            // Xử lý giá trị được truyền từ JavaScript
+            listDapAn[vi_tri_cau_hoi - 1] = vi_tri_cau_tra_loi;
+            return Task.FromResult<int>(vi_tri_cau_tra_loi);
         }
     }
 }

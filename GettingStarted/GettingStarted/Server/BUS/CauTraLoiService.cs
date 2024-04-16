@@ -18,7 +18,8 @@ namespace GettingStarted.Server.BUS
             cauTraLoi.MaCauHoi = dataReader.GetInt32(1);
             cauTraLoi.ThuTu = dataReader.GetInt32(2);
             cauTraLoi.NoiDung = dataReader.IsDBNull(3) ? null : dataReader.GetString(3);
-            cauTraLoi.HoanVi = dataReader.GetBoolean(4);
+            cauTraLoi.LaDapAn = dataReader.GetBoolean(4);
+            cauTraLoi.HoanVi = dataReader.GetBoolean(5);
             return cauTraLoi;
         }
         public List<TblCauTraLoi> SelectBy_MaCauHoi(int ma_cau_hoi)

@@ -236,7 +236,10 @@ a {
     .layout .layout-left {
         padding: 0px 69px;
         width: 70%;
+        margin-bottom: 30px; /* Khoảng cách từ phía dưới cùng của body */
+        background-color: rgba(255, 255, 255, 0.3); /* Màu nền mơ mơ */
     }
+
 
         .layout .layout-left .txt {
             margin: 24px 0;
@@ -392,7 +395,7 @@ a {
         font-size: 18px;
         font-style: normal;
         font-weight: 400;
-        color:black;
+        color: black;
         line-height: normal;
     }
 
@@ -426,3 +429,4 @@ a {
             border-color: #ffcc99;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
+

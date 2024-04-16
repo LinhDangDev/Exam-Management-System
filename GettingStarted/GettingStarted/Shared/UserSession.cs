@@ -12,7 +12,7 @@ namespace GettingStarted.Shared
         public string Username { get; set; }
         public string Token { get; set; }
         public int ExpireIn { get; set; }
-        public DateTime ExpiryTimeSpan { get; set; }
+        public DateTime ExpiryTimeStamp { get; set; }
         public SinhVien NavigateSinhVien { get; set; }
     }
 }
