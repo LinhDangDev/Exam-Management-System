@@ -127,12 +127,17 @@ public partial class Result
         bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn đăng xuất?");
         if (result)
         {
+            await UpdateLogout();
             var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
             await customAuthStateProvider.UpdateAuthenticationState(null);
             navManager.NavigateTo("/", true);
         }
     }
-    
+    private async Task UpdateLogout()
+    {
+        await httpClient.PostAsync($"api/Login/UpdateLogout?ma_sinh_vien={myData.ma_sinh_vien}&last_log_out={DateTime.Now}", null);
+    }
+
     private async Task Start()
     {
         sinhVien = new SinhVien();

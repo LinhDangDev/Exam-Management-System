@@ -67,13 +67,19 @@ namespace GettingStarted.Server.DAL.Repositories
             DatabaseReader sql = new DatabaseReader("sinh_vien_GetAll");
             return sql.ExcuteReader();
         }
-        public IDataReader Login(long ma_sinh_vien, DateTime last_log_in)
+        public bool Login(long ma_sinh_vien, DateTime last_log_in)
         {
             DatabaseReader sql = new DatabaseReader("sinh_vien_Login");
             sql.SqlParams("@ma_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
             sql.SqlParams("@last_logged_in", SqlDbType.DateTime, last_log_in);
-            return sql.ExcuteReader();
+            return sql.ExcuteNonQuery() != 0;
         }
-        
+        public bool Logout(long ma_sinh_vien, DateTime last_log_out)
+        {
+            DatabaseReader sql = new DatabaseReader("sinh_vien_Logout");
+            sql.SqlParams("@ma_sinh_vien", SqlDbType.BigInt, ma_sinh_vien);
+            sql.SqlParams("@last_logged_out", SqlDbType.DateTime, last_log_out);
+            return sql.ExcuteNonQuery() != 0;
+        }
     }
 }

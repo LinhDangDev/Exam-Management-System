@@ -17,6 +17,7 @@ namespace GettingStarted.Server.DAL.Repositories
         // lấy hết thông tin của tất cả sinh viên
         public IDataReader GetAll();
         // cập nhật thông tin sinh viên vào hệ thống gần đây nhất
-        public IDataReader Login(long ma_sinh_vien, DateTime last_log_in);
+        public bool Login(long ma_sinh_vien, DateTime last_log_in);
+        public bool Logout(long ma_sinh_vien, DateTime last_log_out);
     }
 }

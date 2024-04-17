@@ -54,25 +54,26 @@ function toast({ title = "", message = "", type = "info", duration = 500, callba
 
 // Function to submit the exam
 function submitExam() {
+    var result = confirm("Bạn có chắc chắn muốn nộp bài không?");
     // Hiển thị hộp thoại xác nhận
-    if (confirm("Bạn có chắc chắn muốn nộp bài không?")) {
+    if (result) {
         // Nếu người dùng xác nhận, thì hiển thị toast thành công
         toast({
             title: "Nộp bài",
             message: "Bạn đã nộp bài thành công!",
             type: "success",
             duration: 500,
-            callback: function () {
-                window.location.href = "/result";
-            }
         });
     }
+    return result;
 }
 
 // Function to exit the exam with confirmation
 function exitExam() {
+    var result = confirm("Bạn muốn thoát ra khi đang làm bài.Quá trình ghi nhận số câu bạn làm sẽ không được bảo toàn!!" +
+                "Nếu bạn muốn nộp bài. Vui lòng nhấn nút Nộp Bài");
     // Hiển thị hộp thoại xác nhận
-    if (confirm("Bạn có chắc chắn muốn thoát khỏi kỳ thi không?")) {
+    if (result) {
         // Nếu người dùng xác nhận, thì hiển thị toast thoát
         toast({
             title: "Thoát",
@@ -81,6 +82,7 @@ function exitExam() {
             duration: 500,
         });
     }
+    return result;
 }
 
 // Function to save the exam without confirmation

@@ -11,6 +11,7 @@ using System.Web;
 using System.Text;
 using System.Xml.Linq;
 using System.Net.Http.Headers;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 namespace GettingStarted.Client.Pages
 {
 
@@ -24,10 +25,12 @@ namespace GettingStarted.Client.Pages
         AuthenticationStateProvider authenticationStateProvider { get; set; }
         [Inject]
         IJSRuntime js { get; set; }
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationState { get; set; }
         SinhVien? sv { get; set; }
         UserSession? userSession { get; set; }
-        private string ma_so_sinh_vien = "";
-        private string password = "";
+        private string? ma_so_sinh_vien = "";
+        private string? password = "";
 
         protected override async Task OnInitializedAsync()
         {
@@ -38,13 +41,43 @@ namespace GettingStarted.Client.Pages
             if (!string.IsNullOrWhiteSpace(token))
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+                var authState = await authenticationState;
+                ma_so_sinh_vien = authState?.User.Identity?.Name;
+                await getThongTinSinhVienByMSSV();
+                await UpdateLogin();
                 navManager.NavigateTo("/info");
             }
             await base.OnInitializedAsync();
         }
+        private async Task<bool> Check()
+        {
+            bool checkSinhVien = false;
+            if (ma_so_sinh_vien == password)
+            {
+                await getThongTinSinhVienByMSSV();
+                checkSinhVien = (sv.MaSinhVien != 0) ? true : false;
+            }
+            return checkSinhVien;
+        }
+        private async Task getThongTinSinhVienByMSSV()
+        {
+            var loginResponse = await httpClient.PostAsync($"api/Login/Check?ma_so_sinh_vien={ma_so_sinh_vien}", null);
+            if (loginResponse.IsSuccessStatusCode)
+            {
+                // Đọc kết quả từ phản hồi
+                var resultString = await loginResponse.Content.ReadAsStringAsync();
+
+                // Chuyển đổi kết quả từ chuỗi JSON thành giá trị mình muốn
+                sv = JsonSerializer.Deserialize<SinhVien>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            }
+        }
+        private async Task UpdateLogin()
+        {
+            await httpClient.PostAsync($"api/Login/UpdateLogin?ma_sinh_vien={sv.MaSinhVien}&last_log_in={DateTime.Now}", null);
+        }
         private async Task Authenticate()
         {
-            if (ma_so_sinh_vien == password)
+            if (await Check())
             {
 
                 // Gửi yêu cầu HTTP POST đến API và nhận phản hồi
@@ -69,7 +102,12 @@ namespace GettingStarted.Client.Pages
                     return;
                 }
             }
-
+            else
+            {
+                await js.InvokeVoidAsync("alert", "Username và password không trùng khớp");
+                return;
+            }
+            await UpdateLogin();
         }
     }
 }

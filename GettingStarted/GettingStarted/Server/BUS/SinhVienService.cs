@@ -61,7 +61,17 @@ namespace GettingStarted.Server.BUS
         }
         public void Login(long ma_sinh_vien, DateTime last_log_in)
         {
-            _sinhVienRepository.Login(ma_sinh_vien, last_log_in);
+            if(!_sinhVienRepository.Login(ma_sinh_vien, last_log_in))
+            {
+                throw new Exception("Can't update SinhVien Login");
+            }
+        }
+        public void Logout(long ma_sinh_vien, DateTime last_log_out)
+        {
+            if(!_sinhVienRepository.Logout(ma_sinh_vien, last_log_out))
+            {
+                throw new Exception("Can't update SinhVien Logout");
+            }
         }
         //lấy thông tin của 1 sinh viên từ mã số sinh viên
         public SinhVien SelectOne(long ma_sinh_vien)

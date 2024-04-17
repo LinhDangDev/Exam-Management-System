@@ -130,23 +130,23 @@ namespace GettingStarted.Client.Pages
         }
         private async Task onClickThoat()
         {
-            bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn thoát ra khi đang làm bài. Quá trình ghi nhận số câu bạn làm sẽ không được bảo toàn !!" +
-                "Nếu bạn muốn nộp bài. Vui lòng nhấn nút Nộp Bài");
+            bool result = await js.InvokeAsync<bool>("exitExam");
             if (result)
             {
-                await js.InvokeVoidAsync("exitExam");
                 navManager.NavigateTo("/info");
             }
         }
         private async Task onClickLuuBai()
         {
-            await js.InvokeVoidAsync("saveExam");
             myData.listDapAnKhoanh = listDapAn;
+            await js.InvokeVoidAsync("saveExam");
         }
         private async Task onClickNopBai()
         {
             await onClickLuuBai();
-            await js.InvokeVoidAsync("submitExam");
+            var result = await js.InvokeAsync<bool>("submitExam");
+            if (result)
+                navManager.NavigateTo("/result");
         }
         private async Task Start()
         {

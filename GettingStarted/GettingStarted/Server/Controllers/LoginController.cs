@@ -17,15 +17,19 @@ namespace GettingStarted.Server.Controllers
         {
             _sinhVienService = sinhVienService;
         }
+        [HttpPost("Check")]
+        [AllowAnonymous]
+        public ActionResult<SinhVien> Check([FromQuery]string ma_so_sinh_vien)
+        {
+            SinhVien sv = _sinhVienService.SelectBy_ma_so_sinh_vien(ma_so_sinh_vien);
+            return sv;
+        }
+
         [HttpPost("Verify")]
         [AllowAnonymous]
         // Xác thực sv có trong database, cập nhật sv thời gian sv vào, trả về MSV
         public ActionResult<UserSession> Verify([FromQuery]string ma_so_sinh_vien)
         {
-            //// lấy mã sinh viên từ mã số sinh viên
-            //SinhVien sv = _sinhVienService.SelectBy_ma_so_sinh_vien(ma_so_sinh_vien);
-            //// cập nhật giờ sinh viên đăng nhập vào hệ thống
-            //_sinhVienService.Login(sv.MaSinhVien, DateTime.Now);
             var JwtAuthencationManager = new JwtAuthenticationManager(_sinhVienService);
             var userSession = JwtAuthencationManager.GenerateJwtToken(ma_so_sinh_vien);
             if(userSession is null)
@@ -36,6 +40,18 @@ namespace GettingStarted.Server.Controllers
             {
                 return userSession;
             }
+        }
+        [HttpPost("UpdateLogin")]
+        public ActionResult UpdateLogin([FromQuery]long ma_sinh_vien, [FromQuery] DateTime last_log_in)
+        {
+            _sinhVienService.Login(ma_sinh_vien, last_log_in);
+            return Ok();
+        }
+        [HttpPost("UpdateLogout")]
+        public ActionResult UpdateLogout([FromQuery] long ma_sinh_vien, [FromQuery] DateTime last_log_out)
+        {
+            _sinhVienService.Logout(ma_sinh_vien, last_log_out);
+            return Ok();
         }
     }
 }

@@ -5,7 +5,7 @@
     position: absolute;
     width: 100%;
     background-color: #d9d9d98f;
-    height: 100px;
+    height: 85px;
     top: 0;
     left: 0;
 }
@@ -14,14 +14,14 @@
     position: relative;
     top: 0px;
     left: 0px;
-    height: 100px;
+    height: 85px;
 }
 
 .component-thong-tin {
     position: absolute;
     width: 610px;
-    height: 600px;
-    top: 300px;
+    height: 580px;
+    top: 160px;
     left: 426px;
     background-color: #d9d9d9;
     border-radius: 12px;
@@ -46,7 +46,7 @@
 }
 
 .avatar {
-    position:absolute;
+    position: absolute;
     width: 150px;
     top: 130px;
     left: 40px;
@@ -124,9 +124,9 @@
     transition-duration: 0.4s;
 }
 
-.button-sign-out:hover{
-    color : black;
-}
+    .button-sign-out:hover {
+        color: black;
+    }
 
 .space {
     position: absolute;
@@ -142,7 +142,8 @@
     top: 400px;
     left: 50px;
 }
-.radio{
+
+.radio {
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
@@ -151,15 +152,14 @@
 }
 
 .radio-input {
-    margin-right:20px;
-    margin-bottom:10px;
-    margin-top:10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
     font-size: 20px;
-    padding-left:20px;
-
+    padding-left: 20px;
 }
 
 .button-start {
