@@ -1,0 +1,46 @@
+---------------
+13-04-24 4pm
+- Load các nội dung câu hỏi của page exam
+---------------
+13-04-24 9pm
+- Tạo thành công đồng hồ
+---------------
+13-04-24 10pm
+- Hoàn thành page Log in
+--------------
+14-04-24 12am
+- Xử lí click sáng đèn
+--------------
+14-04-24 5pm
+- Xử lí custom authorize
+--------------
+14-04-24 10pm
+-Xử lí form ca thi xong
+--------------
+15-04-24 11pm
+-Fix bug file Dlinh
+-------------
+16-04-2024 3pm
+-Chạy được file nghe đơn giản
+- Load các nội dung thẻ tag
+-------------
+16-04-2024 4pm
+- Css Dlinh đã xong
+-------------
+16-04-2024 6pm
+-Fix bug đăng nhập sai
+-------------
+17-04-2024 5pm
+-Fix css form signin vs info
+-Cập nhật login và logout sv
+--------------
+26-4-2024 10am
+- Cập nhật các câu hỏi sv chọn vào database (chiTietBaiThi)
+- Cập nhật lưu bài sau n phút
+- Nghe được n lần tối đa
+- Latex
+-------------
+04-05-2024 10pm (hiệu năng)
+- Tối ưu code và api, giảm số lần gọi đến server
+- Tạo vòng đời cho các connection pool, tự hủy diệt sau n phút
+- Thí sinh tiếp tục làm bài khi bị out giữa chừng cũng như không thể thi nếu đã hoàn thành bài, số thời gian còn lại

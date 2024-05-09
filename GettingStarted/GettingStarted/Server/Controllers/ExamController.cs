@@ -17,9 +17,11 @@ namespace GettingStarted.Server.Controllers
         private readonly CauHoiService _cauHoiService;
         private readonly CaThiService _caThiService;
         private readonly NhomCauHoiHoanViService _nhomCauHoiHoanViService;
+        private readonly ChiTietBaiThiService _chiTietBaiThiService;
+        private readonly AudioListenedService _audioListenedService;
         public ExamController(SinhVienService sinhVienService, ChiTietCaThiService chiTietCaThiService, DeThiHoanViService deThiHoanViService,
             NhomCauHoiService nhomCauHoiService, ChiTietDeThiHoanViService chiTietDeThiHoanViService, CauTraLoiService cauTraLoiService,
-            CauHoiService cauHoiService, CaThiService caThiService, NhomCauHoiHoanViService nhomCauHoiHoanViService)
+            CauHoiService cauHoiService, CaThiService caThiService, NhomCauHoiHoanViService nhomCauHoiHoanViService, ChiTietBaiThiService chiTietBaiThiService, AudioListenedService audioListenedService)
         {
             _sinhVienService = sinhVienService;
             _chiTietCaThiService = chiTietCaThiService;
@@ -30,6 +32,8 @@ namespace GettingStarted.Server.Controllers
             _cauHoiService = cauHoiService;
             _caThiService = caThiService;
             _nhomCauHoiHoanViService = nhomCauHoiHoanViService;
+            _chiTietBaiThiService = chiTietBaiThiService;
+            _audioListenedService = audioListenedService;
         }
         [HttpPost("GetThongTinSinhVien")]
         public ActionResult<SinhVien> GetThongTinSinhVien([FromQuery] long ma_sinh_vien)
@@ -100,6 +104,23 @@ namespace GettingStarted.Server.Controllers
                 result.Add(cauHoi);
             }
             return result;
+        }
+        [HttpPost("InsertChiTietBaiThi")]
+        public ActionResult<List<ChiTietBaiThi>> InsertChiTietBaiThi([FromQuery] int ma_chi_tiet_ca_thi ,[FromBody] List<TblChiTietDeThiHoanVi> chiTietDeThiHoanVis)
+        {
+            _chiTietBaiThiService.insertChiTietBaiThis_SelectByChiTietDeThiHV(chiTietDeThiHoanVis, ma_chi_tiet_ca_thi);
+            return _chiTietBaiThiService.SelectBy_ma_chi_tiet_ca_thi(ma_chi_tiet_ca_thi);
+        }
+        [HttpPost("UpdateChiTietBaiThi")]
+        public ActionResult UpdateChiTietBaiThi([FromBody] List<ChiTietBaiThi> chiTietBaiThis)
+        {
+            _chiTietBaiThiService.updateChiTietBaiThis(chiTietBaiThis);
+            return Ok();
+        }
+        [HttpPost("AudioListendCount")]
+        public ActionResult<int> AudioListendCount([FromQuery] int ma_chi_tiet_ca_thi, [FromQuery] string filename)
+        {
+            return _audioListenedService.SelectOne(ma_chi_tiet_ca_thi, filename);
         }
     }
 }

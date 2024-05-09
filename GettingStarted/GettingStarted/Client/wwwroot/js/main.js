@@ -99,8 +99,8 @@ function saveExam() {
 
 
 // Hàm thay đổi màu cho nút và cập nhật màu cho thẻ a tương ứng
-function changeButtonColor(button, thu_tu_cau_hoi, thu_tu_cau_tra_loi) {
-    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, thu_tu_cau_tra_loi).then();
+function changeButtonColor(button, thu_tu_cau_hoi, thu_tu_cau_tra_loi, ma_nhom, ma_cau_hoi) {
+    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, thu_tu_cau_tra_loi, ma_nhom, ma_cau_hoi).then();
     const parent = button.closest('.form-input');
 
     if (!parent) {
