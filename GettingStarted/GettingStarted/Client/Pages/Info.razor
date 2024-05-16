@@ -1,11 +1,11 @@
 ﻿@page "/info"
+@implements IDisposable
 @attribute [Authorize]
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="./css/info/info.css" />
+<link href="./css/info/info.css" rel="stylesheet"/>
 <!------ Include the above in your HEAD tag ---------->
-
 
 <div class="wrapper fadeInDown">
     <div id="formContent">
@@ -18,44 +18,49 @@
             </div>
         </header>
 
-       
         <div class="component-thong-tin">
             <div class="overlap">
                 <img class="logo" src="images/exam/Logo.svg">
 
                 <img class="avatar" src="images/exam/ava.jpg">
+                @if(sinhVien != null)
+                {
+                    <div class="student-id">
+                        <input class="id" type="text" name="student-id" placeholder="Mã số sinh viên: @sinhVien.MaSoSinhVien" disabled>
+                    </div>
 
-                <div class="student-id">
-                    <input class="id" type="text" name="student-id" placeholder="Mã số sinh viên: @sinhVien.MaSoSinhVien" disabled>
-                </div>
-
-                <div class="student-name">
-                    <input class="name" type="text" name="Password" placeholder="Họ và tên: @sinhVien.HoVaTenLot @sinhVien.TenSinhVien" disabled>
-                </div>
-
+                    <div class="student-name">
+                        <input class="name" type="text" name="Password" placeholder="Họ và tên: @sinhVien.HoVaTenLot @sinhVien.TenSinhVien" disabled>
+                    </div>
+                    <div class="student-email">
+                        <input class="email" type="text" name="ClassName" placeholder="Email: @sinhVien.Email"
+                               disabled>
+                    </div>
+                    <div class="time-now">
+                        <input class="time" type="text" name="ClassName" placeholder="Thời gian hiện tại: @displayTime"
+                               disabled>
+                    </div>
+                }
                 <button class="button-sign-out" @onclick="onClickDangXuat">Đăng xuất</button>
 
                 <hr class="space">
 
-                <div class="thong-bao">
-                    <label class="radio">Sinh viên hiện tại đang có 1 ca thi. Vui lòng chọn ca thi</label>
-                    <br />
-                    <big>
-                        @{
-                            if(caThi != null && caThi.TenCaThi != null)
-                            {
+                @{
+                    if (caThi != null && monHoc != null)
+                    {
+                        <div class="thong-bao">
+                        <label class="radio">Sinh viên hiện tại đang có 1 ca thi. Vui lòng chọn ca thi</label>
+                        <br />
+                        <big>
                                 <label>[@monHoc.TenMonHoc]: @caThi.TenCaThi</label>
                                 <input class="radio-input" type="radio" name="#" value="@selectoption_cathi" @onchange="RadioChanged" />
-                            }
-                        }
-                    </big>
-                </div>
+                        </big>
+                        </div>
 
-                <button class="button-start" @onclick="OnClickBatDauThi">Bắt đầu thi</button>
-                
-
+                        <button class="button-start" @onclick="OnClickBatDauThi">Bắt đầu thi</button>
+                    }
+                }
             </div>
         </div>
-      
     </div>
 </div>

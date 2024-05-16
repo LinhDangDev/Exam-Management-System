@@ -16,6 +16,17 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder.Services);
 
 
+/*Database Context Depedency Injection*/
+
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var connectionString = $"Data Source={dbHost},Initial Catalog={dbName}";
+builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
+/*===========================================*/
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

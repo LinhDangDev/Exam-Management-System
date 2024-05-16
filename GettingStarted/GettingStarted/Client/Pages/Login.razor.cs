@@ -18,15 +18,15 @@ namespace GettingStarted.Client.Pages
     public partial class Login
     {
         [Inject]
-        HttpClient httpClient { get; set; }
+        HttpClient? httpClient { get; set; }
         [Inject]
-        NavigationManager navManager { get; set; }
+        NavigationManager? navManager { get; set; }
         [Inject]
-        AuthenticationStateProvider authenticationStateProvider { get; set; }
+        AuthenticationStateProvider? authenticationStateProvider { get; set; }
         [Inject]
-        IJSRuntime js { get; set; }
+        IJSRuntime? js { get; set; }
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationState { get; set; }
+        private Task<AuthenticationState>? authenticationState { get; set; }
         SinhVien? sv { get; set; }
         UserSession? userSession { get; set; }
         private string? ma_so_sinh_vien = "";
@@ -36,55 +36,27 @@ namespace GettingStarted.Client.Pages
         {
             sv = new SinhVien();
             //nếu đã tồn tại người dùng đăng nhập trước đó, chuyển trang
-            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
-            var token = await customAuthStateProvider.GetToken();
-            if (!string.IsNullOrWhiteSpace(token))
+            var customAuthStateProvider = (authenticationStateProvider != null) ? (CustomAuthenticationStateProvider)authenticationStateProvider : null;
+            var token = (customAuthStateProvider != null) ? await customAuthStateProvider.GetToken() : null;
+            if (!string.IsNullOrWhiteSpace(token) && httpClient != null && authenticationState != null)
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
                 var authState = await authenticationState;
                 ma_so_sinh_vien = authState?.User.Identity?.Name;
-                await getThongTinSinhVienByMSSV();
-                await UpdateLogin();
-                navManager.NavigateTo("/info");
+                navManager?.NavigateTo("/info", true);
             }
             await base.OnInitializedAsync();
         }
-        private async Task<bool> Check()
-        {
-            bool checkSinhVien = false;
-            if (ma_so_sinh_vien == password)
-            {
-                await getThongTinSinhVienByMSSV();
-                checkSinhVien = (sv.MaSinhVien != 0) ? true : false;
-            }
-            return checkSinhVien;
-        }
-        private async Task getThongTinSinhVienByMSSV()
-        {
-            var loginResponse = await httpClient.PostAsync($"api/Login/Check?ma_so_sinh_vien={ma_so_sinh_vien}", null);
-            if (loginResponse.IsSuccessStatusCode)
-            {
-                // Đọc kết quả từ phản hồi
-                var resultString = await loginResponse.Content.ReadAsStringAsync();
-
-                // Chuyển đổi kết quả từ chuỗi JSON thành giá trị mình muốn
-                sv = JsonSerializer.Deserialize<SinhVien>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-            }
-        }
-        private async Task UpdateLogin()
-        {
-            await httpClient.PostAsync($"api/Login/UpdateLogin?ma_sinh_vien={sv.MaSinhVien}&last_log_in={DateTime.Now}", null);
-        }
         private async Task Authenticate()
         {
-            if (await Check())
+            if (ma_so_sinh_vien == password && httpClient != null)
             {
 
                 // Gửi yêu cầu HTTP POST đến API và nhận phản hồi
-                var loginResponse = await httpClient.PostAsync($"api/Login/Verify?ma_so_sinh_vien={ma_so_sinh_vien}", null);
+                var loginResponse = await httpClient.PostAsync($"api/User/Verify?ma_so_sinh_vien={ma_so_sinh_vien}", null);
 
                 // Kiểm tra xem yêu cầu có thành công không
-                if (loginResponse.IsSuccessStatusCode)
+                if (loginResponse.IsSuccessStatusCode && authenticationStateProvider != null && navManager != null)
                 {
                     // Đọc kết quả từ phản hồi
                     var resultString = await loginResponse.Content.ReadAsStringAsync();
@@ -92,22 +64,26 @@ namespace GettingStarted.Client.Pages
                     // Chuyển đổi kết quả từ chuỗi JSON thành giá trị mình muốn
                     userSession = JsonSerializer.Deserialize<UserSession>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                     var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+
+                    // Cập nhật trạng thái của UserSession lại, chuyển từ Anyousmous thành người có danh tính
                     await customAuthenticationStateProvider.UpdateAuthenticationState(userSession);
-                    sv = userSession.NavigateSinhVien;
+                    sv = userSession?.NavigateSinhVien;
                     navManager.NavigateTo("/info", true);
                 }
-                else if(loginResponse.StatusCode == HttpStatusCode.Unauthorized)
+                else if((loginResponse.StatusCode == HttpStatusCode.Unauthorized || !loginResponse.IsSuccessStatusCode) && js != null)
                 {
-                    await js.InvokeVoidAsync("alert", "Vui lòng kiểm tra username và password");
+                    await js.InvokeVoidAsync("alert", "Không thể xác thực người dùng.Vui lòng kiểm tra lại");
                     return;
                 }
             }
             else
             {
-                await js.InvokeVoidAsync("alert", "Username và password không trùng khớp");
+                if(js != null)
+                {
+                    await js.InvokeVoidAsync("alert", "Username và password không trùng khớp");
+                }
                 return;
             }
-            await UpdateLogin();
         }
     }
 }

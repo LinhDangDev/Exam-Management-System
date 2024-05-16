@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql-server
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+
+  gettingstarted.server:
+    build:
+      context: .
+      dockerfile: GettingStarted/Server/Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - sql-server
+    environment:
+      - DB_HOST=sql-server
+      - DB_NAME=TracNghiem_HUTECH
