@@ -38,6 +38,7 @@ namespace GettingStarted.Client.Pages
         private System.Timers.Timer? timer { get; set; }
         private string? displayTime { get; set; }
         private static int maAudio { get; set; } // phân biệt từng audio để ktra số lần nghe từng audio đó
+        private string pattern = @"\$\$|\[|\]"; // các kí hiệu latex
         private async Task checkPage()
         {
             if ((myData == null || myData.chiTietCaThi == null || myData.sinhVien == null) && js != null)

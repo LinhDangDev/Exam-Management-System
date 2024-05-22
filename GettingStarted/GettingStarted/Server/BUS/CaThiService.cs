@@ -40,7 +40,6 @@ namespace GettingStarted.Server.BUS
                     CaThi caThi = getProperty(dataReader);
                     list.Add(caThi);
                 }
-                dataReader.Dispose();
             }
             return list;
         }
@@ -53,9 +52,42 @@ namespace GettingStarted.Server.BUS
                 {
                     caThi = getProperty(dataReader);
                 }
-                dataReader.Dispose();
             }
             return caThi;
+        }
+        public List<CaThi> ca_thi_GetAll()
+        {
+            List<CaThi> list = new List<CaThi>();
+            using (IDataReader dataReader = _caThiRepository.ca_thi_GetAll())
+            {
+                while (dataReader.Read())
+                {
+                    CaThi caThi = getProperty(dataReader);
+                    list.Add(caThi);
+                }
+            }
+            return list;
+        }
+        public void ca_thi_Activate(int ma_ca_thi, bool IsActivated)
+        {
+            try
+            {
+                _caThiRepository.ca_thi_Activate(ma_ca_thi, IsActivated);
+            } catch(Exception ex)
+            {
+                throw new Exception("Không thể kích hoạt hoặc hủy kích hoạt ca thi " + ex.Message);
+            }
+        }
+        public void ca_thi_Ketthuc(int ma_ca_thi)
+        {
+            try
+            {
+                _caThiRepository.ca_thi_Ketthuc(ma_ca_thi);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Không thể kết thúc ca thi " + ex.Message);
+            }
         }
     }
 }

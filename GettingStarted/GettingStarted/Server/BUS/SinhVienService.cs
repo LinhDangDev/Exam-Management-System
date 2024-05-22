@@ -22,7 +22,6 @@ namespace GettingStarted.Server.BUS
                     SinhVien sv = getProperty(dataReader);
                     list.Add(sv);
                 }
-                dataReader.Dispose();
             }
             return list;
         }
@@ -55,7 +54,6 @@ namespace GettingStarted.Server.BUS
                 {
                     sv = getProperty(dataReader);
                 }
-                dataReader.Dispose();
             }
             return sv;
         }
@@ -83,7 +81,6 @@ namespace GettingStarted.Server.BUS
                 {
                     sv = getProperty(dataReader);
                 }
-                dataReader.Dispose();
             }
             return sv;
         }

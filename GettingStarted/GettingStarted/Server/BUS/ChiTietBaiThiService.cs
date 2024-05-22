@@ -32,14 +32,10 @@ namespace GettingStarted.Server.BUS
             {
                 _chiTietBaiThiRepository.Insert(ma_chi_tiet_ca_thi, MaDeHV, MaNhom, MaCauHoi, NgayTao, ThuTu);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            //if(!_chiTietBaiThiRepository.Insert(ma_chi_tiet_ca_thi, MaDeHV, MaNhom, MaCauHoi, NgayTao, ThuTu))
-            //{
-            //    throw new Exception("Can not insert ChiTietBaiThi");
-            //}
         }
         public void Update(long MaChiTietBaiThi, int CauTraLoi, DateTime NgayCapNhat, bool KetQua)
         {
@@ -58,7 +54,6 @@ namespace GettingStarted.Server.BUS
                     ChiTietBaiThi chiTietBaiThi = getProperty(dataReader);
                     result.Add(chiTietBaiThi);
                 }
-                dataReader.Dispose();
             }
             return result;
             

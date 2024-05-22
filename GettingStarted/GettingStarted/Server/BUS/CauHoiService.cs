@@ -31,7 +31,6 @@ namespace GettingStarted.Server.BUS
                 {
                     cauHoi = getProperty(dataReader);
                 }
-                dataReader.Dispose();
             }
             return cauHoi;
         }
@@ -45,7 +44,6 @@ namespace GettingStarted.Server.BUS
                 {
                     dapAn = dataReader.GetInt32(0);
                 }
-                dataReader.Dispose();
             }
             return dapAn;
         }

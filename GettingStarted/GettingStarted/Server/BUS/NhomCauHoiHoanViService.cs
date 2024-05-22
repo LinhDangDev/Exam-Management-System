@@ -33,7 +33,6 @@ namespace GettingStarted.Server.BUS
                 {
                     nhomCauHoiHoanVi = getProperty(dataReader, deThiHoanVi);
                 }
-                dataReader.Dispose();
             }
             return nhomCauHoiHoanVi;
         }

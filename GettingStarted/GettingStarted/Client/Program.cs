@@ -2,6 +2,7 @@ using Blazored.SessionStorage;
 using GettingStarted.Client;
 using GettingStarted.Client.Authentication;
 using GettingStarted.Client.DAL;
+using GettingStarted.Client.Pages.Admin.DAL;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -21,4 +22,5 @@ builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStat
 builder.Services.AddAuthorizationCore();
 // bien toan cuc
 builder.Services.AddSingleton<ApplicationDataService>();
+builder.Services.AddSingleton<AdminDataService>();
 await builder.Build().RunAsync();

@@ -1,55 +1,66 @@
-﻿
+﻿:root {
+    --fraction-rem-height: calc(100vh / 16);
+    font-size: 1.2vw;
+}
+
 .header {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    position: absolute;
+    position: relative;
     width: 100%;
-    background-color: #d9d9d98f;
-    height: 85px;
-    top: 0;
-    left: 0;
+    height: calc(var(--fraction-rem-height) * 2);
+    /* background-color: #d9d9d98f; */
+    background-color: #ffffff;
 }
 
 .logohead {
-    position: relative;
-    top: 0px;
-    left: 0px;
-    height: 85px;
+    position: absolute;
+    height: 90%;
 }
 
 .component-thong-tin {
-    position: absolute;
-    width: 610px;
-    height: 580px;
-    top: 160px;
-    left: 426px;
-    background-color: #d9d9d9;
-    border-radius: 12px;
+    position: relative;
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 19);
+    /* background-color: #d9d9d9; */
+    padding-top: calc(var(--fraction-rem-height) * 2);
+    background-color: #ebebeb;
 }
 
 .overlap {
     position: relative;
-    height: 600px;
-    background-color: #d9d9d98f;
-    border-radius: 10px;
-    box-shadow: 0px 0px 50px 5px #d3d3d3ee;
+    width: 50%;
+    height: calc(var(--fraction-rem-height) * 16);
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: floatUp 1.5s ease forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(30%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
 }
 
 .logo {
     position: absolute;
-    width: 219px;
-    height: 70px;
-    top: 32px;
-    left: 194px;
+    height: calc(var(--fraction-rem-height) * 2);
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
     background-size: cover;
     background-position: 50% 50%;
+    margin-top: calc(var(--fraction-rem-height) * 0.5);
 }
 
 .avatar {
     position: absolute;
-    width: 150px;
-    top: 130px;
-    left: 40px;
+    margin-top: calc(var(--fraction-rem-height) * 3.5);
+    margin-left: calc(var(--fraction-rem-height) * 1.5);
+    width: 30%;
     border-style: solid;
     border-color: #000000;
     border-width: 10px;
@@ -58,62 +69,105 @@
 
 .student-id {
     position: absolute;
-    width: 360px;
-    height: 40px;
-    top: 150px;
-    left: 210px;
+    width: 57%;
+    margin-left: 43%;
+    height: calc(var(--fraction-rem-height) * 1);
+    margin-top: calc(var(--fraction-rem-height) * 4.2);
     background-color: #eaeaea;
     border-radius: 10px;
 }
 
 .id {
     position: absolute;
-    width: 360px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
-    font-size: 15px;
     text-align: left;
     outline: none;
     border: none;
     border-radius: 10px;
-    padding-left: 20px;
 }
 
 .student-name {
     position: absolute;
-    width: 360px;
-    height: 40px;
-    top: 230px;
-    left: 210px;
+    width: 57%;
+    margin-left: 43%;
+    height: calc(var(--fraction-rem-height) * 1);
+    margin-top: calc(var(--fraction-rem-height) * 5.2);
     background-color: #eaeaea;
     border-radius: 10px;
 }
 
 .name {
     position: absolute;
-    width: 360px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
-    font-size: 15px;
     text-align: left;
     outline: none;
     border: none;
+    border-radius: 10px;
+}
+
+.student-email {
+    position: absolute;
+    width: 57%;
+    margin-left: 43%;
+    height: calc(var(--fraction-rem-height) * 1);
+    margin-top: calc(var(--fraction-rem-height) * 6.2);
     background-color: #eaeaea;
     border-radius: 10px;
-    padding-left: 20px;
+}
+
+.email {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    text-align: left;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.time-now {
+    position: absolute;
+    width: 57%;
+    margin-left: 43%;
+    height: calc(var(--fraction-rem-height) * 1);
+    margin-top: calc(var(--fraction-rem-height) * 7.2);
+    background-color: #eaeaea;
+    border-radius: 10px;
+}
+
+.time {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    text-align: left;
+    outline: none;
+    border: none;
+    border-radius: 10px;
 }
 
 
 .button-sign-out {
     position: absolute;
-    width: 148px;
-    height: 42px;
-    top: 300px;
-    left: 233px;
+    margin-top: calc(var(--fraction-rem-height) * 9);
+    width: 30%;
+    height: calc(var(--fraction-rem-height) * 1.2);
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
     border-radius: 9px;
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
@@ -121,7 +175,6 @@
     background-color: rgb(241, 29, 29);
     font-size: 15px;
     border: none;
-    transition-duration: 0.4s;
 }
 
     .button-sign-out:hover {
@@ -130,31 +183,36 @@
 
 .space {
     position: absolute;
-    width: 510px;
-    top: 350px;
-    left: 50px;
+    margin-top: calc(var(--fraction-rem-height) * 11);
+    width: 80%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
     border-width: 10px;
     color: black;
 }
 
 .thong-bao {
     position: absolute;
-    top: 400px;
-    left: 50px;
+    width: 90%;
+    margin-top: calc(var(--fraction-rem-height) * 11.7);
+    margin-left: 10%;
 }
 
 .radio {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
-    font-size: 15px;
     text-align: left;
 }
 
 .radio-input {
-    margin-right: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    position: absolute;
+    margin-left: calc(var(--fraction-rem-height) * 0.3);
+    margin-top: calc(var(--fraction-rem-height) * 0.3);
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
@@ -164,10 +222,12 @@
 
 .button-start {
     position: absolute;
-    width: 148px;
-    height: 42px;
-    bottom: 30px;
-    left: 233px;
+    margin-top: calc(var(--fraction-rem-height) * 14);
+    width: 30%;
+    height: calc(var(--fraction-rem-height) * 1.2);
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
     border-radius: 9px;
     font-family: "Segoe UI-Bold", Helvetica;
     font-weight: 700;
@@ -175,7 +235,6 @@
     background-color: rgb(0,129,28);
     font-size: 15px;
     border: none;
-    transition-duration: 0.4s;
 }
 
     .button-start:hover {

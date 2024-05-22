@@ -1,0 +1,100 @@
+﻿@page "/admin"
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/admin/ManageExam.css"/>
+</head>
+
+<body>
+    <header class="header">
+        <img class="logohead" src="./images/exam/Logo.svg">
+        <h1 class="pagename">QUẢN LÝ ĐỢT THI</h1>
+        <h4 class="monitor_name">Monitor 01</h4>
+        <h4 class="monitor_id">ID: 1234567890</h4>
+        <div class="exit">
+            <button type="button" class="btn">Đăng xuất</button>
+        </div>
+    </header>
+
+    <div class="sort-bar">
+        <div class="sort-item">
+            <i class="fa-regular fa-calendar-days"></i>
+            <input class="text" type="date" placeholder="Ngày thi" @oninput="onChangeDate" @bind="input_Date"/>
+        </div>
+
+        <div class="sort-item">
+            <i class="fa-solid fa-door-open"></i>
+            <input class="text" type="text" placeholder="Mã ca thi" @oninput="onChangeMaCaThi" @bind="input_maCaThi" />
+        </div>
+
+        <div class="sort-item">
+            <i class="fa-solid fa-rotate-left"></i>
+            <button class="text" @onclick="onClickReset">Reset</button>
+        </div>
+
+        <div class="sort-item">
+            <i class="fa-solid fa-list-check"></i>
+            <button class="text" @onclick="onClicCaThiChuaKichHoat">Chưa kích hoạt</button>
+        </div>
+
+    </div>
+
+    <table>
+        <tr>
+            <th>STT</th>
+            <th>Mã Ca Thi</th>
+            <th>Tên Ca Thi</th>
+            <th>Tên Đợt Thi</th>
+            <th>Thời Gian Bắt Đầu</th>
+            <th>Kích hoạt</th>
+        </tr>
+        @if (displayCaThis != null)
+        {
+            int stt = 1;
+            foreach(var item in displayCaThis)
+            {
+                <tr>
+                    <td>@stt</td>
+                    <td>@item.MaCaThi</td>
+                    <td>@item.TenCaThi</td>
+                    <td>@item.MaChiTietDotThiNavigation.MaDotThiNavigation.TenDotThi</td>
+                    <td>@item.ThoiGianBatDau</td>
+                    @if (item.KetThuc)
+                    {
+                        <td><button class="btn-i"><i style="color: red; border:none;" class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
+                    }
+                    else if (item.IsActivated)
+                    {
+                        <td><button class="btn-i"><i style="color: green; border:none;" class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
+                    }
+                    else
+                    {
+                        <td><button class="btn-i"><i class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
+                    }
+                </tr>
+                stt++;
+            }
+        }
+    </table>
+    @if (showMessageBox && showCaThiMessageBox != null)
+    {
+        <MessageBox
+            tenCaThi="@showCaThiMessageBox.TenCaThi" ngayThi="@showCaThiMessageBox.ThoiGianBatDau.ToString()"
+            thoiLuongThi="@showCaThiMessageBox.ThoiGianThi" tenMonThi="@showCaThiMessageBox.MaChiTietDotThiNavigation.MaLopAoNavigation.MaMonHocNavigation?.TenMonHoc"
+            tenDotThi="@showCaThiMessageBox.MaChiTietDotThiNavigation.MaDotThiNavigation.TenDotThi" thoiGianBatDauThi="@showCaThiMessageBox.ThoiGianBatDau.ToString()"
+            trangThai="@showCaThiMessageBox.IsActivated" onClickKichHoat="onClickKichHoatCaThi"
+            onClickHuyKichHoat="onClickHuyKichHoatCaThi" onClickKetThucCaThi="onClickKetThucCaThi"
+            onClickThoat= "onClickThoatMessageBox">
+        </MessageBox>
+    }
+</body>
+
+</html>

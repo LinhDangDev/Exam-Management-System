@@ -13,7 +13,7 @@ namespace GettingStarted.Server.BUS
             _chiTietDeThiHoanViRepository = chiTietDeThiHoanViRepository;
             _nhomCauHoiHoanViService = nhomCauHoiHoanViService;
         }
-        private TblChiTietDeThiHoanVi getProperty(IDataReader dataReader, TblNhomCauHoiHoanVi nhomCauHoiHoanVi)
+        private TblChiTietDeThiHoanVi getProperty(IDataReader dataReader)
         {
             TblChiTietDeThiHoanVi chiTietDeThiHoanVi = new TblChiTietDeThiHoanVi();
             chiTietDeThiHoanVi.MaDeHv = dataReader.GetInt64(0);
@@ -22,32 +22,32 @@ namespace GettingStarted.Server.BUS
             chiTietDeThiHoanVi.ThuTu = dataReader.GetInt32(3);
             chiTietDeThiHoanVi.HoanViTraLoi = dataReader.IsDBNull(4) ? null : dataReader.GetString(4);
             chiTietDeThiHoanVi.DapAn = dataReader.IsDBNull(5) ? null : dataReader.GetInt32(5);
-            // đây là trường đặc biệt có tên "ma" - là đối tượng nhóm câu hỏi hoán vị
-            chiTietDeThiHoanVi.Ma = nhomCauHoiHoanVi;
             return chiTietDeThiHoanVi;
         }
-        private TblNhomCauHoiHoanVi getPropertyNhomCauHoi(IDataReader dataReader)
+        public List<TblChiTietDeThiHoanVi> SelectBy_MaDeHV(long maDeHV)
         {
-            TblNhomCauHoiHoanVi nhomCauHoiHoanVi = new TblNhomCauHoiHoanVi();
-            nhomCauHoiHoanVi.MaDeHv = dataReader.GetInt64(0);
-            nhomCauHoiHoanVi.MaNhom = dataReader.GetInt32(1);
-            nhomCauHoiHoanVi.ThuTu = dataReader.GetInt32(2);
-            return nhomCauHoiHoanVi;
+            List<TblChiTietDeThiHoanVi> result = new List<TblChiTietDeThiHoanVi>();
+            using(IDataReader dataReader = _chiTietDeThiHoanViRepository.SelectBy_MaDeHV(maDeHV))
+            {
+                while (dataReader.Read())
+                {
+                    TblChiTietDeThiHoanVi chiTietDeThiHoanVi = getProperty(dataReader);
+                    result.Add(chiTietDeThiHoanVi);
+                }
+            }
+            return result;
         }
         public List<TblChiTietDeThiHoanVi> SelectBy_MaDeHV_MaNhom(long ma_de_hoan_vi, int ma_nhom)
         {
             List<TblChiTietDeThiHoanVi> list = new List<TblChiTietDeThiHoanVi>();
-            // vì chi Tiết đề thi có 1 trường đặc biệt là 1 đối tượng nhomCauHoiHoanVi
-            TblNhomCauHoiHoanVi nhomCauHoiHoanVi = _nhomCauHoiHoanViService.SelectOne(ma_de_hoan_vi, ma_nhom);
-            using(IDataReader dataReader = _chiTietDeThiHoanViRepository.SelectBy_MaDeHV_MaNhom(ma_de_hoan_vi, ma_nhom))
+            using (IDataReader dataReader = _chiTietDeThiHoanViRepository.SelectBy_MaDeHV_MaNhom(ma_de_hoan_vi, ma_nhom))
             {
                 while (dataReader.Read())
                 {
-                    TblChiTietDeThiHoanVi chiTietDeThiHoanVi = getProperty(dataReader, nhomCauHoiHoanVi);
+                    TblChiTietDeThiHoanVi chiTietDeThiHoanVi = getProperty(dataReader);
                     //vẫn chưa thấu cảm với thuộc tính "ma"
                     list.Add(chiTietDeThiHoanVi);
                 }
-                dataReader.Dispose();
             }
             return list;
         }

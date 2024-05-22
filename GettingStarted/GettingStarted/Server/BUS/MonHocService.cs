@@ -12,6 +12,14 @@ namespace GettingStarted.Server.BUS
         {
             _monHocRepository = monHocRepository;
         }
+        private MonHoc getProperty(IDataReader dataReader)
+        {
+            MonHoc monHoc = new MonHoc();
+            monHoc.MaMonHoc = dataReader.GetInt32(0);
+            monHoc.MaSoMonHoc = dataReader.IsDBNull(1) ? null : dataReader.GetString(1);
+            monHoc.TenMonHoc = dataReader.IsDBNull(2) ? null : dataReader.GetString(2);
+            return monHoc;
+        }
         public MonHoc SelectOne(int ma_mon_hoc)
         {
             MonHoc monHoc = new MonHoc();
@@ -19,11 +27,8 @@ namespace GettingStarted.Server.BUS
             {
                 if (dataReader.Read())
                 {
-                    monHoc.MaMonHoc = dataReader.GetInt32(0);
-                    monHoc.MaSoMonHoc = dataReader.IsDBNull(1) ? null : dataReader.GetString(1);
-                    monHoc.TenMonHoc = dataReader.IsDBNull(2) ? null : dataReader.GetString(2);
+                    monHoc = getProperty(dataReader);
                 }
-                dataReader.Dispose();
             }
             return monHoc;
         }

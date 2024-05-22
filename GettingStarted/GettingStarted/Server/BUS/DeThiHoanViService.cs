@@ -36,7 +36,6 @@ namespace GettingStarted.Server.BUS
                 TblDeThi deThi = _deThiService.SelectOne(deThiHoanVi.MaDeThi);
                 // trường đặc biệt maDeThiNavigation - đối tượng là Đề thi
                 deThiHoanVi.MaDeThiNavigation = deThi;
-                dataReader.Dispose();
             }
             return deThiHoanVi;
         }
