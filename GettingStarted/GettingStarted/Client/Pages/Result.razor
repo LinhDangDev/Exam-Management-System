@@ -55,7 +55,11 @@
                 <div class="result-score">
 
                     <p class="show-result" readonly>@diem</p>
-
+                    @if (ketQuaDapAn != null)
+                    {
+                        <p class="show-result" readonly>@so_cau_dung/@ketQuaDapAn.Count</p>
+                    }
+                    
                 </div>
 
                 <!-- Thông tin của học sinh và kết quả thi -->
@@ -86,15 +90,12 @@
 
             </div>
             <hr />
-            @if(ketQuaDapAn != null)
-            {
-                <h2 class="title_retail"> Chi tiết kết quả thi @so_cau_dung/@ketQuaDapAn.Count</h2>
-            }
+
             <div class="grid-container">
-                @if(ketQuaDapAn != null)
+                @if (ketQuaDapAn != null)
                 {
                     int index = 1;
-                    foreach(var item in ketQuaDapAn)
+                    foreach (var item in ketQuaDapAn)
                     {
                         if (item)//true
                         {
@@ -109,6 +110,7 @@
                 }
             </div>
         </div>
+        
     </div>
 
 </body>

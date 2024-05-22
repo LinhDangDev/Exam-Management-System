@@ -1,5 +1,5 @@
 :root {
-    --fraction-rem-height: calc(100vh / 16);
+    --fraction-rem-height: calc(95vh / 16);
     font-size: 1.2vw;
 }
 
@@ -16,15 +16,15 @@ body {
     display: flex;
     position: absolute;
     width: 10%;
-    height: calc(var(--fraction-rem-height) * 1.1);
+    height: calc(var(--fraction-rem-height) * 1.0);
     border-radius: 5px;
     justify-content: center;
     flex-direction: column;
     text-align: center;
     font-family: "Segoe UI";
-    font-size: 1.3vw;
+    font-size: 2.3vh;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 980;
     line-height: normal;
 }
 
@@ -32,14 +32,12 @@ body {
         opacity: 0.8;
     }
 
-
-
 /* header */
 .header {
     z-index: 1;
     position: sticky;
     width: 100%;
-    top: 0;
+    top: 1px;
     height: calc(var(--fraction-rem-height) * 1.8);
     background: #f0f0f0;
 }
@@ -48,21 +46,21 @@ body {
         display: flex;
         align-items: center;
         padding-left: calc(var(--fraction-rem-height) * 1);
-        padding-right: calc(var(--fraction-rem-height) * 2.5);
+        padding-right: calc(var(--fraction-rem-height) * 1.5);
     }
 
     .header .nav {
         display: flex;
         margin-left: auto;
-        width: 13%;
-        margin-top: calc(var(--fraction-rem-height) * 0.3);
+        width: 18%;
+        margin-top: calc(var(--fraction-rem-height) * 0.5);
         height: calc(var(--fraction-rem-height) * 1.2);
     }
 
     .header .btn-exit {
         justify-content: center;
         align-items: center;
-        margin-left: calc(var(--fraction-rem-height) * 0.3);
+        margin-left: calc(var(--fraction-rem-height) * 2.3);
         color: #fff;
         background: #ff4141;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -70,7 +68,7 @@ body {
 
     .header .logo {
         position: absolute;
-        height: 90%;
+        height: 45%;
     }
 
 .main-result {
@@ -87,14 +85,14 @@ body {
 
 .layout-left {
     display: flex;
-    width: 100%;
+    width: 80%;
 }
 
 .imformation-container {
     position: absolute;
     margin-top: calc(var(--fraction-rem-height) * 0.3);
     width: 80%;
-    height: calc(var(--fraction-rem-height) * 23);
+    height: calc(var(--fraction-rem-height) * 24);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,6 +102,7 @@ body {
     box-shadow: 5px 6px 69px 19px rgba(0, 0, 44, 0.1);
     animation: floatUp 1.5s ease forwards;
 }
+
 @keyframes floatUp {
     from {
         transform: translateY(30%);
@@ -133,26 +132,25 @@ body {
         border-radius: 50%;
     }
 
-.result-score {
+.result-score  {
     align-items: center;
-    display: flex;
-    margin-left: calc(var(--fraction-rem-height) * 0.5);
-    width: 20%;
+    display: grid;
+    margin-left: calc(var(--fraction-rem-height) * 1.5);
+    width: 30%;
 }
 
-
 .show-result {
-    width: 90%;
+    width: 15vh;
     top: 50%;
     bottom: 50%;
-    height: 50%;
+    height: 15vh;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 5vw;
+    font-size: 4vh;
     font-weight: bolder;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(204, 204, 204);
     border-radius: 5px;
 }
 
@@ -161,10 +159,9 @@ body {
     width: 100%;
 }
 
-
 .label {
     display: grid;
-    grid-template-columns: 1fr 7fr;
+    grid-template-columns: 1fr 5fr;
     grid-column-gap: 3%;
     width: 100%;
 }
@@ -175,7 +172,7 @@ body {
 /*.label h1,*/
 .label h3,
 .input-text {
-    padding: 3%; /* Tạo khoảng cách giữa các phần tử */
+ 
     font-size: 1.5vw;
     font-weight: bold;
 }
@@ -183,8 +180,8 @@ body {
 .show-text {
     font-weight: 600;
     text-align: start;
-    width: 98%;
-    padding: 2%;
+    width: 83%;
+    padding: 1%;
     border: 1px dashed #ccc;
 }
 
@@ -195,38 +192,28 @@ hr {
     background: black;
 }
 
-.title_retail {
-    font-weight: 700;
-    margin: 0 auto;
-    font-size: 2vw;
-}
-
-
-
 
 
 /* grid container */
 .grid-container {
-    /*   margin: 0px 0px 0px 20px;*/
-    /* margin: 0 calc(var(--fraction-rem-height) * 0.5); */
-    width: 80%;
-    height: auto; /* Đặt height: auto để nó có thể co dãn theo nội dung bên trong */
+    width: 60vw;
+    height: 15vh; /* Đặt height: auto để nó có thể co dãn theo nội dung bên trong */
     display: grid; /* Sử dụng display: grid thay vì display: flex */
-    grid-template-columns: repeat(10, 1fr); /* Chia grid container thành 6 cột có chiều rộng bằng nhau */
-    grid-gap: 2%; /* Tạo khoảng cách giữa các grid item */
+    grid-template-columns: repeat(15, 0.5fr); /* Chia grid container thành 6 cột có chiều rộng bằng nhau */
+    gap: 1%; /* Tạo khoảng cách giữa các grid item */
 }
 
 .grid-item {
-    width: 100%; /* Đặt chiều rộng 100% để lấp đầy cột */
-    height: 100%;
+    width: 75%;
+    height: 75%;
     border-radius: 5px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5vw;
-    margin-top: 20px;
-    color: #fff;
+    font-size: 1.45vw;
+    margin-top: 30px;
+    color: rgb(255, 255, 255);
 }
 
 .grid-red {
