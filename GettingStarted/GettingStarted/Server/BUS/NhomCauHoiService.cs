@@ -36,6 +36,7 @@ namespace GettingStarted.Server.BUS
                     TblNhomCauHoi nhomCauHoi = getProperty(dataReader);
                     list.Add(nhomCauHoi);
                 }
+                dataReader.Dispose();
             }
             return list;
         }
@@ -48,6 +49,7 @@ namespace GettingStarted.Server.BUS
                 {
                     nhomCauHoi = getProperty(dataReader);
                 }
+                dataReader.Dispose();
             }
             return nhomCauHoi;
         }

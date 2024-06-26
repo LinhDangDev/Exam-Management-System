@@ -32,6 +32,7 @@ namespace GettingStarted.Server.BUS
                     TblCauTraLoi cauTraLoi = getProperty(dataReader);
                     list.Add(cauTraLoi);
                 }
+                dataReader.Dispose();
             }
             return list;
         }

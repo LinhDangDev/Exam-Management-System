@@ -19,7 +19,8 @@
           crossorigin="anonymous" />
 
     <!-- styles -->
-    <link href="./css/exam/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./css/exam/style.css" />
+    <link rel="stylesheet" href="./css/exam/reset.css" /> 
     <!--Latex hỗ trợ công thức phép toán-->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -37,12 +38,13 @@
                     <img src="images/exam/clock-stand-svgrepo-com 1.svg"
                          alt=""
                          class="logo_time" />
-                    <h3>Thời Gian : @displayTime </h3>
+                    <h3>Thời Gian : @displayTime</h3>
                 </div>
                 <nav class="nav">
                     <button @onclick="onClickNopBai" class="btn btn-nop-bai">
                         Nộp Bài
                     </button>
+                    <button @onclick="onClickThoat" class="btn btn-thoat">Thoát</button>
                 </nav>
             </div>
         </div>
@@ -57,72 +59,45 @@
 
                     <div class="layout-left">
                         @{
-                            int QuestionMask = 1; // hiện thứ tự câu hỏi
-                            int thu_tu_ma_nhom = -1;
-                            int thu_tu_ma_cau_hoi = -1;
+                            int QuestionMask = 1;
                         }
-                        @if(chiTietDeThiHoanVis != null)
+                        @foreach (var chiTietDeThiHV in chiTietDeThiHoanVis)
                         {
-                            @foreach (var item in chiTietDeThiHoanVis)
+                            if (chiTietDeThiHV.MaNhom != thu_tu_ma_nhom)
                             {
-                                // Hiển thị nội dung câu hỏi nhóm
-                                if (item.MaNhom != thu_tu_ma_nhom)
-                                {
-                                    thu_tu_ma_nhom = item.MaNhom;
-                                    string? noiDungCauHoiNhom = nhomCauHois?.FirstOrDefault(p => p.MaNhom == item.MaNhom)?.NoiDung;
-                                    <section id="question@(QuestionMask )" class="txt">
-                                        @if (noiDungCauHoiNhom != null)
-                                        {
-                                            <p>@((MarkupString)noiDungCauHoiNhom)</p>
-                                        }
-                                    </section>
-                                }
-
-                                // Hiển thị nội dung câu hỏi
-                                <div id="question@(QuestionMask + 1)" class="form_question">
-                                    @if (item.MaCauHoi != thu_tu_ma_cau_hoi)
-                                    {
-                                        thu_tu_ma_cau_hoi = item.MaCauHoi;
-                                        string? noiDungCauHoi = cauHois?.FirstOrDefault(p => p.MaCauHoi == thu_tu_ma_cau_hoi)?.NoiDung;
-                                        <div class="txt_question">
-                                            @if (noiDungCauHoi != null)
-                                            {
-                                                <p><b>Câu hỏi @QuestionMask: </b> @((MarkupString)noiDungCauHoi)</p>
-                                            }
-                                        </div>
-                                    }
-
-                                    <!--Hiển thị câu trả lời-->
-                                    <div class="form-input">
-                                        @{
-                                            var cauTraLois = cauHois?.FirstOrDefault(p => p.MaCauHoi == item.MaCauHoi)?.TblCauTraLois;
-                                            int? length = item.HoanViTraLoi?.Length;
-                                            int STT_hien_thi = 0; // thứ tự câu trả lời thực tế hiện ra màn hình
-                                            for (int i = 0; i < length; i++)
-                                            {
-                                                STT_hien_thi++;
-                                                int? vi_tri_cau_tra_loi = item?.HoanViTraLoi?[i] - '0'; // đọc từng phần tử HoanViTL, chuyển đổi mã ACII từ chữ thành số
-                                                string? noiDungCauTraLoi = cauTraLois?.FirstOrDefault(p => p.ThuTu == vi_tri_cau_tra_loi)?.NoiDung;
-                                                int? ma_cau_tra_loi = cauTraLois?.FirstOrDefault(p => p.ThuTu == vi_tri_cau_tra_loi)?.MaCauTraLoi;
-                                                if (noiDungCauTraLoi != null && item != null && alphabet != null)
-                                                {
-                                                    //Xử lí việc sinh đã khoanh câu này và bị out
-                                                    if (cau_da_chons!= null && cau_da_chons.Contains($"btn Nhom:{item.MaNhom} CauHoi:{item.MaCauHoi} ThuTu:{STT_hien_thi}"))
-                                                    {
-                                                        <button class="btn1 answer already-choose" onclick="changeButtonColor(this, @QuestionMask, @ma_cau_tra_loi, @item.MaNhom, @item.MaCauHoi)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
-                                                    }
-                                                    else
-                                                    {
-                                                        <button class="btn1 answer" onshow="" onclick="changeButtonColor(this, @QuestionMask, @ma_cau_tra_loi, @item.MaNhom, @item.MaCauHoi)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    </div>
-                                </div>
-                                QuestionMask++;
+                                thu_tu_ma_nhom = chiTietDeThiHV.MaNhom;
+                                var cauHoiNhom = nhomCauHois.FirstOrDefault(p => p.MaNhom == thu_tu_ma_nhom);
+                                string noiDungCauHoiNhom = cauHoiNhom.NoiDung;
+                                <section id="question@(QuestionMask )" class="txt">
+                                    <p>@((MarkupString)noiDungCauHoiNhom)</p>
+                                </section>
                             }
+
+                            <div id="question@(QuestionMask + 1)" class="form_question">
+                                @if (chiTietDeThiHV.MaCauHoi != thu_tu_ma_cau_hoi)
+                                {
+                                    thu_tu_ma_cau_hoi = chiTietDeThiHV.MaCauHoi;
+                                    string noiDungCauHoi = cauHois.FirstOrDefault(p => p.MaCauHoi == thu_tu_ma_cau_hoi).NoiDung;
+                                    <div class="txt_question">
+                                        <p><b>Câu hỏi @QuestionMask: </b> @((MarkupString)noiDungCauHoi)</p>
+                                    </div>
+                                }
+                                <div class="form-input">
+                                    @{
+                                        int length = chiTietDeThiHV.HoanViTraLoi.Length;
+                                        for (int i = 0; i < length; i++)
+                                        {
+                                            int vi_tri_cau_tra_loi = chiTietDeThiHV.HoanViTraLoi[i] - '0'; // chuyển đổi mã ACII từ chữ thành số
+                                            var cauTraLoi = cauTraLois.FirstOrDefault(p => p.MaCauHoi == chiTietDeThiHV.MaCauHoi && p.ThuTu == vi_tri_cau_tra_loi);
+                                            string noiDungCauTraLoi = cauTraLoi.NoiDung;
+                                            <button class="btn1 answer" onclick="changeButtonColor(this, @QuestionMask, @vi_tri_cau_tra_loi, @chiTietDeThiHV.MaNhom, @chiTietDeThiHV.MaCauHoi)">@alphabet[i] . @((MarkupString)noiDungCauTraLoi)</button>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            QuestionMask++;
                         }
+
                     </div>
                     <!-- layout right -->
                     <div class="layout-right">
@@ -132,41 +107,31 @@
                             </div>
 
                             <div class="information-student">
-                                @if(sinhVien != null && caThi != null && chiTietCaThi != null)
-                                {
-                                    <p>MSSV: @sinhVien.MaSoSinhVien</p>
-                                    <p>Họ và tên:  @sinhVien.HoVaTenLot @sinhVien.TenSinhVien</p>
-                                    <p>Ca Thi: @caThi.TenCaThi</p>
-                                    <p>Mã đề: @chiTietCaThi.MaDeThi</p>
-                                }
+                                @* <p>Check chạy cục bộ: @myData.ma_sinh_vien  </p> *@
+                                <p>MSSV: @myData.ma_so_sinh_vien</p>
+                                <p>Họ và tên:  @sinhVien.HoVaTenLot @sinhVien.TenSinhVien</p>
+                                <p>Ca Thi: @caThi.TenCaThi</p>
+                                <p>Mã đề: @chiTietCaThi.MaDeThi</p>
                             </div>
 
                         </div>
                         <div class="choose_content">
                             <div class="choose-question">
                                 <div class="choose">
-                                    @if (chiTietDeThiHoanVis != null)
-                                    {
+                                    @{
                                         int tongSoCau = chiTietDeThiHoanVis.Count;
                                         for (int i = 1; i <= tongSoCau; i++)
                                         {
-                                            if(cau_da_chons != null)
-                                            {
-                                                if(cau_da_chons.Contains($"SoCauHoi: {i}"))
-                                                {
-                                                    <a class="alink-already" href="javascript:void(0);" onclick="scrollToQuestion(@i )">@i</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="javascript:void(0);" onclick="scrollToQuestion(@i )">@i</a>
-                                                }
-                                            }
+                                            <a href="javascript:void(0);" onclick="scrollToQuestion(@i )">@i</a>
                                         }
                                     }
                                 </div>
 
                             </div>
 
+                            <div class="save">
+                                <button @onclick="onClickLuuBai" class="btn btn-save">Lưu bài</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,7 +139,10 @@
         </div>
     </main>
     <!-- Trong file exam.cshtml -->
+
+
 </body>
+<div id="toast"></div>
 <!-- Script for the toast function and other functionalities -->
 <script src="./js/main.js" type="text/javascript"></script>
 <script src="./js/exam.js" type="text/javascript"></script>

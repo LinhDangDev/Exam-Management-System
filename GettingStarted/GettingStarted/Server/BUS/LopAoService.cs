@@ -30,6 +30,7 @@ namespace GettingStarted.Server.BUS
                 {
                     lopAo = getProperty(dataReader);
                 }
+                dataReader.Dispose();
             }
             return lopAo;
         }
@@ -43,6 +44,7 @@ namespace GettingStarted.Server.BUS
                     LopAo lopAo = getProperty(dataReader);
                     list.Add(lopAo);
                 }
+                dataReader.Dispose();
             }
             return list;
         }

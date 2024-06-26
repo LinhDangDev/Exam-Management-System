@@ -29,7 +29,7 @@ namespace GettingStarted.Server.Authentication
             }
             /*Xác thực sinh viên có tồn tại trong database không ?*/
             SinhVien sinhVien = _sinhVienService.SelectBy_ma_so_sinh_vien(username);
-            if (sinhVien == null || sinhVien.MaSoSinhVien == null)
+            if (sinhVien == null)
             {
                 return null;
             }
@@ -38,8 +38,7 @@ namespace GettingStarted.Server.Authentication
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                // claim lưu là mã sinh viên
-                new Claim(ClaimTypes.Name, sinhVien.MaSinhVien.ToString())
+                new Claim(ClaimTypes.Name, sinhVien.MaSoSinhVien)
             });
             var sigingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(tokenKey),

@@ -29,6 +29,7 @@ namespace GettingStarted.Server.BUS
                 {
                     listenedCount = dataReader.GetInt32(0);
                 }
+                dataReader.Dispose();
             }
             return listenedCount;
         }

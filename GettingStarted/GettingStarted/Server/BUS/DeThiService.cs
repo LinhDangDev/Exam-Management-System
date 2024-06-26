@@ -35,6 +35,7 @@ namespace GettingStarted.Server.BUS
                 {
                     deThi = getProperty(dataReader);
                 }
+                dataReader.Dispose();
             }
             return deThi;
         }

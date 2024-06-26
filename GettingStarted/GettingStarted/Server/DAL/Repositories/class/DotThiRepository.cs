@@ -10,11 +10,5 @@ namespace GettingStarted.Server.DAL.Repositories
             DatabaseReader sql = new DatabaseReader("dot_thi_GetAll");
             return sql.ExcuteReader();
         }
-        public IDataReader SelectOne(int ma_dot_thi)
-        {
-            DatabaseReader sql = new DatabaseReader("dot_thi_SelectOne");
-            sql.SqlParams("@ma_dot_thi", SqlDbType.Int, ma_dot_thi);
-            return sql.ExcuteReader();
-        }
     }
 }

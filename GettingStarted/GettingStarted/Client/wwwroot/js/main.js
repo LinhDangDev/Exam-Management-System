@@ -1,9 +1,4 @@
-﻿// Ngăn người dùng back trang web
-window.history.pushState(null, document.title, location.href);
-window.addEventListener('popstate', function (event) {
-    history.pushState(null, document.title, location.href);
-});
-
+﻿
 // Toast function
 function toast({ title = "", message = "", type = "info", duration = 500, callback }) {
     const main = document.getElementById("toast");
@@ -104,8 +99,8 @@ function saveExam() {
 
 
 // Hàm thay đổi màu cho nút và cập nhật màu cho thẻ a tương ứng
-function changeButtonColor(button, thu_tu_cau_hoi, ma_cau_tra_loi, ma_nhom, ma_cau_hoi) {
-    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, ma_cau_tra_loi, ma_nhom, ma_cau_hoi).then();
+function changeButtonColor(button, thu_tu_cau_hoi, thu_tu_cau_tra_loi, ma_nhom, ma_cau_hoi) {
+    DotNet.invokeMethodAsync("GettingStarted.Client", "GetDapAnFromJavaScript", thu_tu_cau_hoi, thu_tu_cau_tra_loi, ma_nhom, ma_cau_hoi).then();
     const parent = button.closest('.form-input');
 
     if (!parent) {
@@ -115,7 +110,7 @@ function changeButtonColor(button, thu_tu_cau_hoi, ma_cau_tra_loi, ma_nhom, ma_c
     const buttons = parent.querySelectorAll(".btn1.answer");
 
     buttons.forEach((btn) => {
-        btn.style.backgroundColor = "#F0F0F0";
+        btn.style.backgroundColor = "#fff";
         btn.style.boxShadow = "none";
     });
 
@@ -129,7 +124,6 @@ function changeButtonColor(button, thu_tu_cau_hoi, ma_cau_tra_loi, ma_nhom, ma_c
     // nhúng code C# vào JS
 
 }
-
 
 // Hàm kiểm tra và cập nhật màu cho thẻ a
 function updateChooseButtonColor(questionNumber) {

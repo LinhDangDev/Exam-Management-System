@@ -32,6 +32,7 @@ namespace GettingStarted.Server.BUS
                     ChiTietDotThi chiTietDotThi = getProperty(dataReader);
                     list.Add(chiTietDotThi);
                 }
+                dataReader.Dispose();
             }
             return list;
         }
@@ -45,6 +46,7 @@ namespace GettingStarted.Server.BUS
                 {
                     chiTietDotThi = getProperty(dataReader);
                 }
+                dataReader.Dispose();
             }
             return chiTietDotThi;
         }
@@ -58,6 +60,7 @@ namespace GettingStarted.Server.BUS
                 {
                     chiTietDotThi = getProperty(dataReader);
                 }
+                dataReader.Dispose();
             }
             return chiTietDotThi;
         }

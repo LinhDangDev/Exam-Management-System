@@ -14,6 +14,3 @@ function pauseMusic(audio, listenedCount) {
         audio.style.pointerEvents = "all";
     }
 }
-function renderMathInBlazor() {
-    MathJax.typesetPromise();
-}
