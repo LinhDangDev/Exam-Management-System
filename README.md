@@ -61,7 +61,7 @@ This project leverages a robust technology stack:
     ```
 2. **Install .NET Core SDK:** Download and install from the official [Microsoft website](https://dotnet.microsoft.com/en-us/download).
 3. **Install SQL Server:** Download and install from the official [Microsoft website](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
-4. **Install Redis:** Download and install from  [Redis Windows]([https://redis.io/docs/getting-started/](https://github.com/ServiceStack/redis-windows?tab=readme-ov-file)). 
+4. **Install Redis:** Download and install from  [Redis Windows](https://github.com/ServiceStack/redis-windows?tab=readme-ov-file). 
 5. **Configure database connection:**
     * **`appsettings.json`:**
         ```json
