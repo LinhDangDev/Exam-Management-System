@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Runtime.CompilerServices;
 
-namespace GettingStarted.Client.Pages.Admin
+namespace GettingStarted.Client.Pages.Admin.MessageBox
 {
-    public partial class MessageBox
+    public partial class MBKichHoatCaThi
     {
+        [Parameter]
+        public int function { get; set; }
         [Parameter]
         public string? tenCaThi { get; set; }
         [Parameter]
@@ -18,7 +20,11 @@ namespace GettingStarted.Client.Pages.Admin
         [Parameter]
         public string? thoiGianBatDauThi { get; set; }
         [Parameter]
-        public bool trangThai { get; set; }
+        public int trangThai { get; set; }
+        [Parameter]
+        public DateTime? thoidiemKetThuc { get; set; }
+        [Parameter]
+        public DateTime? thoidiemKichHoat { get; set; }
 
         // EventCallBack
         [Parameter]

@@ -1,0 +1,207 @@
+﻿@page "/exam"
+@implements IDisposable
+@attribute [Authorize]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sen:wght@700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous" />
+
+    <!-- styles -->
+    <link href="./css/exam/style.css" rel="stylesheet"/>
+    <!--Latex hỗ trợ công thức phép toán-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Exam</title>
+</head>
+
+<body>
+    <header class="header fiexd">
+        <div class="main-content">
+            <div class="body">
+                <!-- logo -->
+                <img src="images/exam/Logo.svg" alt="" class="logo" />
+                <!-- nav -->
+                <div class="time">
+                    <img src="images/exam/clock-stand-svgrepo-com 1.svg"
+                         alt=""
+                         class="logo_time" />
+                    <h3>Thời Gian : @displayTime</h3>
+                </div>
+                <nav class="nav">
+                    <button @onclick="onClickNopBai" class="btn btn-nop-bai">
+                        Nộp Bài
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- main -->
+    <main>
+        <!-- question -->
+        <div class="layout">
+            <div class="main-content">
+                <div class="body">
+                    <!-- layout left -->
+
+                    <div class="layout-left">
+                        @{
+                            int QuestionMask = 1; // hiện thứ tự câu hỏi
+                            int thu_tu_ma_nhom = -1;
+                            int thu_tu_ma_cau_hoi = -1;
+                            string? ma_nhom_cha = "";
+                        }
+                        @if(customDeThis != null)
+                        {
+                            @foreach (var item in customDeThis)
+                            {
+                                // Hiển thị nội dụng câu hỏi nhóm cha (nếu có)
+                                if(item.NoiDungCauHoiNhomCha != null && item.NoiDungCauHoiNhomCha != ma_nhom_cha)
+                                {
+                                    ma_nhom_cha = item.NoiDungCauHoiNhomCha;
+                                    <section id="question@(QuestionMask )" class="txt">
+                                        @if (item.NoiDungCauHoiNhomCha != null)
+                                        {
+                                            <p>@((MarkupString)item.NoiDungCauHoiNhomCha)</p>
+                                        }
+                                    </section>
+                                }
+
+                                // Hiển thị nội dung câu hỏi nhóm
+                                if (item.MaNhom != thu_tu_ma_nhom)
+                                {
+                                    thu_tu_ma_nhom = item.MaNhom;
+                                    <section id="question@(QuestionMask )" class="txt">
+                                        @if (item.NoiDungCauHoiNhom != null)
+                                        {
+                                            int STT = QuestionMask;
+                                            <p>@((MarkupString)handleDienKhuyet(item.NoiDungCauHoiNhom, STT))</p>
+                                        }
+                                    </section>
+                                }
+
+                                // Hiển thị nội dung câu hỏi
+                                <div id="question@(QuestionMask + 1)" class="form_question">
+                                    @if (item.MaCauHoi != thu_tu_ma_cau_hoi)
+                                    {
+                                        thu_tu_ma_cau_hoi = item.MaCauHoi;
+                                        <div class="txt_question">
+                                            @if (item.NoiDungCauHoi != null)
+                                            {
+                                                <b>Câu hỏi @QuestionMask: </b>
+                                                List<string> latex = handleLatex(item.NoiDungCauHoi);
+                                                foreach (var ctCauHoi in latex)
+                                                {
+                                                    if (ctCauHoi.Contains("$$"))
+                                                    {
+                                                        <GettingStarted.Client.Pages.Latext.Equation Value="@ctCauHoi.Substring(2)"></GettingStarted.Client.Pages.Latext.Equation>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@((MarkupString)ctCauHoi)</span>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    }
+
+                                    <!--Hiển thị câu trả lời-->
+                                    <div class="form-input">
+                                        @{
+                                            if (alphabet != null && item.CauTraLois != null)
+                                            {
+                                                int thu_tu_alphabet = 0;
+                                                @foreach (var chiTietCauTraLoi in item.CauTraLois)
+                                                {
+                                                    var isAlreadyChosen = cau_da_chons != null && cau_da_chons.Contains(chiTietCauTraLoi.Key) && chiTietCauTraLoi.Value != null;
+
+                                                    <button class="btn1 answer @(isAlreadyChosen ? "already-choose" : "")" onclick="changeButtonColor(this, @QuestionMask, @chiTietCauTraLoi.Key, @item.MaNhom, @item.MaCauHoi)">
+                                                        @{
+                                                            List<string> latex = handleLatex(chiTietCauTraLoi.Value != null ? chiTietCauTraLoi.Value : "");
+                                                            <span>@alphabet[thu_tu_alphabet++]. </span>
+                                                            foreach (var ctCauTraLoi in latex)
+                                                            {
+                                                                if (ctCauTraLoi.Contains("$$"))
+                                                                {
+                                                                    <GettingStarted.Client.Pages.Latext.Equation Value="@ctCauTraLoi.Substring(2)"></GettingStarted.Client.Pages.Latext.Equation>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@((MarkupString)ctCauTraLoi)</span>
+                                                                }
+                                                            }
+                                                        }
+                                                    </button>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                QuestionMask++;
+                            }
+                        }
+                    </div>
+                    <!-- layout right -->
+                    <div class="layout-right">
+                        <div class="information">
+                            <div class="avata">
+                                <img src="images/exam/Ellipse 1.svg" alt="" />
+                            </div>
+
+                            <div class="information-student">
+                                @if(sinhVien != null && caThi != null && chiTietCaThi != null)
+                                {
+                                    <span>MSSV: @sinhVien.MaSoSinhVien</span><br />
+                                    <span>Họ và tên:  @sinhVien.HoVaTenLot @sinhVien.TenSinhVien</span><br />
+                                    <span>Ca Thi: @caThi.TenCaThi</span><br />
+                                    <span>Mã đề: @chiTietCaThi.MaDeThi</span><br />
+                                }
+                            </div>
+
+                        </div>
+                        <div class="choose_content">
+                            <div class="choose-question">
+                                <div class="choose">
+                                    @if (customDeThis != null)
+                                    {
+                                        int tongSoCau = customDeThis.Count;
+                                        for (int i = 1; i <= tongSoCau; i++)
+                                        {
+                                            if(cau_da_chons_tagA != null)
+                                            {
+                                                if(cau_da_chons_tagA.Contains(i))
+                                                {
+                                                    <a class="alink-already" href="javascript:void(0);" onclick="scrollToQuestion(@i )">@i</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="javascript:void(0);" onclick="scrollToQuestion(@i )">@i</a>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Trong file exam.cshtml -->
+</body>
+<!-- Script for the toast function and other functionalities -->
+<script src="./js/main.js" type="text/javascript"></script>
+<script src="./js/exam.js" type="text/javascript"></script>
+</html>

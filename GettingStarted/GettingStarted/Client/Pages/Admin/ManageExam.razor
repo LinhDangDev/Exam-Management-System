@@ -1,12 +1,11 @@
-﻿@page "/admin"
-
+﻿@page "/control"
+@attribute [Authorize(Roles = "Admin")]
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Manage Exam</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -20,7 +19,7 @@
         <h4 class="monitor_name">Monitor 01</h4>
         <h4 class="monitor_id">ID: 1234567890</h4>
         <div class="exit">
-            <button type="button" class="btn">Đăng xuất</button>
+            <button type="button" class="btn btn-exit">Đăng xuất</button>
         </div>
     </header>
 
@@ -42,7 +41,7 @@
 
         <div class="sort-item">
             <i class="fa-solid fa-list-check"></i>
-            <button class="text" @onclick="onClicCaThiChuaKichHoat">Chưa kích hoạt</button>
+            <button class="text" @onclick="onClickCaThiChuaKichHoat">Chưa kích hoạt</button>
         </div>
 
     </div>
@@ -55,6 +54,7 @@
             <th>Tên Đợt Thi</th>
             <th>Thời Gian Bắt Đầu</th>
             <th>Kích hoạt</th>
+            <th>Chức năng</th>
         </tr>
         @if (displayCaThis != null)
         {
@@ -69,16 +69,17 @@
                     <td>@item.ThoiGianBatDau</td>
                     @if (item.KetThuc)
                     {
-                        <td><button class="btn-i"><i style="color: red; border:none;" class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
+                        <td><button class="btn-i"><i style="color: red;" class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
                     }
                     else if (item.IsActivated)
                     {
-                        <td><button class="btn-i"><i style="color: green; border:none;" class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
+                        <td><button class="btn-i"><i style="color: green;" class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
                     }
                     else
                     {
                         <td><button class="btn-i"><i class="fa-solid fa-circle-play" @onclick="() => onClickShowMessageBox(item)"></i></button></td>
                     }
+                    <td><button class="btn btnPlus" @onclick="() => OnClickChiTietCaThi(item)">+</button></td>
                 </tr>
                 stt++;
             }
@@ -86,14 +87,22 @@
     </table>
     @if (showMessageBox && showCaThiMessageBox != null)
     {
-        <MessageBox
+        // trạng thái 0: đã kích hoạt, 1: chưa kích hoạt, 2: đã kết thúc ca thi
+        int checkTrangThai;
+        if (showCaThiMessageBox.KetThuc)
+            checkTrangThai = 2;
+        else if (showCaThiMessageBox.IsActivated)
+            checkTrangThai = 0;
+        else
+            checkTrangThai = 1;
+        <GettingStarted.Client.Pages.Admin.MessageBox.MBKichHoatCaThi
             tenCaThi="@showCaThiMessageBox.TenCaThi" ngayThi="@showCaThiMessageBox.ThoiGianBatDau.ToString()"
             thoiLuongThi="@showCaThiMessageBox.ThoiGianThi" tenMonThi="@showCaThiMessageBox.MaChiTietDotThiNavigation.MaLopAoNavigation.MaMonHocNavigation?.TenMonHoc"
             tenDotThi="@showCaThiMessageBox.MaChiTietDotThiNavigation.MaDotThiNavigation.TenDotThi" thoiGianBatDauThi="@showCaThiMessageBox.ThoiGianBatDau.ToString()"
-            trangThai="@showCaThiMessageBox.IsActivated" onClickKichHoat="onClickKichHoatCaThi"
+                    trangThai="@checkTrangThai" onClickKichHoat="onClickKichHoatCaThi" thoidiemKetThuc="@showCaThiMessageBox.ThoiDiemKetThuc"
             onClickHuyKichHoat="onClickHuyKichHoatCaThi" onClickKetThucCaThi="onClickKetThucCaThi"
-            onClickThoat= "onClickThoatMessageBox">
-        </MessageBox>
+            onClickThoat= "onClickThoatMessageBox" thoidiemKichHoat="@showCaThiMessageBox.ActivatedDate">
+        </GettingStarted.Client.Pages.Admin.MessageBox.MBKichHoatCaThi>
     }
 </body>
 

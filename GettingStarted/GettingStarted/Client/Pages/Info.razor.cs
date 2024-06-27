@@ -9,126 +9,154 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.JSInterop;
 using System.Text;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace GettingStarted.Client.Pages
 {
     public partial class Info
     {
         [Inject]
-        HttpClient httpClient { get; set; }
+        HttpClient? httpClient { get; set; }
         [Inject]
-        ApplicationDataService myData { get; set; }
+        ApplicationDataService? myData { get; set; }
         [Inject]
-        AuthenticationStateProvider authenticationStateProvider { get; set; }
+        AuthenticationStateProvider? authenticationStateProvider { get; set; }
         [Inject]
-        NavigationManager navManager { get; set; }
+        NavigationManager? navManager { get; set; }
         [Inject]
-        IJSRuntime js { get; set; }
+        IJSRuntime? js { get; set; }
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationState { get; set; }
+        private Task<AuthenticationState>? authenticationState { get; set; }
         private SinhVien? sinhVien { get; set; }
         private CaThi? caThi { get; set; }
         private MonHoc? monHoc { get; set; }
         private ChiTietCaThi? chiTietCaThi { get; set; }
         string selectoption_cathi = "";
+        private System.Timers.Timer? timer { get; set; }
+        private string? displayTime { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            //processUrl();
-            await Start();
             //xác thực người dùng
-            var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
-            var token = await customAuthStateProvider.GetToken();
-            if (!string.IsNullOrWhiteSpace(token))
+            var customAuthStateProvider = (authenticationStateProvider!= null) ? (CustomAuthenticationStateProvider)authenticationStateProvider: null;
+            var token = (customAuthStateProvider!= null) ? await customAuthStateProvider.GetToken() : null;
+            if (!string.IsNullOrWhiteSpace(token) && httpClient != null)
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
             }
             else
             {
-                navManager.NavigateTo("/");
+                navManager?.NavigateTo("/");
             }
+            await Start();
+            Time();
             await base.OnInitializedAsync();
         }
-        private async Task getThongTinSV()
+        private async Task getThongTinChiTietCaThi(long ma_sinh_vien)
         {
-            var response = await httpClient.PostAsync($"api/Info/GetThongTinSinhVienTuMSSV?ma_so_sinh_vien={myData.ma_so_sinh_vien}", null);
-            if (response.IsSuccessStatusCode)
-            {
-                var resultString = await response.Content.ReadAsStringAsync();
-                sinhVien = JsonSerializer.Deserialize<SinhVien>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-            }
-            myData.ma_sinh_vien = sinhVien.MaSinhVien;
-        }
-        private async Task getThongTinCaThi()
-        {
-            var response = await httpClient.PostAsync($"api/Info/GetThongTinCaThi?ma_sinh_vien={myData.ma_sinh_vien}", null);
-            if (response.IsSuccessStatusCode)
-            {
-                var resultString = await response.Content.ReadAsStringAsync();
-                caThi = JsonSerializer.Deserialize<CaThi?>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-            }
-            myData.ma_ca_thi = caThi.MaCaThi;
-        }
-        private async Task GetThongTinMonThi()
-        {
-            var response = await httpClient.PostAsync($"api/Info/GetThongTinMonThi?ma_ca_thi={myData.ma_ca_thi}", null);
-            if (response.IsSuccessStatusCode)
-            {
-                var resultString = await response.Content.ReadAsStringAsync();
-                monHoc = JsonSerializer.Deserialize<MonHoc>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-            }
-            myData.ten_mon_hoc = monHoc.TenMonHoc;
-        }
-        private async Task getThongTinChiTietCaThi()
-        {
-            var response = await httpClient.PostAsync($"api/Info/GetChiTietCaThiSelectBy_SinhVien?ma_ca_thi={myData.ma_ca_thi}&ma_sinh_vien={myData.ma_sinh_vien}", null);
-            if (response.IsSuccessStatusCode)
+            // kiểm tra tham số
+            if (ma_sinh_vien == -1)
+                return;
+            HttpResponseMessage? response = null;
+                if(httpClient != null)
+                    response = await httpClient.PostAsync($"api/Info/GetThongTinChiTietCaThi?ma_sinh_vien={ma_sinh_vien}", null);
+            if (response != null && response.IsSuccessStatusCode)
             {
                 var resultString = await response.Content.ReadAsStringAsync();
                 chiTietCaThi = JsonSerializer.Deserialize<ChiTietCaThi>(resultString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                sinhVien = chiTietCaThi?.MaSinhVienNavigation;
+            }
+            else
+            {
+                if(js != null)
+                    await js.InvokeVoidAsync("alert", "Hiện tại thí sinh chưa có ca thi nào. Vui lòng liên hệ quản trị viên");
+            }
+            if(chiTietCaThi != null && myData != null && chiTietCaThi.MaCaThiNavigation != null)
+            {
+                myData.chiTietCaThi = chiTietCaThi;
+                myData.sinhVien = sinhVien;
+                caThi = chiTietCaThi.MaCaThiNavigation;
+                monHoc = chiTietCaThi.MaCaThiNavigation.MaChiTietDotThiNavigation.MaLopAoNavigation.MaMonHocNavigation;
             }
         }
         private async Task onClickDangXuat()
         {
-            bool result = await js.InvokeAsync<bool>("confirm", "Bạn muốn đăng xuất?");
-            if (result)
+            bool result = (js != null) && await js.InvokeAsync<bool>("confirm", "Bạn có chắc chắn muốn đăng xuất?");
+            if (result && authenticationStateProvider != null)
             {
                 await UpdateLogout();
                 var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
                 await customAuthStateProvider.UpdateAuthenticationState(null);
-                navManager.NavigateTo("/", true);
+                navManager?.NavigateTo("/", true);
             }
         }
         private async Task UpdateLogout()
         {
-            await httpClient.PostAsync($"api/Login/UpdateLogout?ma_sinh_vien={myData.ma_sinh_vien}&last_log_out={DateTime.Now}", null);
+            if(httpClient != null && myData != null && myData.sinhVien != null)
+                await httpClient.PostAsync($"api/User/UpdateLogout?ma_sinh_vien={myData.sinhVien.MaSinhVien}", null);
         }
         private async Task OnClickBatDauThi()
         {
-            if (!CheckRadioButton())
+            if (!CheckRadioButton() && js!= null)
             {
                 await js.InvokeVoidAsync("alert", "Vui lòng chọn ca thi!");
                 return;
             }
+            // nếu sinh viên đã thi rồi thì sẽ không được thi lại
+            //if (chiTietCaThi != null && chiTietCaThi.DaHoanThanh && js != null)
+            //{
+            //    await js.InvokeVoidAsync("alert", "Bạn đã thi môn này. Vui lòng chọn môn thi khác");
+            //    return;
+            //}
+            if (caThi != null && (caThi.IsActivated == false || caThi.KetThuc == true) && js!= null)
+            {
+                await js.InvokeVoidAsync("alert", "Ca thi này hiện chưa được kích hoạt hoặc đã kết thúc. Vui lòng liên hệ quản trị để kích hoạt ca thi");
+                return;
+            }
             await HandleUpdateBatDau();
-            await js.InvokeVoidAsync("alert", "Bắt đầu thi.Chúc bạn sớm hoàn thành kết quả tốt nhất");
-            navManager.NavigateTo("/exam");
+            if(js != null)
+                await js.InvokeVoidAsync("alert", "Bắt đầu thi.Chúc bạn sớm hoàn thành kết quả tốt nhất");
+                navManager?.NavigateTo("/exam");
         }
         private async Task HandleUpdateBatDau()
         {
-            chiTietCaThi.ThoiGianBatDau = DateTime.Now;
+            if(chiTietCaThi != null)
+                chiTietCaThi.ThoiGianBatDau = DateTime.Now;
             var jsonString = JsonSerializer.Serialize(chiTietCaThi);
-            await httpClient.PostAsync("api/Info/UpdateBatDau", new StringContent(jsonString, Encoding.UTF8, "application/json"));
+            if(httpClient != null)
+                await httpClient.PostAsync("api/Info/UpdateBatDauThi", new StringContent(jsonString, Encoding.UTF8, "application/json"));
         }
         private async Task Start()
         {
             sinhVien = new SinhVien();
             caThi = new CaThi();
-            var authState = await authenticationState;
-            myData.ma_so_sinh_vien = authState?.User.Identity?.Name;
-            await getThongTinSV();
-            await getThongTinCaThi();
-            await GetThongTinMonThi();
-            await getThongTinChiTietCaThi();
+            displayTime = DateTime.Now.ToString("hh:mm:ss tt");
+            var authState = (authenticationState!= null) ? await authenticationState : null;
+            // lấy thông tin mã sinh viên từ claim
+            long ma_sinh_vien = -1;
+            // chuyển đổi string thành long
+            if(authState!= null && authState.User.Identity != null)
+                long.TryParse(authState.User.Identity.Name, out ma_sinh_vien);
+            await getThongTinChiTietCaThi(ma_sinh_vien);
+        }
+        private void Time()
+        {
+            timer = new System.Timers.Timer();
+            timer.Interval = 1000; // 1000 = 1ms
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            timer.Elapsed += (sender, e) =>
+            {
+                displayTime = DateTime.Now.ToString("hh:mm:ss tt");
+                InvokeAsync(() =>
+                {
+                    StateHasChanged();
+                });
+            };
+        }
+        public void Dispose()
+        {
+            if(timer != null)
+                timer.Dispose();
         }
         private bool CheckRadioButton()
         {

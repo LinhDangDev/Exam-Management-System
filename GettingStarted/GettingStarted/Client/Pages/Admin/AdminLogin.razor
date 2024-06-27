@@ -1,0 +1,40 @@
+﻿@page "/admin"
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link href="./css/login/login.css" rel="stylesheet" />
+<title>Login Admin</title>
+<!------ Include the above in your HEAD tag ---------->
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Login Form -->
+        <div class="sign-in">
+            <header>
+                <div class="header">
+                    <img class="logohead" src="images/exam/Logo.svg">
+                    <div class="current-time"></div>
+                    <!--code time-->
+                </div>
+            </header>
+
+            <div class="component-thng-itn">
+                <div class="overlap">
+                    <div class="area-signin">
+                        <div class="input-student-id">
+                            <img class="icon-id" src="./images/login/username.png">
+                            <input class="input-id" type="text" name="signin" placeholder="Nhập username" @bind="username">
+                        </div>
+                        <div class=" input-student-pass">
+                            <img class="icon-pass" src="./images/login/password.svg">
+                            <input class="input-pass" type="password" name="signin" placeholder="Nhập password" @bind="password">
+                        </div>
+                    </div>
+                    <img class="logo" src="images/exam/Logo.svg">
+                    <button type="button" class="button-sign-in" @onclick="onClickDangNhap">Đăng nhập</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    
     <div class="modal-backdroup show"></div>
     <div class="modal fade show" style="display: block;" tabindex="-1">
         <div class="modal-dialog">
@@ -39,26 +40,38 @@
                     <p>Thời gian bắt đầu: </p>
                     <span class="content-p">@thoiGianBatDauThi</span>
                     <p>Trạng thái: </p>
-                    @if (trangThai == true)
+                    @if (trangThai == 0)
                     {
-                        <span class="content-p">Đã kích hoạt</span>
+                        <span class="content-p">Đã kích hoạt @thoidiemKichHoat</span>
                     }
-                    else
+                    else if(trangThai == 1)
                     {
                         <span class="content-p">Chưa kích hoạt</span>
                     }
+                    else
+                    {
+                        <span class="content-p">Đã kết thúc ca thi @thoidiemKetThuc</span>
+                    }
                 </div>
                 <div class="modal-footer">
-                    @if(trangThai == true)
+                    <!--3 trạng thái: 0: đã kích hoạt, 1: chưa kích hoạt, 2: dừng ca thi-->
+                    @if(trangThai == 0)
                     {
                         <button type="button" style="opacity: 0.5" class="btn btn-success">Kích hoạt</button>
                         <button type="button" @onclick="onClickHuyKichHoat" class="btn btn-danger">Hủy kích hoạt</button>
                         <button type="button" @onclick="onClickDungCaThi" class="btn btn-info">Dừng ca thi</button>
                         <button type="button" @onclick="onClickKetThucCaThi" class="btn btn-primary">Kết thúc ca thi</button>
                     }
-                    else
+                    else if(trangThai == 1)
                     {
                         <button type="button" @onclick="onClickKichHoat" class="btn btn-success">Kích hoạt</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-danger">Hủy kích hoạt</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-info">Dừng ca thi</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-primary">Kết thúc ca thi</button>
+                    }
+                    else
+                    {
+                        <button type="button" style="opacity: 0.5" class="btn btn-success">Kích hoạt</button>
                         <button type="button" style="opacity: 0.5" class="btn btn-danger">Hủy kích hoạt</button>
                         <button type="button" style="opacity: 0.5" class="btn btn-info">Dừng ca thi</button>
                         <button type="button" style="opacity: 0.5" class="btn btn-primary">Kết thúc ca thi</button>

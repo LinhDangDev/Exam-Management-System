@@ -1,4 +1,5 @@
 ﻿using GettingStarted.Server.DAL.DataReader;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace GettingStarted.Server.DAL.Repositories
@@ -45,6 +46,16 @@ namespace GettingStarted.Server.DAL.Repositories
             sql.SqlParams("@diem", SqlDbType.Float, diem);
             sql.SqlParams("@so_cau_dung", SqlDbType.Int, so_cau_dung);
             sql.SqlParams("@tong_so_cau", SqlDbType.Int, tong_so_cau);
+            return sql.ExcuteNonQuery() != 0;
+        }
+
+        public bool CongGio(int ma_chi_tiet_ca_thi, int gio_cong_them, DateTime? thoi_diem_cong, string? ly_do_cong)
+        {
+            DatabaseReader sql = new DatabaseReader("chi_tiet_ca_thi_CongGio");
+            sql.SqlParams("@ma_chi_tiet_ca_thi", SqlDbType.Int, ma_chi_tiet_ca_thi);
+            sql.SqlParams("@gio_cong_them", SqlDbType.Int, gio_cong_them);
+            sql.SqlParams("@thoi_diem_cong", SqlDbType.DateTime, thoi_diem_cong);
+            sql.SqlParams("@ly_do_cong", SqlDbType.NVarChar, ly_do_cong);
             return sql.ExcuteNonQuery() != 0;
         }
 

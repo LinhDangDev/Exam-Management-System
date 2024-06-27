@@ -16,10 +16,10 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
           integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
           crossorigin="anonymous" />
-
     <!-- styles -->
-    <link rel="stylesheet" href="./css/Result/style.css" />
-    <title>Kết quả</title>
+    <link href="./css/Result/style.css" rel="stylesheet"/>
+    <title>Result</title>
+
 </head>
 
 <body>
@@ -60,50 +60,68 @@
 
                 <!-- Thông tin của học sinh và kết quả thi -->
                 <div class="information-student">
-                    <div class="label">
-                        <h3>Ca thi :</h3>
-                        <p class="show-text" readonly>@caThi.TenCaThi</p>
-                        <h3>Môn thi :</h3>
-                        <p class="show-text" readonly>@myData.ten_mon_hoc</p>
-                        <h3>Mã đề :</h3>
-                        <p class="show-text" readonly>@myData.ma_de_thi_hoan_vi</p>
-                        <h3>MSSV :</h3>
-                        <p class="show-text" readonly>@myData.ma_so_sinh_vien</p>
-                        <h3>Họ và tên :</h3>
-                        <p class="show-text" readonly>@(sinhVien?.HoVaTenLot) @(sinhVien?.TenSinhVien)</p>
-                        <h3>Ngày thi :</h3>
-                        <p class="show-text" readonly>@caThi?.ThoiGianBatDau</p>
-                    </div>
+                    @if (caThi != null && myData != null && myData.sinhVien != null && myData.chiTietCaThi != null && myData.chiTietCaThi.MaCaThiNavigation != null)
+                    {
+                        string? ten_mon_hoc = @myData.chiTietCaThi.MaCaThiNavigation.MaChiTietDotThiNavigation.MaLopAoNavigation.MaMonHocNavigation?.TenMonHoc;
+                        <div class="label">
+                            <h3>Ca thi :</h3>
+                            <p class="show-text" readonly>@caThi.TenCaThi</p>
+                            <h3>Môn thi :</h3>
+                            @if(ten_mon_hoc != null)
+                            {
+                                <p class="show-text" readonly>@ten_mon_hoc</p>
+                            }
+                            <h3>Mã đề :</h3>
+                            <p class="show-text" readonly>@myData.chiTietCaThi.MaDeThi</p>
+                            <h3>MSSV :</h3>
+                            <p class="show-text" readonly>@myData.sinhVien.MaSoSinhVien</p>
+                            <h3>Họ tên :</h3>
+                            <p class="show-text" readonly>@(sinhVien?.HoVaTenLot) @(sinhVien?.TenSinhVien)</p>
+                            <h3>Ngày thi :</h3>
+                            <p class="show-text" readonly>@caThi?.ThoiGianBatDau</p>
+                        </div>
+                    }
                 </div>
 
 
             </div>
             <hr />
-
-            @{
-                // Sắp xếp danh sách chi tiết đề thi hoán vị theo thứ tự tăng dần của mã câu hỏi
-                chiTietDeThiHoanVis.Sort((x, y) => x.MaCauHoi.CompareTo(y.MaCauHoi));
+            @if(ketQuaDapAn != null)
+            {
+                <h2 class="title_retail"> Chi tiết kết quả thi @so_cau_dung/@ketQuaDapAn.Count</h2>
             }
-            <h2 class="title_retail"> Chi tiết kết quả thi </h2>
             <div class="grid-container">
-
-                @foreach (var chiTietDeThiHoanVi in chiTietDeThiHoanVis)
+                @if(ketQuaDapAn != null)
                 {
-                    var dapAnSinhVien = myData.listDapAnKhoanh.Count > chiTietDeThiHoanVi.MaCauHoi ? myData.listDapAnKhoanh[chiTietDeThiHoanVi.MaCauHoi - 1] : -1;
-                    var dapAnDung = listDapAn.Count > chiTietDeThiHoanVi.MaCauHoi ? listDapAn[chiTietDeThiHoanVi.MaCauHoi - 1] : -1;
-                    var mauSac = dapAnSinhVien == dapAnDung ? (dapAnSinhVien != -1 ? "green" : "red") : "red";
-
-                    <div class="grid-item item-@chiTietDeThiHoanVi.MaCauHoi" style="background-color: @(mauSac)">
-                        @chiTietDeThiHoanVi.MaCauHoi
-                    </div>
+                    int index = 1;
+                    foreach(var item in ketQuaDapAn)
+                    {
+                        if (item)//true
+                        {
+                            <div class="grid-item grid-green">@index</div>
+                        }
+                        else
+                        {
+                            <div class="grid-item grid-red">@index</div>
+                        }
+                        index++;
+                    }
                 }
-
             </div>
         </div>
     </div>
-
+    <script>
+        // Ngăn người dùng back trang web
+        window.history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, document.title, location.href);
+        });
+    </script>
 </body>
 </html>
+
+
+
 
 
 

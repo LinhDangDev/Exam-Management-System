@@ -1,0 +1,55 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="./css/admin/MessageBox.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="modal-backdroup show"></div>
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">BỔ SUNG GIỜ THI CHO SINH VIÊN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sinh viên: </p>
+                    <span class="content-p">@tenSinhVien</span>
+                    <p>MSSV: </p>
+                    <span class="content-p">@MSSV</span>
+                    <p>Ca Thi: </p>
+                    <span class="content-p">@tenCaThi</span>
+                    <p>Môn thi: </p>
+                    <span class="content-p">@tenMonThi</span>
+                    <p>Ngày thi: </p>
+                    <span class="content-p">@ngayThi phút</span>
+                    <p>Thời lượng thi: </p>
+                    <span class="content-p">@thoiLuongThi</span>
+                    <p>Thời gian cộng: </p>
+                    <span><input type="text" @bind="@thoiGianCongThem" placeholder="0"/> (phút)</span>
+                    <p>Lý do cộng: </p>
+                    <span><input type="text" @bind="@lyDoCong" placeholder="treo máy"/></span>
+                </div>
+                <div class="modal-footer">
+                    <button style="height: auto" type="button" @onclick="onClickLuu" class="btn btn-success">Lưu</button>
+                    <button style="height: auto" type="button" @onclick="onClickThoat" class="btn btn-secondary">Thoát</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+

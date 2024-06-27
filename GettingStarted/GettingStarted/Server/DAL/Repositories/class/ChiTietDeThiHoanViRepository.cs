@@ -5,7 +5,7 @@ namespace GettingStarted.Server.DAL.Repositories
 {
     public class ChiTietDeThiHoanViRepository : IChiTietDeThiHoanViRepository
     {
-        public IDataReader GetBy_MaDeHV(long maDeHV, int maNhom, int maChiTietCaThi)
+        public IDataReader SelectBy_MaDeHV_MaNhom_MaChiTietCaThi_v3(long maDeHV, int maNhom, int maChiTietCaThi)
         {
             DatabaseReader sql = new DatabaseReader("tbl_ChiTietDeThiHoanVi_SelectBy_MaDeHV_MaNhom_MaChiTietCaThi_v3");
             sql.SqlParams("@MaDeHV", SqlDbType.BigInt, maDeHV);
@@ -13,7 +13,7 @@ namespace GettingStarted.Server.DAL.Repositories
             sql.SqlParams("@MaChiTietCaThi", SqlDbType.Int, maChiTietCaThi);
             return sql.ExcuteReader();
         }
-        public IDataReader GetBy_MaDeHv(long maDeHV)
+        public IDataReader SelectBy_MaDeHV(long maDeHV)
         {
             DatabaseReader sql = new DatabaseReader("tbl_ChiTietDeThiHoanVi_SelectBy_MaDeHV");
             sql.SqlParams("@MaDeHV", SqlDbType.BigInt, maDeHV);

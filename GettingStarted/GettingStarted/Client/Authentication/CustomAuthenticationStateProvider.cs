@@ -28,7 +28,9 @@ namespace GettingStarted.Client.Authentication
                 }
                 var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, userSession.Username)
+                    new Claim(ClaimTypes.Name, userSession.Username),
+                    new Claim(ClaimTypes.Role, userSession.Role)
+                    
                 }, "JwtAuth"));
                 // trả về giấy xác thực người dùng
                 return await Task.FromResult(new AuthenticationState(claimsPrincipal));

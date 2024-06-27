@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GettingStarted.Server.BUS;
 using GettingStarted.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
+using GettingStarted.Server.Attributes;
 
 
 namespace GettingStarted.Server.Controllers;
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]        
     public class ResultController : Controller
     {
     private readonly SinhVienService _sinhVienService;
@@ -40,19 +43,17 @@ namespace GettingStarted.Server.Controllers;
         return _chiTietCaThiService.SelectBy_MaCaThi_MaSinhVien(ma_ca_thi, ma_sinh_vien);
     }
     [HttpPost("GetListDapAn")]
-    public ActionResult<List<int>> GetListDapAn([FromBody] List<TblChiTietDeThiHoanVi> chiTietDeThiHoanVis)
+    [Cache(120)]
+    public ActionResult<List<int>> GetListDapAn([FromQuery] long ma_de_thi_hoan_vi)
     {
+        List<TblChiTietDeThiHoanVi> chiTietDeThiHoanVis = _chiTietDeThiHoanViService.SelectBy_MaDeHV(ma_de_thi_hoan_vi);
         List<int> listDapAn = new List<int>();
-        foreach(var chiTietDeThiHoanVi in chiTietDeThiHoanVis)
+        foreach(var item in chiTietDeThiHoanVis)
         {
-            List<TblCauTraLoi> cauTraLois = _cauTraLoiService.SelectBy_MaCauHoi(chiTietDeThiHoanVi.MaCauHoi);
-            TblCauTraLoi? cauTraLoi = cauTraLois.FirstOrDefault(p => p.LaDapAn);
-            if (cauTraLoi != null)
-                listDapAn.Add(cauTraLoi.ThuTu);
-            else
-                listDapAn.Add(-1); // phòng trường hợp nhập tay thiếu đáp án true :)))
+            if(item.DapAn != null)
+                listDapAn.Add((int)item.DapAn);
         }
-        return listDapAn;
+        return Ok(listDapAn);
     }
     [HttpPost("UpdateKetThuc")]
     public ActionResult UpdateKetThuc([FromBody] ChiTietCaThi chiTietCaThi)
