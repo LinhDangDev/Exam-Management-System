@@ -125,11 +125,11 @@ namespace GettingStarted.Client.Pages.Exam
             int tong_so_giay = 0;
             // cập nhật thời gian thi còn lại cho sinh viên nếu bị out
             int? thoi_gian_con_lai = (int?)thoiGianConLaiLooseData();
-            //if (thoi_gian_con_lai != null)
-            //{
-            //    // trừ khoảng thời gian sinh đã làm trước đó
-            //    tong_so_giay -= (int)thoi_gian_con_lai;
-            //}
+            if (thoi_gian_con_lai != null)
+            {
+                // trừ khoảng thời gian sinh đã làm trước đó
+                tong_so_giay -= (int)thoi_gian_con_lai;
+            }
             if (caThi != null && chiTietCaThi != null)
             {
                 tong_so_giay += caThi.ThoiGianThi * 60 + chiTietCaThi.GioCongThem * 60;
