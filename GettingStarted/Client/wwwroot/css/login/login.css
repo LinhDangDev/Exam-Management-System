@@ -1,0 +1,181 @@
+﻿:root {
+    --fraction-rem-height: calc(100vh / 16);
+    font-size: 14px;
+}
+
+html {
+    height: 100vh;
+}
+
+.sign-in {
+    position: static;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+}
+
+
+.header {
+    position: relative;
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 3);
+}
+
+.logohead {
+    position: absolute;
+    height: 40%;
+}
+
+.component-thng-itn {
+    position: relative;
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 13);
+    justify-content: center;
+}
+
+
+
+.overlap {
+    position: relative;
+    width: 45%;
+    height: calc(var(--fraction-rem-height) * 9.8);
+    margin: 0 auto;
+    background-color: #d9d9d9;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: floatUp 1.5s ease forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(-20%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+.logo {
+    position: absolute;
+    height: calc(var(--fraction-rem-height) * 1.5);
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
+    background-size: cover;
+    background-position: 50% 50%;
+    margin-top: calc(var(--fraction-rem-height) * 0.5);
+}
+
+.area-signin {
+    position: absolute;
+    margin-top: calc(var(--fraction-rem-height) * 3);
+    width: 100%;
+    height: 133px;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
+    align-items: center;
+}
+
+.input-student-id {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    position: absolute;
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 1);
+    outline: none;
+    border: none;
+    border-radius: 9px;
+}
+
+.icon-id {
+    position: absolute;
+    width: 2rem;
+    left: 5.5%;
+    z-index: 2;
+}
+
+.input-id {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
+    width: 90%;
+    height: 100%;
+    padding-left: 2.5rem;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.input-student-pass {
+    display: grid;
+    grid-template-columns: 40px 400px 40px;
+    position: absolute;
+    margin-top: calc(var(--fraction-rem-height) * 2);
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 1);
+    color: #000000;
+    outline: none;
+    border: none;
+    border-radius: 9px;
+}
+
+.icon-pass {
+    position: absolute;
+    width: 2rem;
+    left: 5.5%;
+    z-index: 2;
+}
+
+
+.input-pass {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0%);
+    width: 90%;
+    height: 100%;
+    padding-left: 2.5rem;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+
+
+
+.button-sign-in {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    margin-top: calc(var(--fraction-rem-height) * 7);
+    transform: translate(-50%, 0%);
+    width: 30%;
+    height: calc(var(--fraction-rem-height) * 1.2);
+    border-radius: 10px;
+    font-family: "Segoe UI-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    border: none;
+    /* transition-duration: 0.4s; */
+}
+
+    .button-sign-in:hover {
+        background-color: rgb(0,107,179);
+        color: white;
+    }

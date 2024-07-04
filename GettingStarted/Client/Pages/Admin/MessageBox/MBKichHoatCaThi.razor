@@ -1,0 +1,86 @@
+﻿@implements IDisposable
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="./css/admin/MessageBox.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <div class="modal-backdroup show"></div>
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÔNG TIN CA THI</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Thời gian hiện tại: </p>
+                    <span class="content-p">@displayTime</span>
+                    <p>Ca Thi: </p>
+                    <span class="content-p">@tenCaThi</span>
+                    <p>Ngày thi: </p>
+                    <span class="content-p">@ngayThi</span>
+                    <p>Thời lượng thi: </p>
+                    <span class="content-p">@thoiLuongThi phút</span>
+                    <p>Môn thi: </p>
+                    <span class="content-p">@tenMonThi</span>
+                    <p>Tên đợt thi: </p>
+                    <span class="content-p">@tenDotThi</span>
+                    <p>Thời gian bắt đầu: </p>
+                    <span class="content-p">@thoiGianBatDauThi</span>
+                    <p>Trạng thái: </p>
+                    @if (trangThai == 0)
+                    {
+                        <span class="content-p">Đã kích hoạt @thoidiemKichHoat</span>
+                    }
+                    else if(trangThai == 1)
+                    {
+                        <span class="content-p">Chưa kích hoạt</span>
+                    }
+                    else
+                    {
+                        <span class="content-p">Đã kết thúc ca thi @thoidiemKetThuc</span>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <!--3 trạng thái: 0: đã kích hoạt, 1: chưa kích hoạt, 2: dừng ca thi-->
+                    @if(trangThai == 0)
+                    {
+                        <button type="button" style="opacity: 0.5" class="btn btn-success">Kích hoạt</button>
+                        <button type="button" @onclick="onClickHuyKichHoat" class="btn btn-danger">Hủy kích hoạt</button>
+                        <button type="button" @onclick="onClickDungCaThi" class="btn btn-info">Dừng ca thi</button>
+                        <button type="button" @onclick="onClickKetThucCaThi" class="btn btn-primary">Kết thúc ca thi</button>
+                    }
+                    else if(trangThai == 1)
+                    {
+                        <button type="button" @onclick="onClickKichHoat" class="btn btn-success">Kích hoạt</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-danger">Hủy kích hoạt</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-info">Dừng ca thi</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-primary">Kết thúc ca thi</button>
+                    }
+                    else
+                    {
+                        <button type="button" style="opacity: 0.5" class="btn btn-success">Kích hoạt</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-danger">Hủy kích hoạt</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-info">Dừng ca thi</button>
+                        <button type="button" style="opacity: 0.5" class="btn btn-primary">Kết thúc ca thi</button>
+                    }
+                    <button type="button" @onclick="onClickThoat" class="btn btn-secondary">Thoát</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

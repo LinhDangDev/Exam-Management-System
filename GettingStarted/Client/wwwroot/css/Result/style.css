@@ -1,0 +1,241 @@
+:root {
+    --fraction-rem-height: calc(100vh / 16);
+    font-size: 0.9vw;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.btn {
+    display: flex;
+    position: absolute;
+    width: 8%;
+    height: calc(var(--fraction-rem-height) * 0.8);
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Segoe UI";
+    font-size: large;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+
+
+/* header */
+.header {
+    z-index: 1;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    height: calc(var(--fraction-rem-height) * 1.8);
+    background: #f0f0f0;
+}
+
+    .header .body {
+        display: flex;
+        align-items: center;
+        padding-left: calc(var(--fraction-rem-height) * 1);
+        padding-right: calc(var(--fraction-rem-height) * 2.5);
+    }
+
+    .header .nav {
+        display: flex;
+        margin-left: auto;
+        width: 6%;
+        margin-top: calc(var(--fraction-rem-height) * 0.36);
+        height: calc(var(--fraction-rem-height) * 1.5);
+    }
+
+    .header .btn-exit {
+        justify-content: center;
+        align-items: center;
+        margin-left: calc(var(--fraction-rem-height) * 0.4);
+        color: #fff;
+        background: #ff4141;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .header .logo {
+        position: absolute;
+        height: 47px;
+    }
+
+.main-result {
+    position: relative;
+    margin-top: calc(var(--fraction-rem-height) * 0.3);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.layout-left {
+    display: flex;
+    width: 100%;
+}
+
+.imformation-container {
+    position: absolute;
+    margin-top: calc(var(--fraction-rem-height) * 0.3);
+    width: 60%;
+    min-height: calc(var(--fraction-rem-height) * 17);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 5px 6px 69px 19px rgba(0, 0, 44, 0.1);
+    animation: floatUp 1.5s ease forwards;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(30%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+.img-container {
+    left: 50%;
+    right: 50%;
+    background-size: cover;
+    background-position: 50% 50%;
+    margin-bottom: calc(var(--fraction-rem-height) * 0.2);
+    margin-top: calc(var(--fraction-rem-height) * 0.5);
+}
+
+    .img-container .img {
+        margin-top: calc(var(--fraction-rem-height) * 3.5);
+        margin-left: calc(var(--fraction-rem-height) * 1.5);
+        width: 30%;
+        border-style: solid;
+        border-color: #000000;
+        border-width: 10px;
+        border-radius: 50%;
+    }
+
+.result-score {
+    align-items: center;
+    display: flex;
+    margin-left: calc(var(--fraction-rem-height) * 0.5);
+    width: 20%;
+}
+
+
+.show-result {
+    width: 79%;
+    top: 50%;
+    bottom: 50%;
+    height: 32%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+    font-weight: bolder;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+
+.information-student {
+    display: flex;
+    width: 100%;
+}
+
+
+.label {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-column-gap: 1%;
+    width: 80%;
+    margin-left: 2%;
+}
+
+.show-text.hidden {
+    visibility: hidden;
+}
+/*.label h1,*/
+.label h3,
+.input-text {
+    padding: 0%; /* Tạo khoảng cách giữa các phần tử */
+    font-size: 1.1vw;
+    /* align-items: center; */
+    font-weight: bold;
+}
+
+.show-text {
+    font-weight: 600;
+    text-align: start;
+    width: 98%;
+    padding: 3%;
+    border: 1px dashed #ccc;
+    margin: 0;
+}
+
+hr {
+    width: 79%;
+    height: calc(var(--fraction-rem-height) * 0.05);
+    margin: calc(var(--fraction-rem-height) * 0.3);
+    background: black;
+}
+
+.title_retail {
+    font-weight: bold;
+    margin: 0 auto;
+    font-size: 1.2vw;
+}
+
+
+
+
+
+/* grid container */
+.grid-container {
+    /* margin: 0px 0px 0px 20px; */
+    /* margin: 0 calc(var(--fraction-rem-height) * 0.5); */
+    width: 80%;
+    /* height: auto; */ /* Đặt height: auto để nó có thể co dãn theo nội dung bên trong */
+    display: grid; /* Sử dụng display: grid thay vì display: flex */
+    grid-template-columns: repeat(15, 3fr); /* Chia grid container thành 6 cột có chiều rộng bằng nhau */
+    grid-gap: 5px; /* Tạo khoảng cách giữa các grid item */
+    /* margin-top: -5px; */
+}
+
+.grid-item {
+    width: 100%; /* Đặt chiều rộng 100% để lấp đầy cột */
+    height: 100%;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    margin-top: 15px;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-red {
+    background-color: red;
+}
+
+.grid-green {
+    background-color: green;
+}

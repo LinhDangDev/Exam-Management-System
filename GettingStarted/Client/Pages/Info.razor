@@ -1,0 +1,65 @@
+﻿@page "/info"
+@implements IDisposable
+@attribute [Authorize]
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="./css/info/info.css" rel="stylesheet"/>
+<title>Information</title>
+<script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <header>
+            <div class="header">
+                <img class="logohead" src="images/exam/Logo.svg">
+                <div class="current-time"></div>
+                <!--code time-->
+
+            </div>
+        </header>
+
+        <div class="component-thong-tin">
+            <div class="overlap">
+                <img class="logo" src="images/exam/Logo.svg">
+
+                <img class="avatar" src="images/exam/ava.jpg">
+                @if(sinhVien != null)
+                {
+                    <div class="student-id">
+                        <p class="id" type="text" name="student-id">Mã số sinh viên: @sinhVien.MaSoSinhVien</p>
+                    </div>
+
+                    <div class="student-name">
+                        <p class="name" type="text" name="Password" >Họ và tên: @sinhVien.HoVaTenLot @sinhVien.TenSinhVien</p>
+                    </div>
+                    <div class="student-email">
+                        <p class="email" type="text" name="ClassName">Email: @sinhVien.Email</p>
+                    </div>
+                    <div class="time-now">
+                        <p class="time" type="text" name="ClassName">Thời gian hiện tại: @displayTime</p>
+                    </div>
+                }
+                <button class="button-sign-out" @onclick="onClickDangXuat">Đăng xuất</button>
+
+                <hr class="space">
+                @{
+                    if (caThi != null && monHoc != null)
+                    {
+                        <div class="thong-bao">
+                        <label class="radio">Sinh viên hiện tại đang có 1 ca thi. Vui lòng chọn ca thi</label>
+                        <br />
+                            <label>[@monHoc.TenMonHoc]: @caThi.TenCaThi</label>
+                            <input class="radio-input" type="radio" name="#" value="@selectoption_cathi" @onchange="RadioChanged" />
+                        </div>
+
+                        <button class="button-start" @onclick="OnClickBatDauThi">Bắt đầu thi</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

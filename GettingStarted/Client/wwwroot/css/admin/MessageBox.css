@@ -1,0 +1,62 @@
+﻿:root {
+    --fraction-rem-height: calc(100vh / 16);
+    font-size: 1.3vw;
+    font-family: "Segoe UI-Bold", Helvetica;
+    /* line-height: calc(var(--fraction-rem-height) * 5); */
+}
+
+.modal.fade.show {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: absolute;
+    border: 1.5px solid black;
+    background-color: #f0f0f0;
+    left: -40%;
+    width: 180%;
+    margin: auto;
+}
+
+.modal-header {
+    border-bottom: 1.5px solid black;
+}
+
+.modal-title {
+    font-weight: 700;
+    margin: auto;
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 3%;
+    width: 95%;
+}
+
+.content-p {
+    color: rgb(0,106,179);
+    font-weight: 600;
+}
+
+.content-input {
+    /* border: 2px solid red; */
+    border: none;
+    border-bottom: 1px dashed #ccc;
+    /* color: cornflowerblue; */
+    font-weight: 600;
+    ;
+    padding-left: 1%;
+    box-sizing: border-box;
+    margin-bottom: calc(var(--fraction-rem-height) * 0.4);
+}
+
+    .content-input:focus {
+        border: 1px dashed #ccc;
+    }
+
+.modal-footer {
+    border-top: 1.5px solid black;
+    margin: auto;
+}
+

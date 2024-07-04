@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager navManager
+
+@{
+    var currentUrl = navManager.ToAbsoluteUri(navManager.Uri);
+}
+<AuthorizeView>
+    <Authorized>
+        <main>
+            @Body
+        </main>
+    </Authorized>
+    <NotAuthorized>
+        <!--Chỉ cho phép duy nhất trang login cho admin và sinh viên-->
+        @if (currentUrl.AbsolutePath == "/" || currentUrl.AbsolutePath == "/admin")
+        {
+            <main>
+                @Body
+            </main>
+        }
+        else
+        {
+            <Forbidden403></Forbidden403>
+        }
+    </NotAuthorized>
+
+</AuthorizeView>
+
+

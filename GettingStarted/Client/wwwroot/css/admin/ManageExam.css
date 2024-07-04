@@ -1,0 +1,181 @@
+﻿:root {
+    --fraction-rem-height: calc(100vh / 16);
+    font-size: 1.0vw;
+    font-family: "Segoe UI-Bold", Helvetica;
+}
+body{
+    margin: 0;
+}
+.header {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    background-color: #d9d9d9d9;
+    height: calc(var(--fraction-rem-height) * 2.0);
+    top: 0;
+    left: 0;
+}
+
+.logohead {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    height: 85%;
+    margin: auto;
+    margin-left: 4%;
+}
+
+.pagename {
+    grid-column: 1/4;
+    grid-row: 1/4;
+    font-weight: 700;
+    text-align: center;
+    margin: auto;
+}
+
+.exit {
+    grid-column: 3/4;
+    grid-row: 3/4;
+    margin: 0 auto;
+    padding-bottom: calc(var(--fraction-rem-height) * 0.1);
+    width: 30%;
+}
+
+.btn {
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 0.9);
+    border-radius: 10px;
+    font-weight: 700;
+    font-style: italic;
+    color: #000000;
+    border: none;
+    transition-duration: 0.4s;
+}
+.btn-exit {
+    width: 100%;
+    height: calc(var(--fraction-rem-height) * 0.9);
+    border-radius: 10px;
+    font-weight: 700;
+    font-style: italic;
+    color: #000000;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+    .btn:hover {
+        background-color: rgb(241, 29, 29);
+        color: black;
+    }
+
+.monitor_name {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    font-weight: 700;
+    text-align: center;
+    margin: auto;
+}
+
+.monitor_id {
+    grid-column: 3/4;
+    grid-row: 2/3;
+    font-weight: 700;
+    text-align: center;
+    margin: auto;
+}
+
+
+.sort-bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: calc(var(--fraction-rem-height) * 2.5);
+    width: 100%;
+    margin: auto;
+}
+
+    .sort-item {
+        display: grid;
+        position: relative;
+        height: calc(var(--fraction-rem-height) * 1.0);
+        width: 60%;
+        background-color: #d9d9d9d9;
+        border-radius: 5px;
+        margin: auto;
+        border-bottom: 3px solid black;
+        z-index: 0;
+    }
+
+.text {
+    position: absolute;
+    font-size: 1.0vw;
+    height: 100%;
+    width: 77%;
+    margin-left: 23%;
+    text-align: center;
+    font-weight: 700;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background-color: #d9d9d9d9;
+}
+
+.body {
+    margin: 0px;
+}
+
+table {
+    font-weight: 700;
+    color: black;
+    width: 95%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: auto;
+}
+
+
+
+th {
+    text-align: center;
+    height: calc(var(--fraction-rem-height) * 1.0);
+    background-color: #d9d9d9d9;
+    border-bottom: 3px solid black;
+}
+
+td {
+    height: calc(var(--fraction-rem-height) * 1.0);
+    text-align: center;
+    border-bottom: 1px dashed black;
+}
+
+
+i {
+    width: 15%;
+    font-size: calc(var(--fraction-rem-height) * 0.8);
+    align-items: center;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: 4%;
+    z-index: 1;
+}
+
+.btn-i{
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+.btnPlus{
+    width: 30%;
+}
+    .btnPlus:hover {
+        background-color: deepskyblue;
+        color: black;
+    }
+
+
+/* đổi màu
+td i{
+    color: green;
+}
+*/

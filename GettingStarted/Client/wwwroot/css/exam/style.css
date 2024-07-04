@@ -1,0 +1,323 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --font-heading: "Sen", sans-serif;
+    --fraction-rem-height: calc(100vh / 16);
+    font-size: 14px;
+    font-family: "Helvetica";
+}
+body{
+    margin: 0;
+}
+
+
+
+/* common */
+a {
+    text-decoration: none;
+}
+
+.btn {
+    display: flex;
+    position: absolute;
+    width: 10%;
+    height: calc(var(--fraction-rem-height) * 1.1);
+    border-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Segoe UI";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+    .btn:hover{
+        opacity: 0.8;
+    }  
+
+/* header */
+.header {
+    z-index: 1;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    height: calc(var(--fraction-rem-height) * 1.8);
+    background: #f0f0f0;
+}
+
+    .header .body {
+        display: flex;
+        align-items: center;
+        /* padding: 18px 48.8px; */
+        padding-left: calc(var(--fraction-rem-height) * 1);
+        padding-right: calc(var(--fraction-rem-height) * 2.5);
+    }
+
+    .header .nav {
+        display: flex;
+        margin-left: auto;
+        width: 13%;
+        height: calc(var(--fraction-rem-height) * 1.2);
+    }
+
+    .header .btn-nop-bai {
+        justify-content: center;
+        align-items: center;
+        margin-left: calc(var(--fraction-rem-height) * 0.3);
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #7be56a;
+    }
+    .btn-nop-bai:hover{
+        opacity: 0.8;
+    }
+
+
+.header .logo {
+    position: absolute;
+    margin-bottom: 1%;
+    height: 70%;
+    margin-left: 3%;
+}
+
+.header .logo_time {
+    position: absolute;
+    margin-top: -2%;
+    height: 50%;
+    margin-left: 3%;
+}
+
+.header .time {
+    display: flex;
+    margin-top: calc(var(--fraction-rem-height) * 0.3);
+    margin-left: calc(var(--fraction-rem-height) * 12);
+}
+
+    .header .time h3 {
+        color: #000;
+        margin-left: calc(var(--fraction-rem-height) * 2);
+        margin-top: calc(var(--fraction-rem-height) * 0.2);
+        text-align: center;
+        font-family: "Segoe UI";
+        font-size: 2vw;
+        font-style: italic;
+        font-weight: 350;
+        line-height: normal;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+/* layout */
+.layout {
+    background: #ebebeb;
+    width: 100%;
+}
+
+    .layout .body {
+        display: flex;
+    }
+
+    /* layout left */
+    .layout .layout-left {
+        /* padding: 0px 69px; */
+        position: relative;
+        padding-left: calc(var(--fraction-rem-height) * 1);
+        padding-right: calc(var(--fraction-rem-height) * 0.5);
+        width: 80%;
+        margin-bottom: calc(var(--fraction-rem-height) * 1); /* Khoảng cách từ phía dưới cùng của body */
+        background-color: rgba(255, 255, 255, 0.3); /* Màu nền mơ mơ */
+    }
+
+
+        .layout .layout-left .txt {
+            margin: calc(var(--fraction-rem-height) * 0.5) 0;
+            border-radius: 10px;
+            padding: calc(var(--fraction-rem-height) * 0.2);
+            background: #fff;
+            width: 100%; /* Sử dụng chiều rộng tự động */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 1.1vw;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+            font-weight:700;
+            font-family: "Helvetica";
+            height: auto;
+        }
+
+            .layout .layout-left .txt p {
+                padding-left: calc(var(--fraction-rem-height) * 0.5);
+                color: #000;
+                font-weight:700;
+                font-family: "Helvetica";
+                line-height: normal;
+                flex-grow: 1; /* Hãy mở rộng txt để chứa hết nội dung của h2 */
+            }
+
+    .layout .form_question {
+        margin-top: 23px;
+        width: 100%;
+        /* min-height: auto; Sử dụng min-height thay vì height */
+        flex-shrink: 0;
+        border-radius: 10px;
+        border: 1px solid #000;
+        background: #fff;
+    }
+
+        .layout .form_question .txt_question {
+            padding: calc(var(--fraction-rem-height) * 0.3);
+            display: ruby-text;
+            text-align: left;
+            width: 100%; /* Đặt kích thước cố định cho khung */
+            letter-spacing: 0.5px;
+            height: auto; /* Sử dụng auto để tự động mở rộng theo nội dung */
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: center;
+            color: #000;
+            font-family: "Helvetica";
+            font-size: 1vw;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        .layout .form_question .form-input {
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+            padding: calc(var(--fraction-rem-height) * 0.1) calc(var(--fraction-rem-height) * 1);
+            margin-bottom: calc(var(--fraction-rem-height) * 0.1);
+        }
+
+        .layout .form_question .btn1.answer {
+            width: 100%;
+            height: auto;
+            border-radius: 9px;
+            font-size: 0.9vw;
+            justify-content: start;
+            padding: calc(var(--fraction-rem-height) * 0.3) calc(var(--fraction-rem-height) * 0.3);
+            display: flex;
+            color: #000;
+            align-items: center;
+            font-family: "Helvetica";
+            line-height: 1.3;
+        }
+            .layout .form_question .btn1.answer.already-choose {
+                background-color : #7be56a;
+                box-shadow : 0 0 40px #7be56a;
+            }
+
+    /* layout right */
+    .layout .layout-right {
+        width: 20%;
+        padding: 2rem;
+    }
+
+    .layout .information {
+        width: 100%;
+        min-height: 202px; /* Đặt chiều cao tối thiểu */
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.56);
+    }
+
+        .layout .information .avata {
+            display: flex;
+            justify-content: center;
+        }
+
+        .layout .information img {
+            height: calc(var(--fraction-rem-height) * 3);
+            left: 50%;
+            right: 50%;
+            background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+            margin: 0;
+        }
+
+        .layout .information .information-student {
+            padding: calc(var(--fraction-rem-height) * 0.3) calc(var(--fraction-rem-height) * 0.6);
+            display: inline-flex;
+            width: 100%;
+            /* min-height: 120px; Đặt chiều cao tối thiểu */
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .layout .information .information-student span {
+                padding-top: 3%;
+                letter-spacing: 0.5px;
+                width: 100%;
+                height: auto; /* Chiều cao tự động */
+                word-wrap: break-word;
+            }
+
+
+
+.choose_content {
+    position: sticky;
+    top: 10%; /* Điều chỉnh khoảng cách từ trên xuống */
+}
+
+.layout-right .choose-question {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    background: rgba(255, 255, 255, 0.85);
+    margin-top: calc(var(--fraction-rem-height) * 0.5);
+}
+
+.layout .choose-question .choose {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-auto-flow: row;
+    grid-gap: 10px;
+    border-radius: 5px;
+    padding: calc(var(--fraction-rem-height) * 0.2);
+}
+
+    .layout .choose-question .choose a {
+        border-radius: 3px;
+        border: 1px solid black;
+        width: calc(var(--fraction-rem-height) * 0.7);
+        height: calc(var(--fraction-rem-height) * 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        -webkit-text-stroke-width: 1;
+        -webkit-text-stroke-color: #000;
+        font-family: "Segoe UI";
+        font-size: 1vw;
+        font-style: normal;
+        font-weight: 400;
+        color: black;
+        line-height: normal;
+    }
+        .layout .choose-question .choose a.alink-already {
+            background-color: #7be56a;
+        }
+img{
+    margin-left: 20%;
+    max-width: 50%;
+    max-height: calc(var(--fraction-rem-height) * 5);
+    height: auto;
+    align-self: center;
+}
+audio{
+    min-width: 30%;
+    margin-left: 5%;
+    max-width: 70%;
+    height: calc(var(--fraction-rem-height) * 0.8);
+    margin-top: 2%;
+}
+.textbox-question{
+    min-width: 70%;
+    width: 140%;
+    color:midnightblue;
+}
